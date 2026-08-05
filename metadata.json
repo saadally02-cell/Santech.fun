@@ -1,0 +1,6 @@
+{
+  "name": "SANTECH TZ - Teknolojia, Akili Bandia & Utalii",
+  "description": "Portal ya Kiswahili ya habari za Teknolojia, Akili Bandia, Kazi Mtandaoni, Zana za Dijitali na Utalii wa Tanzania.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
