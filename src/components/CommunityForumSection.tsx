@@ -1,59 +1,30 @@
 import React from 'react';
-import { MessageSquare, Send, PhoneCall, Sparkles, UserCheck, MessageCircle, Heart, CheckCircle2 } from 'lucide-react';
-
-interface ForumPost {
-  id: string;
-  author: string;
-  role: string;
-  topic: string;
-  message: string;
-  time: string;
-  likes: number;
-}
+import { MessageSquare, Send, PhoneCall, Sparkles, UserCheck, MessageCircle, Heart, CheckCircle2, Database } from 'lucide-react';
+import { useAuth } from '../context/AuthContext';
 
 export const CommunityForumSection: React.FC = () => {
-  const [forumPosts, setForumPosts] = React.useState<ForumPost[]>([
-    {
-      id: 'p1',
-      author: 'Emanuel Joseph',
-      role: 'Full-Stack Student (Mwanza)',
-      topic: 'Swali la Gemini API na Swahili Prompting',
-      message: 'Je, inawezekana kutumia Gemini 3.6 Pro kujenga Chatbot ya Kiswahili kwa ajili ya Biashara ya E-commerce bila kutumia bajeti kubwa ya server?',
-      time: 'Muda mchache uliopita',
-      likes: 12,
-    },
-    {
-      id: 'p2',
-      author: 'Fatuma Bakari',
-      role: 'Cybersecurity Analyst (Dar es Salaam)',
-      topic: 'Zero-Trust Architecture Tanzania',
-      message: 'Nimesoma makala yenu ya Usalama wa Mtandao. Je, kuna vyeti au kozi za bure ambazo SANTECH inazipendekeza kwa anayeanza leo?',
-      time: 'Jana',
-      likes: 8,
-    },
-  ]);
+  const { firestoreForumPosts, addForumPost, dbConnected } = useAuth();
 
   const [authorName, setAuthorName] = React.useState('');
   const [topic, setTopic] = React.useState('');
   const [messageText, setMessageText] = React.useState('');
   const [submitted, setSubmitted] = React.useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!authorName.trim() || !messageText.trim()) return;
 
-    const newPost: ForumPost = {
-      id: Date.now().toString(),
+    await addForumPost({
       author: authorName.trim(),
       role: 'Msomaji wa SANTECH',
       topic: topic.trim() || 'Maoni / Swali la Tech',
       message: messageText.trim(),
-      time: 'Sasa hivi',
-      likes: 1,
-    };
+    });
 
-    setForumPosts([newPost, ...forumPosts]);
     setSubmitted(true);
+    setAuthorName('');
+    setTopic('');
+    setMessageText('');
     setTimeout(() => setSubmitted(false), 5000);
   };
 
@@ -176,7 +147,12 @@ export const CommunityForumSection: React.FC = () => {
             </h3>
 
             <div className="space-y-3 max-h-[420px] overflow-y-auto pr-2 scrollbar-none">
-              {forumPosts.map((post) => (
+              {firestoreForumPosts.length === 0 ? (
+                <div className="text-center py-8 text-xs text-zinc-500 bg-zinc-950 p-4 rounded-xl border border-white/5">
+                  Hakuna maoni kwenye database bado. Uwe wa kwanza kutuma maoni yako hapo pembeni!
+                </div>
+              ) : (
+                firestoreForumPosts.map((post) => (
                 <div
                   key={post.id}
                   className="p-4 bg-zinc-950/80 rounded-2xl border border-white/10 space-y-2 hover:border-[#25D366]/40 transition-colors"
@@ -218,7 +194,8 @@ export const CommunityForumSection: React.FC = () => {
                     </a>
                   </div>
                 </div>
-              ))}
+              ))
+              )}
             </div>
           </div>
         </div>

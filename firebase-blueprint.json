@@ -1,0 +1,86 @@
+{
+  "entities": {
+    "Article": {
+      "title": "Article",
+      "description": "Tech news or announcement published on SANTECH TZ",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string", "maxLength": 200 },
+        "excerpt": { "type": "string", "maxLength": 500 },
+        "content": { "type": "array" },
+        "category": { "type": "string" },
+        "categoryName": { "type": "string" },
+        "image": { "type": "string" },
+        "author": { "type": "string" },
+        "authorRole": { "type": "string" },
+        "date": { "type": "string" },
+        "readTime": { "type": "string" },
+        "featured": { "type": "boolean" },
+        "isAiGenerated": { "type": "boolean" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["title", "excerpt", "category", "categoryName", "image"]
+    },
+    "ForumPost": {
+      "title": "ForumPost",
+      "description": "User question or feedback post on SANTECH Community Forum",
+      "type": "object",
+      "properties": {
+        "author": { "type": "string", "maxLength": 100 },
+        "authorId": { "type": "string" },
+        "role": { "type": "string", "maxLength": 100 },
+        "topic": { "type": "string", "maxLength": 150 },
+        "message": { "type": "string", "maxLength": 1000 },
+        "time": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "likes": { "type": "number" }
+      },
+      "required": ["author", "topic", "message"]
+    },
+    "ArticleComment": {
+      "title": "ArticleComment",
+      "description": "Comment on a specific SANTECH news article",
+      "type": "object",
+      "properties": {
+        "articleId": { "type": "string" },
+        "author": { "type": "string", "maxLength": 100 },
+        "text": { "type": "string", "maxLength": 1000 },
+        "date": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "likes": { "type": "number" }
+      },
+      "required": ["articleId", "author", "text"]
+    },
+    "QuizResult": {
+      "title": "QuizResult",
+      "description": "User score report from SANTECH Tech Assessment Quiz",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "userName": { "type": "string" },
+        "score": { "type": "number" },
+        "total": { "type": "number" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["score", "total"]
+    }
+  },
+  "firestore": {
+    "/articles/{articleId}": {
+      "schema": { "$ref": "#/entities/Article" },
+      "description": "Collection of all SANTECH news and AI hourly announcements"
+    },
+    "/forum_posts/{postId}": {
+      "schema": { "$ref": "#/entities/ForumPost" },
+      "description": "Community questions and feedback posts"
+    },
+    "/article_comments/{commentId}": {
+      "schema": { "$ref": "#/entities/ArticleComment" },
+      "description": "Reader comments on articles"
+    },
+    "/quiz_results/{resultId}": {
+      "schema": { "$ref": "#/entities/QuizResult" },
+      "description": "Tech quiz scores"
+    }
+  }
+}

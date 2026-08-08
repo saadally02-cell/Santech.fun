@@ -14,9 +14,13 @@ import {
   Server,
   Menu,
   X,
-  Sparkles
+  Sparkles,
+  UserCheck,
+  LogIn,
+  LogOut
 } from 'lucide-react';
 import { CategoryId } from '../types';
+import { useAuth } from '../context/AuthContext';
 
 interface HeaderProps {
   theme: 'dark' | 'light';
@@ -44,6 +48,7 @@ export const Header: React.FC<HeaderProps> = ({
   onScrollToTools,
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
+  const { currentUser, loginWithGoogle, logoutUser } = useAuth();
 
   const todayFormatted = new Date().toLocaleDateString('sw-TZ', {
     weekday: 'long',
@@ -63,9 +68,9 @@ export const Header: React.FC<HeaderProps> = ({
   ];
 
   return (
-    <header className="sticky top-0 z-40 glass border-b border-white/10 transition-colors">
+    <header className="sticky top-0 z-40 glass border-b border-white/10 transition-colors w-full max-w-full overflow-hidden">
       {/* Top Banner */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-8 py-3 flex items-center justify-between gap-4">
+      <div className="max-w-7xl mx-auto px-3 sm:px-8 py-3 flex items-center justify-between gap-2 sm:gap-4 w-full">
         {/* Brand Logo & Title */}
         <div className="flex items-center gap-3">
           <button
@@ -116,6 +121,36 @@ export const Header: React.FC<HeaderProps> = ({
 
         {/* Date & Action Buttons */}
         <div className="flex items-center gap-2.5">
+          {/* User Auth Profile Chip / Login Button */}
+          {currentUser ? (
+            <div className="flex items-center gap-2 bg-zinc-900 border border-[#10b981]/40 px-2.5 py-1 rounded-full text-xs text-white">
+              <img
+                src={currentUser.photoURL || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=80&q=80'}
+                alt={currentUser.displayName || 'User'}
+                className="w-5 h-5 rounded-full object-cover border border-[#10b981]"
+              />
+              <span className="hidden xl:inline font-bold text-[11px]">
+                {currentUser.displayName?.split(' ')[0] || 'User'}
+              </span>
+              <button
+                onClick={logoutUser}
+                className="p-1 hover:text-rose-400 text-zinc-400 cursor-pointer"
+                title="Ondoka (Logout)"
+              >
+                <LogOut className="w-3.5 h-3.5" />
+              </button>
+            </div>
+          ) : (
+            <button
+              onClick={loginWithGoogle}
+              className="flex items-center gap-1.5 bg-zinc-900 hover:bg-zinc-800 text-white border border-white/20 text-xs font-bold uppercase px-3 py-1.5 rounded transition-all hover:scale-[1.02] cursor-pointer"
+              title="Ingia na Google (Firebase Auth)"
+            >
+              <LogIn className="w-3.5 h-3.5 text-[#10b981]" />
+              <span className="hidden sm:inline">Ingia (Google)</span>
+            </button>
+          )}
+
           {/* AI Assistant Button */}
           <button
             onClick={onOpenAiAssistant}
@@ -160,7 +195,7 @@ export const Header: React.FC<HeaderProps> = ({
       </div>
 
       {/* Search Bar Row for Mobile & Sub-nav */}
-      <div className="border-t border-white/5 bg-black/40 px-4 sm:px-8 py-2 flex items-center justify-between gap-4">
+      <div className="border-t border-white/5 bg-black/40 px-3 sm:px-8 py-2 flex items-center justify-between gap-2 sm:gap-4 w-full">
         <span className="text-[10px] font-bold text-zinc-400 uppercase tracking-widest hidden sm:inline-block">
           📅 {todayFormatted} • Kituo cha Habari za Teknolojia, AI & Coding Tanzania
         </span>

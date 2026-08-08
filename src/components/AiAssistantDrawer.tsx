@@ -84,7 +84,7 @@ export const AiAssistantDrawer: React.FC<AiAssistantDrawerProps> = ({ isOpen, on
 
   return (
     <div className="fixed inset-0 z-50 flex justify-end bg-black/80 backdrop-blur-sm animate-fadeIn">
-      <div className="w-full max-w-md bg-zinc-900 border-l border-white/10 h-full flex flex-col shadow-2xl">
+      <div className="w-full max-w-md bg-zinc-900 border-l border-white/10 h-full flex flex-col shadow-2xl max-w-full overflow-hidden">
         {/* Header */}
         <div className="p-4 bg-zinc-950 border-b border-white/10 flex items-center justify-between">
           <div className="flex items-center gap-2.5">

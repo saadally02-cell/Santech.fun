@@ -59,24 +59,24 @@ export const CurrencyConverter: React.FC = () => {
         </div>
 
         {/* Calculated Results */}
-        <div className="sm:col-span-2 grid grid-cols-3 gap-2 text-center bg-zinc-950/80 p-3 rounded-xl border border-white/10">
-          <div className="p-1">
+        <div className="sm:col-span-2 grid grid-cols-1 sm:grid-cols-3 gap-2 text-center bg-zinc-950/80 p-3 rounded-xl border border-white/10 w-full max-w-full">
+          <div className="p-1.5 border-b sm:border-b-0 sm:border-r border-white/10">
             <span className="text-[10px] text-zinc-500 font-bold uppercase tracking-wider block">Dola (USD)</span>
-            <span className="text-xs sm:text-sm font-extrabold text-[#10b981] font-mono">
+            <span className="text-xs sm:text-sm font-extrabold text-[#10b981] font-mono break-all">
               ${usd.toLocaleString('en-US', { maximumFractionDigits: 2 })}
             </span>
           </div>
 
-          <div className="p-1 border-x border-white/10">
+          <div className="p-1.5 border-b sm:border-b-0 sm:border-r border-white/10">
             <span className="text-[10px] text-zinc-500 font-bold uppercase tracking-wider block">Shilingi (TZS)</span>
-            <span className="text-xs sm:text-sm font-extrabold text-amber-400 font-mono">
+            <span className="text-xs sm:text-sm font-extrabold text-amber-400 font-mono break-all">
               TSh {Math.round(tzs).toLocaleString('en-US')}
             </span>
           </div>
 
-          <div className="p-1">
+          <div className="p-1.5">
             <span className="text-[10px] text-zinc-500 font-bold uppercase tracking-wider block">Bitcoin (BTC)</span>
-            <span className="text-xs sm:text-sm font-extrabold text-blue-400 font-mono">
+            <span className="text-xs sm:text-sm font-extrabold text-blue-400 font-mono break-all">
               ₿ {btc.toFixed(6)}
             </span>
           </div>

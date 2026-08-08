@@ -1,10 +1,13 @@
 import React from 'react';
+import { AuthProvider } from './context/AuthContext';
 import { Header } from './components/Header';
 import { NewsTicker } from './components/NewsTicker';
 import { HeroGrid } from './components/HeroGrid';
+import { GeminiHourlyAnnouncementsSection } from './components/GeminiHourlyAnnouncementsSection';
 import { ArticleCard } from './components/ArticleCard';
 import { TechShowcaseSection } from './components/TechShowcaseSection';
 import { TechToolsSection } from './components/TechToolsSection';
+import { AudioArticlesSection } from './components/AudioArticlesSection';
 import { TechQuizSection } from './components/TechQuizSection';
 import { CommunityForumSection } from './components/CommunityForumSection';
 import { FloatingWhatsAppButton } from './components/FloatingWhatsAppButton';
@@ -18,7 +21,7 @@ import { ARTICLES_DATA, CATEGORIES } from './data/newsData';
 import { Article, CategoryId } from './types';
 import { Flame, SearchX, Sparkles } from 'lucide-react';
 
-export default function App() {
+function MainApp() {
   // Theme state
   const [theme, setTheme] = React.useState<'dark' | 'light'>(() => {
     const saved = localStorage.getItem('santech_theme');
@@ -106,7 +109,7 @@ export default function App() {
     : [];
 
   return (
-    <div className="min-h-screen bg-zinc-950 text-zinc-100 font-sans antialiased selection:bg-[#10b981] selection:text-black">
+    <div className="min-h-screen bg-zinc-950 text-zinc-100 font-sans antialiased selection:bg-[#10b981] selection:text-black overflow-x-hidden w-full max-w-full">
       {/* Navbar Header */}
       <Header
         theme={theme}
@@ -125,7 +128,7 @@ export default function App() {
       <NewsTicker onSelectTopic={(topic) => setSearchQuery(topic)} />
 
       {/* Main Container */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-10">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-10 overflow-x-hidden w-full">
         {/* Category Badge Header if active category !== zote */}
         {activeCategory !== 'zote' && (
           <div className="flex items-center justify-between bg-zinc-900 border border-white/10 p-4 rounded-2xl">
@@ -155,6 +158,13 @@ export default function App() {
             onSelectArticle={(art) => setSelectedArticle(art)}
             onToggleBookmark={toggleBookmark}
             bookmarkedIds={bookmarkedIds}
+          />
+        )}
+
+        {/* Gemini AI Hourly Auto-Announcements Section */}
+        {!searchQuery && (
+          <GeminiHourlyAnnouncementsSection
+            onSelectArticle={(art) => setSelectedArticle(art)}
           />
         )}
 
@@ -206,6 +216,9 @@ export default function App() {
             </div>
           )}
         </section>
+
+        {/* Swahili Audio Articles & Podcast Section */}
+        {!searchQuery && <AudioArticlesSection onSelectArticle={(art) => setSelectedArticle(art)} />}
 
         {/* Tech Spotlight & Photo Showcase Section */}
         {activeCategory === 'zote' && !searchQuery && <TechShowcaseSection />}
@@ -266,5 +279,13 @@ export default function App() {
         onOpenAiAssistant={() => setIsAiAssistantOpen(true)}
       />
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <AuthProvider>
+      <MainApp />
+    </AuthProvider>
   );
 }

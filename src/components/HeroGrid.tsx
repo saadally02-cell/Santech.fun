@@ -61,17 +61,17 @@ export const HeroGrid: React.FC<HeroGridProps> = ({
           <div>
             <h2
               onClick={() => onSelectArticle(headlineArticle)}
-              className="display-serif text-3xl sm:text-5xl lg:text-6xl leading-[1.0] tracking-tighter text-white hover:text-[#10b981] transition-colors cursor-pointer mb-4"
+              className="display-serif text-2xl sm:text-4xl lg:text-5xl leading-tight tracking-tighter text-white hover:text-[#10b981] transition-colors cursor-pointer mb-4 break-words"
             >
               {headlineArticle.title}
             </h2>
-            <p className="text-zinc-400 text-base leading-relaxed mb-6 line-clamp-3">
+            <p className="text-zinc-400 text-sm sm:text-base leading-relaxed mb-6 line-clamp-3">
               {headlineArticle.excerpt}
             </p>
           </div>
 
           <div className="pt-4 border-t border-white/10 flex items-center justify-between flex-wrap gap-3">
-            <div className="flex items-center gap-4 text-xs text-zinc-400">
+            <div className="flex items-center gap-3 text-xs text-zinc-400 flex-wrap">
               <span className="flex items-center gap-1.5">
                 <Clock className="w-3.5 h-3.5 text-[#10b981]" />
                 {headlineArticle.date}

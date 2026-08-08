@@ -78,7 +78,156 @@ Mtumiaji anauliza: ${message}
   }
 });
 
-// 3. SANTECH Video Link Inspector API
+// 3. SANTECH Gemini AI Hourly Announcement Generator
+let hourlyAnnouncements: any[] = [];
+
+async function generateHourlyAnnouncement() {
+  try {
+    const ai = getGeminiClient();
+    if (!ai) {
+      console.log("Gemini API key missing, skipping hourly auto-announcement generation.");
+      return null;
+    }
+
+    const topics = [
+      "Maendeleo ya hivi karibuni ya Akili Bandia (AI Models & Gemini 3.6 Pro) mwaka 2026",
+      "Fursa mpya za Kazi za Mbali (Remote Tech Jobs) kwa Vijana wa Tanzania na Afrika Mashariki",
+      "Usalama wa Mtandao (Cybersecurity & Zero-Trust) kwa biashara na programu za simu",
+      "Ubunifu wa Teknolojia ya Utalii wa Tanzania (Smart Tourism & Virtual Guides katika Serengeti na Zanzibar)",
+      "Zana za Uandishi wa Msimbo (AI Coding Assistants, Python & Full-Stack Development)"
+    ];
+
+    const randomTopic = topics[Math.floor(Math.random() * topics.length)];
+
+    const prompt = `Zalisha habari rasmi au tangazo ghafi jipya kabisa la SANTECH TZ kuhusu: "${randomTopic}".
+Iwe kwa Kiswahili fasaha cha kitaalamu na cha kuvutia.
+Toa majibu yakiwa YAMEPANGWA KATIKA FORMAT YA JSON PEKEE kama ilivyo hapa chini bila maandishi mengine:
+{
+  "title": "Kichwa cha Habari cha Kuvutia (Maneno 8-12)",
+  "excerpt": "Muhtasari wa Tangazo/Habari (Maneno 15-25)",
+  "content": [
+    "Aya ya kwanza: Maelezo mafupi ya tangazo jipya...",
+    "Aya ya pili: Ufafanuzi wa kiufundi na faida zake...",
+    "Aya ya tatu: Ushauri wa SANTECH na hatua za kuchukua..."
+  ],
+  "category": "akili-bandia",
+  "categoryName": "Akili Bandia & AI 2026",
+  "readTime": "Dakika 3",
+  "author": "SANTECH Gemini AI Bot 🤖",
+  "authorRole": "Mhariri Mkuu wa AI",
+  "image": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80"
+}`;
+
+    const response = await ai.models.generateContent({
+      model: "gemini-3.6-flash",
+      contents: prompt,
+      config: {
+        temperature: 0.8,
+      },
+    });
+
+    let rawText = response.text || "";
+    // Clean codeblock formatting if present
+    rawText = rawText.replace(/```json/g, "").replace(/```/g, "").trim();
+
+    const parsed = JSON.parse(rawText);
+    const newAnnouncement = {
+      id: "ai-announcement-" + Date.now(),
+      ...parsed,
+      date: "Sasa hivi (Inayorushwa na Gemini AI)",
+      featured: true,
+      isAiGenerated: true,
+      createdAt: new Date().toISOString(),
+    };
+
+    hourlyAnnouncements.unshift(newAnnouncement);
+    if (hourlyAnnouncements.length > 20) {
+      hourlyAnnouncements = hourlyAnnouncements.slice(0, 20);
+    }
+
+    console.log("Successfully generated Gemini AI hourly announcement:", newAnnouncement.title);
+    return newAnnouncement;
+  } catch (err) {
+    console.error("Error generating hourly announcement with Gemini:", err);
+    return null;
+  }
+}
+
+// Endpoint to fetch hourly announcements
+app.get("/api/announcements", (_req, res) => {
+  res.json({ announcements: hourlyAnnouncements });
+});
+
+// Kiswahili Fasaha Tanzania Audio TTS Endpoint
+app.get("/api/tts", async (req, res) => {
+  try {
+    const rawText = (req.query.text as string) || "";
+    if (!rawText.trim()) {
+      return res.status(400).json({ error: "No text provided for Swahili TTS" });
+    }
+
+    // Clean and normalize text into pure Tanzanian Swahili phonetics
+    const cleanSwahiliText = rawText
+      .replace(/\bAI\b/gi, "Akili Bandia")
+      .replace(/\bTZ\b/gi, "Tanzania")
+      .replace(/\bSANTECH\b/gi, "Santech")
+      .replace(/\bSummary:\b/gi, "Muhtasari:")
+      .replace(/\bApp\b/gi, "Programu")
+      .replace(/\bOnline\b/gi, "Mtandaoni")
+      .replace(/\bWebsite\b/gi, "Tovuti")
+      .replace(/\bUSD\b/gi, "Dola za Marekani")
+      .replace(/\bTZS\b/gi, "Shilingi za Tanzania")
+      .replace(/\b2026\b/g, "mwaka elfu mbili ishirini na sita")
+      .substring(0, 350)
+      .trim();
+
+    const ttsUrl = `https://translate.google.com/translate_tts?ie=UTF-8&q=${encodeURIComponent(
+      cleanSwahiliText
+    )}&tl=sw&client=tw-ob`;
+
+    const response = await fetch(ttsUrl, {
+      headers: {
+        "User-Agent":
+          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Google Swahili TTS request failed with status ${response.status}`);
+    }
+
+    const arrayBuffer = await response.arrayBuffer();
+    const buffer = Buffer.from(arrayBuffer);
+
+    res.setHeader("Content-Type", "audio/mpeg");
+    res.setHeader("Cache-Control", "public, max-age=86400");
+    res.send(buffer);
+  } catch (err) {
+    console.error("Swahili TTS audio error:", err);
+    res.status(500).json({ error: "Failed to generate Swahili audio" });
+  }
+});
+
+// Endpoint to trigger fresh announcement on demand
+app.post("/api/generate-announcement", async (_req, res) => {
+  const result = await generateHourlyAnnouncement();
+  if (result) {
+    return res.json({ success: true, announcement: result });
+  } else {
+    return res.status(500).json({ error: "Imefeli kurusha tangazo jipya na Gemini AI." });
+  }
+});
+
+// Start hourly background loop (Runs every 60 minutes = 3,600,000 ms)
+setInterval(() => {
+  console.log("Running scheduled Gemini AI hourly announcement job...");
+  generateHourlyAnnouncement();
+}, 3600000);
+
+// Run first auto-generation after 5 seconds
+setTimeout(() => {
+  generateHourlyAnnouncement();
+}, 5000);
 app.post("/api/video-info", (req, res) => {
   const { url } = req.body;
   if (!url || typeof url !== "string") {
