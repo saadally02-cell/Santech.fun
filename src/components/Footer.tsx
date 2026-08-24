@@ -45,31 +45,31 @@ export const Footer: React.FC<FooterProps> = ({
               <li>
                 <button
                   onClick={() => onSelectCategory('forex')}
-                  className="text-[#10b981] font-bold hover:underline transition-colors cursor-pointer"
+                  className="text-[#10b981] font-bold hover:underline transition-colors cursor-pointer text-left"
                 >
-                  📈 Forex Academy & Candlestick Bible
+                  📈 Forex Academy (Moduli 7)
                 </button>
               </li>
               <li>
                 <button
-                  onClick={() => onSelectCategory('utalii')}
-                  className="hover:text-yellow-400 transition-colors cursor-pointer"
+                  onClick={() => onSelectCategory('candlestick')}
+                  className="hover:text-[#10b981] transition-colors cursor-pointer text-left"
                 >
-                  🌍 Utalii wa Tanzania & Zanzibar
+                  🕯️ Candlestick Trading Bible
                 </button>
               </li>
               <li>
                 <button
-                  onClick={() => onSelectCategory('kazi')}
-                  className="hover:text-amber-400 transition-colors cursor-pointer"
+                  onClick={() => onSelectCategory('smc')}
+                  className="hover:text-[#10b981] transition-colors cursor-pointer text-left"
                 >
-                  💼 Kazi za Mtandaoni ($1,000+/Mo)
+                  🏦 Smart Money Concepts (SMC)
                 </button>
               </li>
               <li>
                 <button
                   onClick={() => onSelectCategory('ai')}
-                  className="hover:text-[#10b981] transition-colors cursor-pointer"
+                  className="hover:text-[#10b981] transition-colors cursor-pointer text-left"
                 >
                   🤖 Akili Bandia & Gemini 3.7
                 </button>
@@ -77,9 +77,25 @@ export const Footer: React.FC<FooterProps> = ({
               <li>
                 <button
                   onClick={() => onSelectCategory('dev')}
-                  className="hover:text-blue-400 transition-colors cursor-pointer"
+                  className="hover:text-blue-400 transition-colors cursor-pointer text-left"
                 >
-                  💻 Dev Hub & Coding
+                  💻 Dev Hub & Misimbo (Coding)
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={() => onSelectCategory('utalii')}
+                  className="hover:text-yellow-400 transition-colors cursor-pointer text-left"
+                >
+                  🌍 Utalii wa Tanzania & Zanzibar
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={() => onSelectCategory('kazi')}
+                  className="hover:text-amber-400 transition-colors cursor-pointer text-left"
+                >
+                  💼 Kazi za Mtandaoni ($1,000+/Mo)
                 </button>
               </li>
             </ul>
@@ -87,46 +103,70 @@ export const Footer: React.FC<FooterProps> = ({
 
           {/* Col 3: Zana & Huduma */}
           <div>
-            <h4 className="text-xs font-black uppercase tracking-widest text-white mb-3">Zana & Taarifa</h4>
+            <h4 className="text-xs font-black uppercase tracking-widest text-white mb-3">Zana & Majukwaa</h4>
             <ul className="space-y-2 text-xs">
               <li>
                 <button
                   onClick={() => onSelectCategory('tools')}
-                  className="text-[#10b981] hover:underline cursor-pointer font-semibold"
+                  className="text-[#10b981] hover:underline cursor-pointer font-semibold text-left"
                 >
                   ⚡ Zana za Kidijitali (Toolkit)
                 </button>
               </li>
               <li>
                 <button
-                  onClick={onOpenAiAssistant}
-                  className="hover:text-[#10b981] cursor-pointer"
+                  onClick={() => onSelectCategory('cybersecurity')}
+                  className="hover:text-red-400 transition-colors cursor-pointer text-left"
                 >
-                  🤖 SANTECH Swahili AI Assistant
+                  🛡️ Usalama wa Mtandao & SIM Lock
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={() => onSelectCategory('blockchain')}
+                  className="hover:text-amber-400 transition-colors cursor-pointer text-left"
+                >
+                  🪙 FinTech, Web3 & USDT
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={() => onSelectCategory('cloud')}
+                  className="hover:text-sky-400 transition-colors cursor-pointer text-left"
+                >
+                  ☁️ Cloud & Starlink Satelaiti
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={() => onSelectCategory('quiz')}
+                  className="hover:text-[#10b981] transition-colors cursor-pointer text-left"
+                >
+                  🎯 Jaribio la Tech Quiz
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={() => onSelectCategory('audio')}
+                  className="hover:text-purple-400 transition-colors cursor-pointer text-left"
+                >
+                  🎧 Makala za Sauti (Audio)
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={() => onSelectCategory('forum')}
+                  className="hover:text-emerald-400 transition-colors cursor-pointer text-left"
+                >
+                  💬 Jukwaa la Jamii (Forum)
                 </button>
               </li>
               <li>
                 <button
                   onClick={() => onSelectCategory('kuhusu')}
-                  className="hover:text-white transition-colors cursor-pointer"
+                  className="hover:text-white transition-colors cursor-pointer text-left"
                 >
                   ℹ️ Kuhusu SANTECH TZ
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={() => onSelectCategory('privacy')}
-                  className="hover:text-white transition-colors cursor-pointer"
-                >
-                  🔒 Sera ya Faragha (Privacy)
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={() => onSelectCategory('terms')}
-                  className="hover:text-white transition-colors cursor-pointer"
-                >
-                  📜 Masharti ya Huduma (Terms)
                 </button>
               </li>
             </ul>

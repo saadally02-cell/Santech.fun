@@ -20,7 +20,11 @@ import {
   LogOut,
   TrendingUp,
   Compass,
-  Info
+  Info,
+  HelpCircle,
+  Volume2,
+  Users,
+  Layers
 } from 'lucide-react';
 import { CategoryId } from '../types';
 import { useAuth } from '../context/AuthContext';
@@ -72,14 +76,21 @@ export const Header: React.FC<HeaderProps> = ({
   const allCategoryItems = [
     { id: 'zote' as CategoryId, label: 'Nyumbani', icon: LayoutGrid },
     { id: 'forex' as CategoryId, label: 'Forex Academy', icon: TrendingUp },
-    { id: 'utalii' as CategoryId, label: 'Utalii wa Tanzania', icon: Compass },
-    { id: 'kazi' as CategoryId, label: 'Kazi Mtandaoni', icon: Briefcase },
+    { id: 'candlestick' as CategoryId, label: 'Candlestick Bible', icon: Sparkles },
+    { id: 'smc' as CategoryId, label: 'Smart Money (SMC)', icon: TrendingUp },
     { id: 'ai' as CategoryId, label: 'Akili Bandia (AI)', icon: Cpu },
     { id: 'dev' as CategoryId, label: 'Dev & Coding', icon: Code2 },
-    { id: 'cybersecurity' as CategoryId, label: 'Usalama Mtandao', icon: ShieldCheck },
+    { id: 'utalii' as CategoryId, label: 'Utalii wa Tanzania', icon: Compass },
+    { id: 'kazi' as CategoryId, label: 'Kazi Mtandaoni', icon: Briefcase },
+    { id: 'cybersecurity' as CategoryId, label: 'Usalama wa Mtandao', icon: ShieldCheck },
     { id: 'blockchain' as CategoryId, label: 'FinTech & Web3', icon: Coins },
-    { id: 'cloud' as CategoryId, label: 'Cloud & Servers', icon: Server },
+    { id: 'cloud' as CategoryId, label: 'Cloud & Seva', icon: Server },
+    { id: 'gadgets' as CategoryId, label: 'Robotics & Hardware', icon: Bot },
     { id: 'tools' as CategoryId, label: 'Zana za Kidijitali', icon: Sparkles },
+    { id: 'quiz' as CategoryId, label: 'Tech Quiz & Jaribio', icon: HelpCircle },
+    { id: 'audio' as CategoryId, label: 'Makala za Sauti', icon: Volume2 },
+    { id: 'forum' as CategoryId, label: 'Jukwaa la Jamii', icon: Users },
+    { id: 'showcase' as CategoryId, label: 'Maonyesho ya Teknolojia', icon: Layers },
     { id: 'kuhusu' as CategoryId, label: 'Kuhusu Sisi', icon: Info },
   ];
 

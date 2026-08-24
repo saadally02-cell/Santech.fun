@@ -3,6 +3,8 @@ import { Article, CategoryOption, TechShowcaseItem } from '../types';
 export const CATEGORIES: CategoryOption[] = [
   { id: 'zote', label: 'Zote', iconName: 'LayoutGrid' },
   { id: 'forex', label: 'Forex Academy', iconName: 'TrendingUp' },
+  { id: 'candlestick', label: 'Candlestick Bible', iconName: 'Sparkles' },
+  { id: 'smc', label: 'Smart Money (SMC)', iconName: 'Layers' },
   { id: 'utalii', label: 'Utalii wa Tanzania', iconName: 'Compass' },
   { id: 'kazi', label: 'Kazi Mtandaoni', iconName: 'Briefcase' },
   { id: 'ai', label: 'Akili Bandia (AI)', iconName: 'Cpu' },

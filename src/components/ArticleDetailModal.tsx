@@ -53,6 +53,8 @@ export const ArticleDetailModal: React.FC<ArticleDetailModalProps> = ({
   const [newCommentName, setNewCommentName] = React.useState('');
   const [newCommentText, setNewCommentText] = React.useState('');
 
+  const modalAudioRef = React.useRef<HTMLAudioElement | null>(null);
+
   const currentComments = (article && firestoreComments[article.id]) || [
     {
       id: 'c1',
@@ -76,6 +78,10 @@ export const ArticleDetailModal: React.FC<ArticleDetailModalProps> = ({
       if ('speechSynthesis' in window) {
         window.speechSynthesis.cancel();
       }
+      if (modalAudioRef.current) {
+        modalAudioRef.current.pause();
+        modalAudioRef.current = null;
+      }
     };
   }, [article?.id]);
 
@@ -86,8 +92,6 @@ export const ArticleDetailModal: React.FC<ArticleDetailModalProps> = ({
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
-
-  const modalAudioRef = React.useRef<HTMLAudioElement | null>(null);
 
   // Audio Controls
   const handlePlayAudio = () => {

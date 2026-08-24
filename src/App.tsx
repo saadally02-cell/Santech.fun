@@ -20,12 +20,19 @@ import { FreelanceWorkHubSection } from './components/FreelanceWorkHubSection';
 import { DevHubSection } from './components/DevHubSection';
 import { AboutUsSection } from './components/AboutUsSection';
 import { LegalPagesSection } from './components/LegalPagesSection';
+import { CandlestickBibleSection } from './components/CandlestickBibleSection';
+import { SmartMoneyConceptsSection } from './components/SmartMoneyConceptsSection';
+import { AiHubSection } from './components/AiHubSection';
+import { CybersecurityHubSection } from './components/CybersecurityHubSection';
+import { BlockchainHubSection } from './components/BlockchainHubSection';
+import { CloudHubSection } from './components/CloudHubSection';
+import { RoboticsHubSection } from './components/RoboticsHubSection';
 import { NetworkAdBanner } from './components/NetworkAdBanner';
 import { Footer } from './components/Footer';
 
 import { ARTICLES_DATA, CATEGORIES } from './data/newsData';
 import { Article, CategoryId } from './types';
-import { Flame, SearchX, Sparkles, Compass, Briefcase, TrendingUp } from 'lucide-react';
+import { Flame, SearchX, Sparkles, Compass, Briefcase, TrendingUp, Cpu, Code2, ShieldCheck, Coins, Server, Bot, HelpCircle, Volume2, Users, Layers } from 'lucide-react';
 
 function MainApp() {
   // Theme state
@@ -36,38 +43,110 @@ function MainApp() {
 
   // Search & Filter state
   const [searchQuery, setSearchQuery] = React.useState<string>('');
-  const [activeCategory, setActiveCategory] = React.useState<CategoryId>(() => {
-    if (typeof window !== 'undefined' && window.location.hash) {
-      const hash = window.location.hash.replace('#', '').toLowerCase();
-      if (['forex', 'utalii', 'kazi', 'dev', 'ai', 'cybersecurity', 'blockchain', 'cloud', 'tools', 'kuhusu', 'privacy', 'terms'].includes(hash)) {
-        return hash as CategoryId;
-      }
+  // Helper to map location (hash or query param) to CategoryId
+  const getCategoryFromLocation = (): CategoryId => {
+    if (typeof window === 'undefined') return 'zote';
+    
+    // Check URL search params first (e.g. ?category=ai or ?page=cybersecurity)
+    const urlParams = new URLSearchParams(window.location.search);
+    const paramCategory = urlParams.get('category') || urlParams.get('page') || urlParams.get('tab') || urlParams.get('subpage');
+    const rawTarget = paramCategory ? paramCategory : window.location.hash.replace('#', '');
+    const clean = rawTarget.toLowerCase().trim();
+
+    if (!clean) return 'zote';
+
+    if (['candlestick', 'candlestick-bible', 'candlestickbible', 'mishumaa'].includes(clean)) {
+      return 'candlestick';
+    }
+    if (['smc', 'smart-money', 'smartmoney', 'smart-money-concept', 'orderblock'].includes(clean)) {
+      return 'smc';
+    }
+    if (['quiz', 'maswali', 'jaribio', 'test'].includes(clean)) {
+      return 'quiz';
+    }
+    if (['audio', 'sauti', 'podcast', 'podcasts', 'sikiliza'].includes(clean)) {
+      return 'audio';
+    }
+    if (['forum', 'jamii', 'community', 'majadiliano'].includes(clean)) {
+      return 'forum';
+    }
+    if (['showcase', 'maonyesho', 'hardware-showcase', 'innovations'].includes(clean)) {
+      return 'showcase';
+    }
+    if (['gadgets', 'robotics', 'hardware', 'roboti'].includes(clean)) {
+      return 'gadgets';
+    }
+    if (['cybersecurity', 'usalama', 'security', 'cyber'].includes(clean)) {
+      return 'cybersecurity';
+    }
+    if (['blockchain', 'crypto', 'fintech', 'web3'].includes(clean)) {
+      return 'blockchain';
+    }
+    if (['cloud', 'servers', 'starlink', 'hosting'].includes(clean)) {
+      return 'cloud';
+    }
+    if (['about', 'kuhusu', 'sisi'].includes(clean)) {
+      return 'kuhusu';
+    }
+    if (['privacy', 'faragha', 'sera'].includes(clean)) {
+      return 'privacy';
+    }
+    if (['terms', 'masharti', 'vigezo'].includes(clean)) {
+      return 'terms';
+    }
+    if (['tools', 'zana', 'toolkit', 'converter'].includes(clean)) {
+      return 'tools';
+    }
+    if (['forex', 'utalii', 'kazi', 'dev', 'ai'].includes(clean)) {
+      return clean as CategoryId;
     }
     return 'zote';
+  };
+
+  const [activeCategory, setActiveCategory] = React.useState<CategoryId>(() => {
+    return getCategoryFromLocation();
   });
 
-  // URL hash sync
+  // Modal / Drawer state
+  const [selectedArticle, setSelectedArticle] = React.useState<Article | null>(() => {
+    if (typeof window === 'undefined') return null;
+    const urlParams = new URLSearchParams(window.location.search);
+    const articleIdParam = urlParams.get('article');
+    if (articleIdParam) {
+      return ARTICLES_DATA.find((a) => a.id === articleIdParam) || null;
+    }
+    return null;
+  });
+
+  // URL hash and history listener
   React.useEffect(() => {
-    const handleHashChange = () => {
-      const hash = window.location.hash.replace('#', '').toLowerCase();
-      if (hash && ['forex', 'utalii', 'kazi', 'dev', 'ai', 'cybersecurity', 'blockchain', 'cloud', 'tools', 'kuhusu', 'privacy', 'terms'].includes(hash)) {
-        setActiveCategory(hash as CategoryId);
-      } else if (!hash) {
-        setActiveCategory('zote');
+    const handleLocationChange = () => {
+      setActiveCategory(getCategoryFromLocation());
+
+      const urlParams = new URLSearchParams(window.location.search);
+      const articleIdParam = urlParams.get('article');
+      if (articleIdParam) {
+        const found = ARTICLES_DATA.find((a) => a.id === articleIdParam);
+        if (found) setSelectedArticle(found);
       }
     };
 
-    window.addEventListener('hashchange', handleHashChange);
-    return () => window.removeEventListener('hashchange', handleHashChange);
+    window.addEventListener('hashchange', handleLocationChange);
+    window.addEventListener('popstate', handleLocationChange);
+    return () => {
+      window.removeEventListener('hashchange', handleLocationChange);
+      window.removeEventListener('popstate', handleLocationChange);
+    };
   }, []);
 
   const handleSelectCategoryWithHash = (cat: CategoryId) => {
     setActiveCategory(cat);
     if (cat === 'zote') {
-      history.replaceState(null, '', window.location.pathname + window.location.search);
+      history.pushState(null, '', window.location.pathname);
     } else {
       window.location.hash = cat;
     }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   // Bookmarks state
@@ -80,8 +159,7 @@ function MainApp() {
     }
   });
 
-  // Modal / Drawer state
-  const [selectedArticle, setSelectedArticle] = React.useState<Article | null>(null);
+  // Drawer state
   const [isAiAssistantOpen, setIsAiAssistantOpen] = React.useState<boolean>(false);
   const [isBookmarksOpen, setIsBookmarksOpen] = React.useState<boolean>(false);
 
@@ -180,7 +258,15 @@ function MainApp() {
               <h2 className="text-xl font-black text-white">
                 {CATEGORIES.find((c) => c.id === activeCategory)?.label ||
                   (activeCategory === 'tools'
-                    ? 'Zana za Kidijitali'
+                    ? 'Zana za Kidijitali (Toolkit)'
+                    : activeCategory === 'quiz'
+                    ? 'Tech Quiz & Majaribio ya Ujuzi'
+                    : activeCategory === 'audio'
+                    ? 'Makala za Sauti (Audio Feed)'
+                    : activeCategory === 'forum'
+                    ? 'Jukwaa la Jamii ya Teknolojia'
+                    : activeCategory === 'showcase'
+                    ? 'Maonyesho ya Teknolojia 2026'
                     : activeCategory === 'kuhusu'
                     ? 'Kuhusu SANTECH TZ'
                     : activeCategory === 'privacy'
@@ -205,6 +291,28 @@ function MainApp() {
           <ForexAcademySection
             onBackToHome={() => handleSelectCategoryWithHash('zote')}
             articles={ARTICLES_DATA}
+            onSelectArticle={(art) => setSelectedArticle(art)}
+            onNavigateToCandlestick={() => handleSelectCategoryWithHash('candlestick')}
+            onNavigateToSMC={() => handleSelectCategoryWithHash('smc')}
+          />
+        )}
+
+        {/* 1b. Dedicated Candlestick Bible Subpage */}
+        {activeCategory === 'candlestick' && (
+          <CandlestickBibleSection
+            onBackToHome={() => handleSelectCategoryWithHash('zote')}
+            onNavigateToSMC={() => handleSelectCategoryWithHash('smc')}
+            onNavigateToForex={() => handleSelectCategoryWithHash('forex')}
+            onSelectArticle={(art) => setSelectedArticle(art)}
+          />
+        )}
+
+        {/* 1c. Dedicated Smart Money Concepts (SMC) Subpage */}
+        {activeCategory === 'smc' && (
+          <SmartMoneyConceptsSection
+            onBackToHome={() => handleSelectCategoryWithHash('zote')}
+            onNavigateToCandlestick={() => handleSelectCategoryWithHash('candlestick')}
+            onNavigateToForex={() => handleSelectCategoryWithHash('forex')}
             onSelectArticle={(art) => setSelectedArticle(art)}
           />
         )}
@@ -233,17 +341,68 @@ function MainApp() {
           />
         )}
 
-        {/* 5. Dedicated About Us Subpage */}
-        {activeCategory === 'kuhusu' && (
-          <AboutUsSection onOpenAiAssistant={() => setIsAiAssistantOpen(true)} />
+        {/* 5. Dedicated AI Hub Subpage */}
+        {activeCategory === 'ai' && (
+          <AiHubSection
+            onSelectArticle={(art) => setSelectedArticle(art)}
+            articles={ARTICLES_DATA}
+            onOpenAiAssistant={() => setIsAiAssistantOpen(true)}
+          />
         )}
 
-        {/* 6. Dedicated Legal / Privacy / Terms Subpage */}
-        {(activeCategory === 'privacy' || activeCategory === 'terms') && (
-          <LegalPagesSection initialTab={activeCategory === 'terms' ? 'terms' : 'privacy'} />
+        {/* 6. Dedicated Cybersecurity Hub Subpage */}
+        {activeCategory === 'cybersecurity' && (
+          <CybersecurityHubSection
+            onSelectArticle={(art) => setSelectedArticle(art)}
+            articles={ARTICLES_DATA}
+          />
         )}
 
-        {/* 7. Dedicated Tools Hub Subpage */}
+        {/* 7. Dedicated Blockchain / FinTech Subpage */}
+        {activeCategory === 'blockchain' && (
+          <BlockchainHubSection
+            onSelectArticle={(art) => setSelectedArticle(art)}
+            articles={ARTICLES_DATA}
+          />
+        )}
+
+        {/* 8. Dedicated Cloud Hub Subpage */}
+        {activeCategory === 'cloud' && (
+          <CloudHubSection
+            onSelectArticle={(art) => setSelectedArticle(art)}
+            articles={ARTICLES_DATA}
+          />
+        )}
+
+        {/* 9. Dedicated Robotics / Hardware Subpage */}
+        {activeCategory === 'gadgets' && (
+          <RoboticsHubSection
+            onSelectArticle={(art) => setSelectedArticle(art)}
+            articles={ARTICLES_DATA}
+          />
+        )}
+
+        {/* 10. Dedicated Tech Quiz Subpage */}
+        {activeCategory === 'quiz' && (
+          <TechQuizSection />
+        )}
+
+        {/* 11. Dedicated Audio Articles Subpage */}
+        {activeCategory === 'audio' && (
+          <AudioArticlesSection onSelectArticle={(art) => setSelectedArticle(art)} />
+        )}
+
+        {/* 12. Dedicated Community Forum Subpage */}
+        {activeCategory === 'forum' && (
+          <CommunityForumSection />
+        )}
+
+        {/* 13. Dedicated Tech Showcase Subpage */}
+        {activeCategory === 'showcase' && (
+          <TechShowcaseSection />
+        )}
+
+        {/* 14. Dedicated Tools Hub Subpage */}
         {activeCategory === 'tools' && (
           <div className="space-y-8">
             <CurrencyConverter />
@@ -251,15 +410,18 @@ function MainApp() {
           </div>
         )}
 
-        {/* Home & General Category Articles View */}
-        {activeCategory !== 'forex' &&
-          activeCategory !== 'utalii' &&
-          activeCategory !== 'kazi' &&
-          activeCategory !== 'dev' &&
-          activeCategory !== 'kuhusu' &&
-          activeCategory !== 'privacy' &&
-          activeCategory !== 'terms' &&
-          activeCategory !== 'tools' && (
+        {/* 15. Dedicated About Us Subpage */}
+        {activeCategory === 'kuhusu' && (
+          <AboutUsSection onOpenAiAssistant={() => setIsAiAssistantOpen(true)} />
+        )}
+
+        {/* 16. Dedicated Legal / Privacy / Terms Subpage */}
+        {(activeCategory === 'privacy' || activeCategory === 'terms') && (
+          <LegalPagesSection initialTab={activeCategory === 'terms' ? 'terms' : 'privacy'} />
+        )}
+
+        {/* Home View (zote) */}
+        {activeCategory === 'zote' && (
             <>
               {/* Hero Grid (Home only, no search) */}
               {activeCategory === 'zote' && !searchQuery && (

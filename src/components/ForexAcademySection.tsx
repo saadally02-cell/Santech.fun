@@ -33,12 +33,16 @@ interface ForexAcademySectionProps {
   onBackToHome?: () => void;
   articles?: Article[];
   onSelectArticle?: (article: Article) => void;
+  onNavigateToCandlestick?: () => void;
+  onNavigateToSMC?: () => void;
 }
 
 export const ForexAcademySection: React.FC<ForexAcademySectionProps> = ({
   onBackToHome,
   articles = [],
-  onSelectArticle
+  onSelectArticle,
+  onNavigateToCandlestick,
+  onNavigateToSMC
 }) => {
   const [activeTab, setActiveTab] = useState<'modules' | 'patterns' | 'sessions' | 'calculator' | 'articles'>('modules');
   const [activeModuleId, setActiveModuleId] = useState<string>('module-1');
@@ -625,7 +629,10 @@ export const ForexAcademySection: React.FC<ForexAcademySectionProps> = ({
       {/* VIEW 2: Atlas ya Candlestick & SMC Patterns */}
       {activeTab === 'patterns' && (
         <div className="space-y-6">
-          <ForexPatternCheatSheet />
+          <ForexPatternCheatSheet
+            onNavigateToCandlestick={onNavigateToCandlestick}
+            onNavigateToSMC={onNavigateToSMC}
+          />
         </div>
       )}
 

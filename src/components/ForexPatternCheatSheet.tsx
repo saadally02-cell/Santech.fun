@@ -9,7 +9,10 @@ import {
   Zap,
   Info,
   Flame,
-  Award
+  Award,
+  BookOpen,
+  ArrowRight,
+  ChevronRight
 } from 'lucide-react';
 import { ForexCandleDiagram } from './ForexCandleDiagram';
 
@@ -29,7 +32,15 @@ interface PatternItem {
   proTip: string;
 }
 
-export const ForexPatternCheatSheet: React.FC = () => {
+interface ForexPatternCheatSheetProps {
+  onNavigateToCandlestick?: () => void;
+  onNavigateToSMC?: () => void;
+}
+
+export const ForexPatternCheatSheet: React.FC<ForexPatternCheatSheetProps> = ({
+  onNavigateToCandlestick,
+  onNavigateToSMC
+}) => {
   const [selectedCategory, setSelectedCategory] = useState<'all' | 'candlestick' | 'smc' | 'chart_pattern'>('all');
   const [activePatternId, setActivePatternId] = useState<string>('bullish_pinbar');
 
@@ -135,6 +146,55 @@ export const ForexPatternCheatSheet: React.FC = () => {
 
   return (
     <div className="bg-zinc-900/90 border border-emerald-500/30 rounded-3xl p-6 sm:p-8 space-y-6 shadow-2xl">
+      {/* Subpage Banner Cards for Candlestick Bible & SMC */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pb-2">
+        {onNavigateToCandlestick && (
+          <div
+            onClick={onNavigateToCandlestick}
+            className="bg-gradient-to-br from-emerald-950/40 via-zinc-900 to-zinc-950 border border-emerald-500/40 hover:border-emerald-400 p-5 rounded-2xl cursor-pointer transition-all hover:scale-101 group shadow-lg flex items-center justify-between"
+          >
+            <div className="space-y-1">
+              <div className="flex items-center gap-2 text-[#10b981] text-xs font-black uppercase">
+                <BookOpen className="w-4 h-4" />
+                <span>Ukurasa Maalum (Subpage)</span>
+              </div>
+              <h4 className="text-base font-extrabold text-white group-hover:text-[#10b981] transition-colors">
+                Candlestick Trading Bible Subpage
+              </h4>
+              <p className="text-xs text-zinc-400">
+                Makala ndefu, picha halisi za chati, saikolojia ya Pin Bar & Engulfing.
+              </p>
+            </div>
+            <div className="w-9 h-9 rounded-full bg-emerald-500/20 text-[#10b981] flex items-center justify-center group-hover:translate-x-1 transition-transform shrink-0">
+              <ArrowRight className="w-4 h-4" />
+            </div>
+          </div>
+        )}
+
+        {onNavigateToSMC && (
+          <div
+            onClick={onNavigateToSMC}
+            className="bg-gradient-to-br from-blue-950/40 via-zinc-900 to-zinc-950 border border-blue-500/40 hover:border-blue-400 p-5 rounded-2xl cursor-pointer transition-all hover:scale-101 group shadow-lg flex items-center justify-between"
+          >
+            <div className="space-y-1">
+              <div className="flex items-center gap-2 text-blue-400 text-xs font-black uppercase">
+                <Sparkles className="w-4 h-4" />
+                <span>Ukurasa Maalum (Subpage)</span>
+              </div>
+              <h4 className="text-base font-extrabold text-white group-hover:text-blue-400 transition-colors">
+                Smart Money Concepts (SMC) Subpage
+              </h4>
+              <p className="text-xs text-zinc-400">
+                Makala ndefu, Order Blocks za kibenki, Liquidity Sweeps na BOS.
+              </p>
+            </div>
+            <div className="w-9 h-9 rounded-full bg-blue-500/20 text-blue-400 flex items-center justify-center group-hover:translate-x-1 transition-transform shrink-0">
+              <ArrowRight className="w-4 h-4" />
+            </div>
+          </div>
+        )}
+      </div>
+
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-white/10 pb-5">
         <div>
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 text-xs font-black uppercase tracking-wider mb-2">

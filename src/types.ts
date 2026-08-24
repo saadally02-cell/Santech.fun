@@ -1,6 +1,8 @@
 export type CategoryId =
   | 'zote'
   | 'forex'
+  | 'candlestick'
+  | 'smc'
   | 'ai'
   | 'dev'
   | 'utalii'
@@ -10,6 +12,10 @@ export type CategoryId =
   | 'gadgets'
   | 'blockchain'
   | 'tools'
+  | 'quiz'
+  | 'audio'
+  | 'forum'
+  | 'showcase'
   | 'kuhusu'
   | 'privacy'
   | 'terms';
