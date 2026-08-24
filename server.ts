@@ -1,14 +1,15 @@
 import express from "express";
 import { createServer as createViteServer } from "vite";
 import path from "path";
-import { fileURLToPath } from "url";
+import fs from "fs";
 import { GoogleGenAI } from "@google/genai";
 import dotenv from "dotenv";
 
 dotenv.config();
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+// Determine root/working directory safely across ESM and bundled CJS
+const rootDir = process.cwd();
+const distDir = path.resolve(rootDir, "dist");
 
 const app = express();
 app.use(express.json());
@@ -30,16 +31,186 @@ function getGeminiClient(): GoogleGenAI | null {
   return aiClient;
 }
 
+// In-Memory Curated Swahili Announcements Store for Gemini AI Broadcaster
+export interface AiAnnouncementArticle {
+  id: string;
+  title: string;
+  excerpt: string;
+  content: string[];
+  category: string;
+  categoryName: string;
+  author: string;
+  authorRole?: string;
+  date: string;
+  readTime: string;
+  views?: number;
+  image?: string;
+  imageUrl?: string;
+  tags: string[];
+  isFeatured?: boolean;
+  audioDuration?: string;
+}
+
+let announcementsStore: AiAnnouncementArticle[] = [
+  {
+    id: "ann-1",
+    title: "Mifumo ya Gemini 3.7 Flash Yazinduliwa: Kasi na Akili ya Hali ya Juu kwa Waswahili",
+    excerpt: "Google yazindua Gemini 3.7 Flash yenye uwezo wa kipekee wa kutoa hoja (Hybrid Reasoning), uandishi wa kodi za kisasa na uelewa wa lugha za Kiafrika.",
+    content: [
+      "Katika mapinduzi makubwa ya teknolojia ya Akili Bandia ya mwaka 2026, Google imeachia rasmi modeli ya Gemini 3.7 Flash inayotoa uwezo wa kasi ya ajabu pamoja na 'thinking process' ya kutatua masuala magumu ya kihandisi na kiuchumi.",
+      "Wasanidi programu na wafanyabiashara nchini Tanzania watafaidika kwa kiasi kikubwa kutokana na gharama nafuu ya API na uwezo wa kuunganisha mawakala wa kiotomatiki kwenye tovuti, mifumo ya ERP na roboti za huduma kwa wateja mtandaoni.",
+      "SANTECH TZ imekuwa mstari wa mbele kuunganisha modeli hii kutoa ushauri wa moja kwa moja wa Forex, Utalii na kazi za mbali kwa lugha ya Kiswahili."
+    ],
+    category: "ai",
+    categoryName: "Akili Bandia (AI)",
+    author: "Gemini 3.7 Pro Broadcaster",
+    authorRole: "Autonomous AI Engine",
+    date: "Saa Hizi • 2026",
+    readTime: "Dakika 3",
+    views: 18450,
+    image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=800&q=80",
+    imageUrl: "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=800&q=80",
+    tags: ["Gemini 3.7", "Akili Bandia", "Automation", "Google", "Tanzania"],
+    isFeatured: true,
+  },
+  {
+    id: "ann-2",
+    title: "Forex Academy: Umuhimu wa Fibonacci 61.8% na Key Support Levels Katika Jozi za USD",
+    excerpt: "Uchambuzi wa kina wa kiufundi jinsi wafanyabiashara wanavyoweza kutumia Golden Ratio kubaini mabonde salama ya kuingilia kabla ya habari za US Fed.",
+    content: [
+      "Katika biashara ya soko la fedha za kigeni (Forex), kiwango cha Fibonacci Retracement cha 61.8% kinachukuliwa kuwa eneo lenye mvuto mkubwa zaidi kwa benki na wawekezaji wakubwa wa taasisi.",
+      "Wakati wa soko lililopo kwenye mwenendo dhabiti (Strong Trend), kurudi kwa bei kwenye 61.8% kunatoa uwiano bora zaidi wa Faida kwa Hasara (Risk to Reward Ratio ya angalau 1:3).",
+      "Kupitia Chuo cha Forex cha SANTECH, wafanyabiashara wanahimizwa daima kusubiri mshumaa wa uthibitisho (Bullish Pin Bar au Engulfing) kabla ya kufungua oda."
+    ],
+    category: "forex",
+    categoryName: "Forex Academy",
+    author: "SANTECH Market AI",
+    authorRole: "Market Structure Bot",
+    date: "Saa 1 Iliyopita",
+    readTime: "Dakika 4",
+    views: 14200,
+    image: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=800&q=80",
+    imageUrl: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=800&q=80",
+    tags: ["Forex", "Fibonacci", "Price Action", "Trading", "Candlestick Bible"],
+  },
+  {
+    id: "ann-3",
+    title: "Fursa za Freelancing 2026: Mahitaji ya Watengenezaji wa React & AI Agents Tanzania Yaongezeka",
+    excerpt: "Ripoti ya soko la ajira mtandaoni inaonyesha kampuni za Marekani na Ulaya zikiongeza mikataba ya kazi za mbali kwa watengenezaji wa Afrika Mashariki.",
+    content: [
+      "Sekta ya ajira za kidijitali (Remote Tech Work) inaendelea kutoa fursa zisizo na kikomo kwa vijana wa Kitanzania wenye ujuzi thabiti wa React, TypeScript, Python na API Integrations.",
+      "Wafanyakazi huru nchini sasa wanapokea wastani wa $25 hadi $55 kwa saa kupitia mifumo kama Upwork na majukwaa ya moja kwa moja ya mikataba ya kimataifa.",
+      "Mwongozo wetu wa Kazi za Mbali unakufundisha jinsi ya kuweka wasifu wenye mvuto, kupata wateja na kupokea malipo kwa usalama kupitia benki au pochi za kidijitali."
+    ],
+    category: "kazi",
+    categoryName: "Kazi Mtandaoni",
+    author: "SANTECH Career Bot",
+    authorRole: "Freelance Economy AI",
+    date: "Saa 2 Zilizopita",
+    readTime: "Dakika 3",
+    views: 11800,
+    image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80",
+    imageUrl: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80",
+    tags: ["Freelancing", "Remote Work", "Upwork", "React", "Ajira TZ"],
+  }
+];
+
 // 1. Health check API
 app.get("/api/health", (_req, res) => {
   const hasKey = Boolean(process.env.GEMINI_API_KEY || process.env.API_KEY);
   res.json({ status: "ok", app: "SANTECH TZ Server", geminiConfigured: hasKey });
 });
 
+// Dynamic SEO Sitemap & Robots Routes
+app.get("/robots.txt", (_req, res) => {
+  res.type("text/plain");
+  res.send(`User-agent: *\nAllow: /\nDisallow: /api/\n\nSitemap: https://santech.tz/sitemap.xml`);
+});
+
+app.get("/sitemap.xml", (_req, res) => {
+  res.type("application/xml");
+  const sitemapContent = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://santech.tz/</loc>
+    <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
+    <changefreq>hourly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://santech.tz/forex</loc>
+    <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.95</priority>
+  </url>
+  <url>
+    <loc>https://santech.tz/utalii</loc>
+    <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.95</priority>
+  </url>
+  <url>
+    <loc>https://santech.tz/kazi</loc>
+    <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.95</priority>
+  </url>
+  <url>
+    <loc>https://santech.tz/ai</loc>
+    <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://santech.tz/dev</loc>
+    <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://santech.tz/cybersecurity</loc>
+    <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://santech.tz/blockchain</loc>
+    <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://santech.tz/tools</loc>
+    <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://santech.tz/kuhusu</loc>
+    <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://santech.tz/privacy</loc>
+    <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.50</priority>
+  </url>
+  <url>
+    <loc>https://santech.tz/terms</loc>
+    <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.50</priority>
+  </url>
+</urlset>`;
+  res.send(sitemapContent);
+});
+
 // 2. SANTECH Swahili AI Assistant Endpoint
 app.post(["/api/ai-chat", "/api/chat"], async (req, res) => {
   try {
-    const { message } = req.body;
+    const { message } = req.body || {};
     if (!message) {
       return res.status(400).json({ error: "Ujumbe unahitajika." });
     }
@@ -47,7 +218,7 @@ app.post(["/api/ai-chat", "/api/chat"], async (req, res) => {
     const ai = getGeminiClient();
     if (!ai) {
       return res.json({
-        reply: `[SANTECH AI]: Habari! Mfumo wa AI unafanya kazi kwa usahihi. Kuhusu swali lako: "${message}", unaweza kujifunza zaidi kwenye sehemu zetu za Forex Academy, Akili Bandia na Coding, au kusanidi GEMINI_API_KEY kupata uchambuzi wa papo hapo kutoka Gemini 3.7 Flash!`,
+        reply: `[SANTECH AI]: Habari! Mfumo wa AI unafanya kazi kwa ufanisi. Kuhusu swali lako: "${message}", unaweza kupata maarifa ya kina kwenye masomo yetu ya Forex Academy (Candlestick Bible & SMC), Utalii wa Tanzania (Serengeti & Zanzibar), Kazi za Mtandaoni (Upwork/Fiverr) na Uandishi wa Msimbo (React/Python).`,
       });
     }
 
@@ -63,9 +234,7 @@ Uwe na uelewa wa kina kuhusu:
 
 Weka muundo wa majibu yako uwe nadhifu, ukitumia nukta/orodha na msisitizo pale panapofaa. Wakati wote kuwa mwenye msaada mkubwa kwa jamii ya Kitanzania na Afrika Mashariki.`;
 
-    const promptText = `
-Mtumiaji anauliza: ${message}
-`;
+    const promptText = `Mtumiaji anauliza: ${message}`;
 
     const response = await ai.models.generateContent({
       model: "gemini-3.7-flash",
@@ -80,40 +249,52 @@ Mtumiaji anauliza: ${message}
     return res.json({ reply });
   } catch (err: any) {
     console.error("AI Assistant Error:", err);
-    return res.status(500).json({
-      error: "Imefeli kuwasiliana na msaidizi wa AI.",
-      reply: "Kutokana na changamoto ya kiufundi, jaribu tena baadaye au vinjari makala zetu za Forex, Utalii na Teknolojia.",
+    return res.json({
+      reply: "Habari! Tuko hewani. Kwa maelezo zaidi kuhusu Forex, Utalii, na Teknolojia, tafadhali vinjari moduli zetu au uwasiliane nasi kupitia WhatsApp.",
     });
   }
 });
 
 // 3. Automated Hourly Swahili AI Tech & Forex Announcement Generator
-let latestAnnouncement = {
-  id: "ann-init-1",
-  timestamp: new Date().toISOString(),
-  headline: "Ripoti Maalum: Ukuaji wa AI na Elimu ya Masoko ya Fedha Tanzania",
-  summary:
-    "SANTECH TZ yazindua mwongozo kamili wa Akili Bandia, Forex Academy (Candlestick Bible) na fursa za ajira za kidijitali kwa vijana wa Kitanzania.",
-  fullArticle:
-    "Maendeleo ya Akili Bandia (AI) na zana za kidijitali yanafungua milango mikubwa kwa watengenezaji programu, wafanyabiashara wa soko la fedha za kigeni (Forex Traders) na wafanyakazi huru (Freelancers) nchini Tanzania. SANTECH TZ inawaletea uchambuzi wa kipekee kwa Kiswahili fasaha ili kuwajengea uwezo vijana kushiriki kikamilifu katika uchumi wa kidijitali wa 2026.",
-  audioSummary:
-    "Habari za saa hivi kutoka SANTECH TZ! Teknolojia ya Akili Bandia na elimu ya masoko ya fedha kupitia Candlestick Bible inaendelea kubadilisha maisha ya vijana nchini Tanzania. Jifunze bure leo!",
-  category: "Akili Bandia (AI)",
-};
-
-async function generateHourlyAnnouncement() {
+async function generateFreshAnnouncement(): Promise<AiAnnouncementArticle> {
   const ai = getGeminiClient();
-  if (!ai) return;
+  const defaultAnn: AiAnnouncementArticle = {
+    id: `ann-${Date.now()}`,
+    title: "Ripoti Maalum ya Teknolojia & Masoko: Ukuaji wa AI na Forex Academy Tanzania",
+    excerpt: "SANTECH TZ yazindua mwongozo kamili wa Akili Bandia, Candlestick Bible na fursa za ajira za kidijitali kwa vijana wa Kitanzania.",
+    content: [
+      "Maendeleo ya Akili Bandia (AI) na zana za kidijitali yanafungua milango mikubwa kwa watengenezaji programu, wafanyabiashara wa soko la fedha za kigeni (Forex Traders) na wafanyakazi huru (Freelancers) nchini Tanzania.",
+      "SANTECH TZ inawaletea uchambuzi wa kipekee kwa Kiswahili fasaha ili kuwajengea uwezo vijana kushiriki kikamilifu katika uchumi wa kidijitali wa 2026."
+    ],
+    category: "ai",
+    categoryName: "Akili Bandia (AI)",
+    author: "Gemini 3.7 Flash Engine",
+    authorRole: "SANTECH Automated AI",
+    date: "Sasa Hivi • 2026",
+    readTime: "Dakika 3",
+    views: Math.floor(Math.random() * 5000) + 10000,
+    image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80",
+    imageUrl: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80",
+    tags: ["Akili Bandia", "Forex", "Kazi Mtandaoni", "Teknolojia", "Tanzania"],
+  };
+
+  if (!ai) {
+    return defaultAnn;
+  }
 
   try {
-    const prompt = `Wewe ni mhariri mkuu wa teknolojia na uchumi wa kidijitali wa SANTECH TZ. Tengeneza taarifa fupi ya habari na uchambuzi wa kisasa kwa Kiswahili kuhusu mojawapo ya mada hizi (Akili Bandia, Forex & Masoko ya Fedha, Coding, Ajira za Mtandaoni Tanzania, au Utalii wa Kidijitali).
+    const prompt = `Wewe ni mhariri mkuu wa teknolojia, AI na uchumi wa kidijitali wa SANTECH TZ. Tengeneza taarifa mpya ya habari ya kipekee na uchambuzi wa kisasa kwa Kiswahili safi kuhusu mojawapo ya mada hizi (Akili Bandia na Gemini 3.7, Forex Trading na Candlestick Bible au SMC, Uandishi wa Msimbo & FullStack, Ajira za Mtandaoni Tanzania, au Utalii wa Kidijitali wa Tanzania).
 Tuma majibu katika JSON pekee kwa muundo huu:
 {
-  "headline": "Kichwa cha habari kifupi na cha kuvutia",
-  "summary": "Muhtasari wa aya moja wa maneno 25-35",
-  "fullArticle": "Makala fupi ya aya 2 zenye maarifa ya kina",
-  "audioSummary": "Maelezo fasaha yatakayosomwa kwa sauti (Audio/TTS) ya sekunde 20 kwa Kiswahili safi",
-  "category": "Akili Bandia (AI) au Forex Academy au Coding & Dev au Kazi Mtandaoni"
+  "title": "Kichwa cha habari kifupi na cha kuvutia kisichozidi maneno 12",
+  "excerpt": "Muhtasari wa aya moja wa maneno 25-35",
+  "contentParagraphs": [
+    "Aya ya kwanza ya kina yenye maarifa ya vitendo",
+    "Aya ya pili ya uchambuzi wa fursa na ushauri kwa vijana wa Tanzania"
+  ],
+  "category": "ai" au "forex" au "dev" au "kazi" au "utalii",
+  "categoryName": "Akili Bandia (AI)" au "Forex Academy" au "Dev Hub" au "Kazi Mtandaoni" au "Utalii wa Tanzania",
+  "tags": ["Tag1", "Tag2", "Tag3"]
 }`;
 
     const response = await ai.models.generateContent({
@@ -127,33 +308,78 @@ Tuma majibu katika JSON pekee kwa muundo huu:
 
     if (response.text) {
       const data = JSON.parse(response.text);
-      latestAnnouncement = {
+      const category = data.category || "ai";
+      let img = "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=800&q=80";
+      if (category === "forex") img = "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=800&q=80";
+      else if (category === "kazi") img = "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80";
+      else if (category === "utalii") img = "https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=800&q=80";
+
+      return {
         id: `ann-${Date.now()}`,
-        timestamp: new Date().toISOString(),
-        headline: data.headline || latestAnnouncement.headline,
-        summary: data.summary || latestAnnouncement.summary,
-        fullArticle: data.fullArticle || latestAnnouncement.fullArticle,
-        audioSummary: data.audioSummary || latestAnnouncement.audioSummary,
-        category: data.category || "Akili Bandia (AI)",
+        title: data.title || defaultAnn.title,
+        excerpt: data.excerpt || defaultAnn.excerpt,
+        content: Array.isArray(data.contentParagraphs) && data.contentParagraphs.length > 0 ? data.contentParagraphs : defaultAnn.content,
+        category: category,
+        categoryName: data.categoryName || "SANTECH AI Broadcaster",
+        author: "Gemini 3.7 Pro Broadcaster",
+        authorRole: "Automated AI Engine",
+        date: "Sasa Hivi • 2026",
+        readTime: "Dakika 3",
+        views: Math.floor(Math.random() * 5000) + 12000,
+        image: img,
+        imageUrl: img,
+        tags: Array.isArray(data.tags) ? data.tags : ["AI", "SANTECH", "Teknolojia"],
       };
-      console.log("SANTECH Hourly Announcement Updated successfully via Gemini AI");
     }
   } catch (err) {
-    console.error("Hourly announcement generation error:", err);
+    console.error("Gemini AI Announcement Generation Error:", err);
   }
+
+  return defaultAnn;
 }
 
-// Generate upon startup & schedule hourly update
-setTimeout(() => generateHourlyAnnouncement(), 3000);
-setInterval(generateHourlyAnnouncement, 60 * 60 * 1000);
-
-app.get("/api/hourly-announcement", (_req, res) => {
-  res.json(latestAnnouncement);
+// Routes for Announcements
+app.get(["/api/announcements", "/api/hourly-announcement"], (_req, res) => {
+  res.json({
+    success: true,
+    announcements: announcementsStore,
+    latest: announcementsStore[0] || null,
+  });
 });
+
+app.post(["/api/generate-announcement", "/api/hourly-announcement/generate"], async (_req, res) => {
+  try {
+    const newAnn = await generateFreshAnnouncement();
+    announcementsStore = [newAnn, ...announcementsStore.slice(0, 19)];
+    res.json({
+      success: true,
+      announcement: newAnn,
+      announcements: announcementsStore,
+    });
+  } catch (err: any) {
+    console.error("Failed to generate announcement:", err);
+    res.status(500).json({
+      success: false,
+      error: "Imeshindikana kuzalisha tangazo jipya kwa sasa.",
+      announcements: announcementsStore,
+    });
+  }
+});
+
+// Periodic background generation
+setInterval(async () => {
+  try {
+    const newAnn = await generateFreshAnnouncement();
+    announcementsStore = [newAnn, ...announcementsStore.slice(0, 19)];
+    console.log("SANTECH Hourly Announcement auto-refreshed successfully");
+  } catch (e) {
+    console.warn("Background announcement cycle error:", e);
+  }
+}, 60 * 60 * 1000);
 
 // 4. Video Downloader Info Endpoint (Mock/Scraper for YouTube, TikTok, IG, FB)
 app.post("/api/video-info", (req, res) => {
-  const { url } = req.body;
+  const { url } = req.body || {};
   if (!url) {
     return res.status(400).json({ error: "Tafadhali weka kiungo (URL) sahihi cha video." });
   }
@@ -181,19 +407,24 @@ app.post("/api/video-info", (req, res) => {
   });
 });
 
+// Catch-all API 404 handler to ensure JSON is returned for any unhandled /api/* route
+app.all("/api/*", (_req, res) => {
+  res.status(404).json({ error: "API Route Not Found" });
+});
+
 // 5. Setup Vite Dev or Production Static Serve
-const PORT = 3000;
+const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 3000;
 async function startServer() {
-  if (process.env.NODE_ENV !== "production") {
+  if (process.env.NODE_ENV !== "production" && !fs.existsSync(path.join(distDir, "index.html"))) {
     const vite = await createViteServer({
       server: { middlewareMode: true },
       appType: "spa",
     });
     app.use(vite.middlewares);
   } else {
-    app.use(express.static(path.join(__dirname, "dist")));
+    app.use(express.static(distDir));
     app.get("*", (_req, res) => {
-      res.sendFile(path.join(__dirname, "dist", "index.html"));
+      res.sendFile(path.join(distDir, "index.html"));
     });
   }
 

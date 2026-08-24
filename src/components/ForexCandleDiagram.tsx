@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface ForexCandleDiagramProps {
-  type: 'pinbar' | 'engulfing' | 'structure' | 'breakretest' | 'doji';
+  type: 'pinbar' | 'engulfing' | 'structure' | 'breakretest' | 'doji' | 'fvg' | 'orderblock' | 'liquidity' | 'doublebottom';
 }
 
 export const ForexCandleDiagram: React.FC<ForexCandleDiagramProps> = ({ type }) => {
@@ -114,6 +114,77 @@ export const ForexCandleDiagram: React.FC<ForexCandleDiagramProps> = ({ type }) 
     );
   }
 
+  if (type === 'fvg') {
+    return (
+      <div className="bg-zinc-950 border border-emerald-500/20 rounded-2xl p-5 my-6 text-zinc-100">
+        <div className="text-xs font-black uppercase text-emerald-400 tracking-wider mb-3 flex items-center justify-between">
+          <span>Mchoro: Fair Value Gap (FVG) / Imbalance</span>
+          <span className="text-[10px] text-zinc-400 font-mono">SMART MONEY CONCEPTS</span>
+        </div>
+        <div className="bg-zinc-900/80 border border-white/10 rounded-xl p-4 flex flex-col items-center">
+          <svg width="280" height="180" viewBox="0 0 280 180">
+            {/* Candle 1 */}
+            <line x1="50" y1="90" x2="50" y2="150" stroke="#10b981" strokeWidth="2" />
+            <rect x="40" y="100" width="20" height="40" fill="#10b981" rx="2" />
+            
+            {/* Candle 2 (Giant Impulse Candle) */}
+            <line x1="120" y1="20" x2="120" y2="160" stroke="#10b981" strokeWidth="2" />
+            <rect x="105" y="30" width="30" height="120" fill="#10b981" rx="2" />
+
+            {/* Candle 3 */}
+            <line x1="190" y1="10" x2="190" y2="70" stroke="#10b981" strokeWidth="2" />
+            <rect x="180" y="20" width="20" height="40" fill="#10b981" rx="2" />
+
+            {/* Gap Area Box between Candle 1 High and Candle 3 Low */}
+            <rect x="35" y="70" width="180" height="20" fill="#f59e0b" fillOpacity="0.25" stroke="#f59e0b" strokeWidth="1.5" strokeDasharray="3" rx="3" />
+            <text x="80" y="84" fill="#f59e0b" fontSize="10" fontWeight="bold">Fair Value Gap (FVG / Imbalance)</text>
+          </svg>
+          <p className="text-[11px] text-zinc-300 text-center mt-2 leading-tight">
+            Eneo lenye uwazi kati ya kilele cha Mshumaa 1 na bonde la Mshumaa 3. Soko linaelekea kurudi kujaza ukwasi huu.
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  if (type === 'orderblock') {
+    return (
+      <div className="bg-zinc-950 border border-emerald-500/20 rounded-2xl p-5 my-6 text-zinc-100">
+        <div className="text-xs font-black uppercase text-emerald-400 tracking-wider mb-3 flex items-center justify-between">
+          <span>Mchoro: Institutional Bullish Order Block (OB)</span>
+          <span className="text-[10px] text-zinc-400 font-mono">SMC INSTITUTIONAL</span>
+        </div>
+        <div className="bg-zinc-900/80 border border-white/10 rounded-xl p-4 flex flex-col items-center">
+          <svg width="320" height="170" viewBox="0 0 320 170">
+            {/* Bearish Order Block Candle */}
+            <line x1="60" y1="80" x2="60" y2="150" stroke="#ef4444" strokeWidth="2" />
+            <rect x="48" y="95" width="24" height="45" fill="#ef4444" rx="2" />
+            <text x="25" y="160" fill="#ef4444" fontSize="10" fontWeight="bold">Bullish OB</text>
+
+            {/* Impulsive Expansion Candles */}
+            <line x1="100" y1="50" x2="100" y2="135" stroke="#10b981" strokeWidth="2" />
+            <rect x="90" y="60" width="20" height="65" fill="#10b981" rx="2" />
+
+            <line x1="135" y1="20" x2="135" y2="100" stroke="#10b981" strokeWidth="2" />
+            <rect x="125" y="25" width="20" height="65" fill="#10b981" rx="2" />
+
+            {/* Break of Structure Line */}
+            <line x1="50" y1="25" x2="210" y2="25" stroke="#3b82f6" strokeWidth="1.5" strokeDasharray="3" />
+            <text x="160" y="20" fill="#3b82f6" fontSize="9" fontWeight="bold">BOS (Break of Structure)</text>
+
+            {/* Retest to Order block */}
+            <path d="M 145 35 Q 200 40 240 100" fill="none" stroke="#10b981" strokeWidth="2" strokeDasharray="4" />
+            <rect x="48" y="95" width="220" height="45" fill="#10b981" fillOpacity="0.1" stroke="#10b981" strokeWidth="1" strokeDasharray="3" rx="2" />
+            <text x="220" y="120" fill="#10b981" fontSize="10" fontWeight="bold">Mitigation & Entry 🎯</text>
+          </svg>
+          <p className="text-[11px] text-zinc-300 text-center mt-2 leading-tight">
+            Mshumaa wa mwisho wa wauzaji kabla ya mwendo wa taasisi kuvunja kilele (BOS). Unatoa nafasi bora zaidi ya ununuzi.
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   if (type === 'structure') {
     return (
       <div className="bg-zinc-950 border border-emerald-500/20 rounded-2xl p-5 my-6 text-zinc-100">
@@ -142,20 +213,14 @@ export const ForexCandleDiagram: React.FC<ForexCandleDiagramProps> = ({ type }) 
             <circle cx="340" cy="20" r="5" fill="#10b981" />
 
             {/* Labels */}
-            <text x="80" y="70" fill="#10b981" fontSize="11" fontWeight="bold">HH 1</text>
-            <text x="130" y="125" fill="#f59e0b" fontSize="11" fontWeight="bold">HL 1</text>
-            <text x="200" y="35" fill="#10b981" fontSize="11" fontWeight="bold">HH 2 (BOS)</text>
-            <text x="250" y="95" fill="#f59e0b" fontSize="11" fontWeight="bold">HL 2</text>
-            <text x="330" y="15" fill="#10b981" fontSize="11" fontWeight="bold">HH 3</text>
-
-            {/* Break of Structure Line */}
-            <line x1="90" y1="80" x2="210" y2="80" stroke="#a1a1aa" strokeWidth="1.5" strokeDasharray="3" />
-            <text x="110" y="74" fill="#a1a1aa" fontSize="9">BOS (Break of Structure)</text>
+            <text x="20" y="150" fill="#3b82f6" fontSize="10" fontWeight="bold">Low (Mwanzo)</text>
+            <text x="80" y="70" fill="#10b981" fontSize="10" fontWeight="bold">HH 1</text>
+            <text x="130" y="125" fill="#f59e0b" fontSize="10" fontWeight="bold">HL 1 (Buy)</text>
+            <text x="200" y="35" fill="#10b981" fontSize="10" fontWeight="bold">HH 2</text>
+            <text x="250" y="95" fill="#f59e0b" fontSize="10" fontWeight="bold">HL 2 (Buy)</text>
+            <text x="330" y="12" fill="#10b981" fontSize="10" fontWeight="bold">HH 3</text>
           </svg>
         </div>
-        <p className="text-xs text-zinc-300 mt-2">
-          Kwenye Uptrend safi, kila kilele kipya kinavuka cha awali (Higher High), na kila bonde linasimama juu ya bonde lililopita (Higher Low).
-        </p>
       </div>
     );
   }
@@ -164,81 +229,54 @@ export const ForexCandleDiagram: React.FC<ForexCandleDiagramProps> = ({ type }) 
     return (
       <div className="bg-zinc-950 border border-emerald-500/20 rounded-2xl p-5 my-6 text-zinc-100">
         <div className="text-xs font-black uppercase text-emerald-400 tracking-wider mb-3 flex items-center justify-between">
-          <span>Mchoro: Mkakati Kamili wa Break & Retest</span>
-          <span className="text-[10px] text-zinc-400 font-mono">ROLE REVERSAL</span>
+          <span>Mchoro: Mkakati wa Break and Retest (Role Reversal)</span>
+          <span className="text-[10px] text-zinc-400 font-mono">BREAK & RETEST</span>
         </div>
 
         <div className="bg-zinc-900/80 border border-white/10 rounded-xl p-4 overflow-x-auto">
           <svg width="100%" height="170" viewBox="0 0 450 170" className="min-w-[400px]">
-            {/* Key Level Line (Resistance -> Support) */}
-            <line x1="20" y1="85" x2="430" y2="85" stroke="#ef4444" strokeWidth="2.5" />
-            <text x="25" y="78" fill="#ef4444" fontSize="10" fontWeight="bold">Resistance ya Awali</text>
-            <text x="330" y="102" fill="#10b981" fontSize="10" fontWeight="bold">Support Mpya</text>
+            {/* Key Level Line */}
+            <line x1="20" y1="85" x2="430" y2="85" stroke="#ef4444" strokeWidth="2" strokeDasharray="5" />
+            <text x="25" y="78" fill="#ef4444" fontSize="10" fontWeight="bold">RESISTANCE LEVEL</text>
+            <text x="310" y="102" fill="#10b981" fontSize="10" fontWeight="bold">NEW SUPPORT LEVEL</text>
 
-            {/* Price Movement */}
-            <path
-              d="M 40 140 Q 80 85 110 85 T 160 130 T 220 40 T 290 85 T 380 20"
+            {/* Wave */}
+            <polyline
+              points="40,140 100,90 140,120 200,80 260,35 310,80 370,25"
               fill="none"
-              stroke="#38bdf8"
+              stroke="#10b981"
               strokeWidth="3.5"
               strokeLinecap="round"
+              strokeLinejoin="round"
             />
 
-            {/* Step markers */}
-            <circle cx="110" cy="85" r="4" fill="#ef4444" />
-            <text x="100" y="105" fill="#a1a1aa" fontSize="9">1. Reject</text>
+            <circle cx="260" cy="35" r="5" fill="#3b82f6" />
+            <text x="245" y="25" fill="#3b82f6" fontSize="10" fontWeight="bold">Breakout</text>
 
-            <circle cx="220" cy="60" r="5" fill="#10b981" />
-            <text x="210" y="32" fill="#10b981" fontSize="10" fontWeight="bold">2. Breakout</text>
-
-            <circle cx="290" cy="85" r="6" fill="#f59e0b" />
-            <text x="270" y="125" fill="#f59e0b" fontSize="10" fontWeight="bold">3. Retest + Entry</text>
-
-            <circle cx="380" cy="20" r="5" fill="#10b981" />
-            <text x="360" y="12" fill="#10b981" fontSize="10" fontWeight="bold">4. Take Profit</text>
+            <circle cx="310" cy="80" r="6" fill="#f59e0b" />
+            <text x="290" y="65" fill="#f59e0b" fontSize="11" fontWeight="bold">Retest (Entry) 🎯</text>
           </svg>
         </div>
-        <p className="text-xs text-zinc-300 mt-2">
-          Kuingia kwenye hatua ya 3 (Retest) kunakupa usalama mkubwa zaidi wa mtaji na Stop Loss ndogo sana ikilinganishwa na kuingia wakati wa Breakout ya kwanza.
-        </p>
       </div>
     );
   }
 
-  // Doji
+  // Default: Doji
   return (
     <div className="bg-zinc-950 border border-emerald-500/20 rounded-2xl p-5 my-6 text-zinc-100">
-      <div className="text-xs font-black uppercase text-emerald-400 tracking-wider mb-3">
-        Mchoro: Aina Kuu za Mishumaa ya Doji (Indecision)
+      <div className="text-xs font-black uppercase text-emerald-400 tracking-wider mb-3 flex items-center justify-between">
+        <span>Mchoro: Doji Candlestick (Kutokuwa na Uamuzi)</span>
+        <span className="text-[10px] text-zinc-400 font-mono">DOJI ANATOMY</span>
       </div>
-
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div className="bg-zinc-900 p-3 rounded-xl flex flex-col items-center">
-          <span className="text-xs font-bold text-zinc-300 mb-2">Standard Doji</span>
-          <svg width="60" height="90" viewBox="0 0 60 90">
-            <line x1="30" y1="10" x2="30" y2="80" stroke="#fafafa" strokeWidth="2" />
-            <line x1="15" y1="45" x2="45" y2="45" stroke="#fafafa" strokeWidth="3" />
-          </svg>
-          <span className="text-[10px] text-zinc-400 text-center mt-1">Wanunuzi & Wauzaji wamelingana</span>
-        </div>
-
-        <div className="bg-zinc-900 p-3 rounded-xl flex flex-col items-center">
-          <span className="text-xs font-bold text-emerald-400 mb-2">Dragonfly Doji</span>
-          <svg width="60" height="90" viewBox="0 0 60 90">
-            <line x1="30" y1="15" x2="30" y2="85" stroke="#10b981" strokeWidth="2.5" />
-            <line x1="12" y1="18" x2="48" y2="18" stroke="#10b981" strokeWidth="4" />
-          </svg>
-          <span className="text-[10px] text-emerald-300 text-center mt-1">Nguvu ya Wanunuzi (Bullish)</span>
-        </div>
-
-        <div className="bg-zinc-900 p-3 rounded-xl flex flex-col items-center">
-          <span className="text-xs font-bold text-rose-400 mb-2">Gravestone Doji</span>
-          <svg width="60" height="90" viewBox="0 0 60 90">
-            <line x1="30" y1="10" x2="30" y2="80" stroke="#ef4444" strokeWidth="2.5" />
-            <line x1="12" y1="78" x2="48" y2="78" stroke="#ef4444" strokeWidth="4" />
-          </svg>
-          <span className="text-[10px] text-rose-300 text-center mt-1">Nguvu ya Wauzaji (Bearish)</span>
-        </div>
+      <div className="bg-zinc-900/80 border border-white/10 rounded-xl p-4 flex flex-col items-center">
+        <svg width="120" height="150" viewBox="0 0 120 150">
+          <line x1="60" y1="20" x2="60" y2="130" stroke="#f59e0b" strokeWidth="3" />
+          <line x1="35" y1="75" x2="85" y2="75" stroke="#f59e0b" strokeWidth="4" />
+          <text x="10" y="80" fill="#a1a1aa" fontSize="9">Open = Close</text>
+        </svg>
+        <p className="text-[11px] text-zinc-300 text-center mt-2">
+          Mwili ni mstari mwembamba unaoonyesha wanunuzi na wauzaji wamefika sare.
+        </p>
       </div>
     </div>
   );

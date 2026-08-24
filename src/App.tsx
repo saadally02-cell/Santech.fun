@@ -10,18 +10,22 @@ import { TechToolsSection } from './components/TechToolsSection';
 import { AudioArticlesSection } from './components/AudioArticlesSection';
 import { TechQuizSection } from './components/TechQuizSection';
 import { CommunityForumSection } from './components/CommunityForumSection';
-import { FloatingWhatsAppButton } from './components/FloatingWhatsAppButton';
 import { ArticleDetailModal } from './components/ArticleDetailModal';
 import { AiAssistantDrawer } from './components/AiAssistantDrawer';
 import { BookmarksDrawer } from './components/BookmarksDrawer';
 import { CurrencyConverter } from './components/CurrencyConverter';
 import { ForexAcademySection } from './components/ForexAcademySection';
-import { AdBanner } from './components/AdBanner';
+import { TourismTanzaniaSection } from './components/TourismTanzaniaSection';
+import { FreelanceWorkHubSection } from './components/FreelanceWorkHubSection';
+import { DevHubSection } from './components/DevHubSection';
+import { AboutUsSection } from './components/AboutUsSection';
+import { LegalPagesSection } from './components/LegalPagesSection';
+import { NetworkAdBanner } from './components/NetworkAdBanner';
 import { Footer } from './components/Footer';
 
 import { ARTICLES_DATA, CATEGORIES } from './data/newsData';
 import { Article, CategoryId } from './types';
-import { Flame, SearchX, Sparkles } from 'lucide-react';
+import { Flame, SearchX, Sparkles, Compass, Briefcase, TrendingUp } from 'lucide-react';
 
 function MainApp() {
   // Theme state
@@ -32,7 +36,39 @@ function MainApp() {
 
   // Search & Filter state
   const [searchQuery, setSearchQuery] = React.useState<string>('');
-  const [activeCategory, setActiveCategory] = React.useState<CategoryId>('zote');
+  const [activeCategory, setActiveCategory] = React.useState<CategoryId>(() => {
+    if (typeof window !== 'undefined' && window.location.hash) {
+      const hash = window.location.hash.replace('#', '').toLowerCase();
+      if (['forex', 'utalii', 'kazi', 'dev', 'ai', 'cybersecurity', 'blockchain', 'cloud', 'tools', 'kuhusu', 'privacy', 'terms'].includes(hash)) {
+        return hash as CategoryId;
+      }
+    }
+    return 'zote';
+  });
+
+  // URL hash sync
+  React.useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash.replace('#', '').toLowerCase();
+      if (hash && ['forex', 'utalii', 'kazi', 'dev', 'ai', 'cybersecurity', 'blockchain', 'cloud', 'tools', 'kuhusu', 'privacy', 'terms'].includes(hash)) {
+        setActiveCategory(hash as CategoryId);
+      } else if (!hash) {
+        setActiveCategory('zote');
+      }
+    };
+
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
+
+  const handleSelectCategoryWithHash = (cat: CategoryId) => {
+    setActiveCategory(cat);
+    if (cat === 'zote') {
+      history.replaceState(null, '', window.location.pathname + window.location.search);
+    } else {
+      window.location.hash = cat;
+    }
+  };
 
   // Bookmarks state
   const [bookmarkedIds, setBookmarkedIds] = React.useState<string[]>(() => {
@@ -76,10 +112,13 @@ function MainApp() {
   };
 
   const handleScrollToTools = () => {
-    const el = document.getElementById('tech-tools');
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
-    }
+    setActiveCategory('tools');
+    setTimeout(() => {
+      const el = document.getElementById('tech-tools');
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 100);
   };
 
   // Filter Articles
@@ -119,7 +158,7 @@ function MainApp() {
         searchQuery={searchQuery}
         onSearchChange={setSearchQuery}
         activeCategory={activeCategory}
-        onSelectCategory={setActiveCategory}
+        onSelectCategory={handleSelectCategoryWithHash}
         bookmarksCount={bookmarkedIds.length}
         onOpenBookmarks={() => setIsBookmarksOpen(true)}
         onOpenAiAssistant={() => setIsAiAssistantOpen(true)}
@@ -139,154 +178,232 @@ function MainApp() {
                 Kipengele Kichaguliwa
               </span>
               <h2 className="text-xl font-black text-white">
-                {CATEGORIES.find((c) => c.id === activeCategory)?.label || activeCategory}
+                {CATEGORIES.find((c) => c.id === activeCategory)?.label ||
+                  (activeCategory === 'tools'
+                    ? 'Zana za Kidijitali'
+                    : activeCategory === 'kuhusu'
+                    ? 'Kuhusu SANTECH TZ'
+                    : activeCategory === 'privacy'
+                    ? 'Sera ya Faragha'
+                    : activeCategory === 'terms'
+                    ? 'Masharti ya Huduma'
+                    : activeCategory)}
               </h2>
             </div>
 
             <button
-              onClick={() => setActiveCategory('zote')}
-              className="text-xs text-zinc-400 hover:text-white bg-zinc-800 px-3 py-1.5 rounded border border-white/10 transition-colors cursor-pointer"
+              onClick={() => handleSelectCategoryWithHash('zote')}
+              className="text-xs text-zinc-300 hover:text-white bg-zinc-800 px-3 py-1.5 rounded-xl border border-white/10 transition-colors cursor-pointer"
             >
-              Rudi Zote
+              Rudi Nyumbani (Zote)
             </button>
           </div>
         )}
 
-        {/* Dedicated Full Forex Academy Hub if activeCategory === 'forex' */}
+        {/* 1. Dedicated Forex Academy Subpage */}
         {activeCategory === 'forex' && (
-          <ForexAcademySection onBackToHome={() => setActiveCategory('zote')} />
-        )}
-
-        {/* Hero Grid (Only show on 'zote' view when no search filter) */}
-        {activeCategory === 'zote' && !searchQuery && (
-          <HeroGrid
-            headlineArticle={headlineArticle}
-            trendingArticles={trendingArticles}
-            onSelectArticle={(art) => setSelectedArticle(art)}
-            onToggleBookmark={toggleBookmark}
-            bookmarkedIds={bookmarkedIds}
-          />
-        )}
-
-        {/* Gemini AI Hourly Auto-Announcements Section */}
-        {!searchQuery && (
-          <GeminiHourlyAnnouncementsSection
+          <ForexAcademySection
+            onBackToHome={() => handleSelectCategoryWithHash('zote')}
+            articles={ARTICLES_DATA}
             onSelectArticle={(art) => setSelectedArticle(art)}
           />
         )}
 
-        {/* Currency & Crypto Converter Quick Utility */}
-        {!searchQuery && <CurrencyConverter />}
-
-        {/* In-Feed Ad Banner */}
-        <AdBanner label="Tangazo Maalum la Mfadhili" />
-
-        {/* Articles Section Grid (Hidden when activeCategory is forex) */}
-        {activeCategory !== 'forex' && (
-          <section className="space-y-6">
-            <div className="flex items-center justify-between border-b border-white/10 pb-3">
-              <h2 className="display-serif text-2xl font-extrabold text-white flex items-center gap-2">
-                <Flame className="w-5 h-5 text-[#10b981]" />
-                {searchQuery
-                  ? `Matokeo ya "${searchQuery}" (${filteredArticles.length})`
-                  : 'Habari Zote za Teknolojia, AI & Coding'}
-              </h2>
-              <span className="text-xs text-zinc-400 font-bold uppercase tracking-wider">
-                SANTECH TECH MEDIA • 2026
-              </span>
-            </div>
-
-            {filteredArticles.length === 0 ? (
-              <div className="bg-zinc-900 border border-white/10 rounded-2xl p-12 text-center space-y-3">
-                <SearchX className="w-12 h-12 text-zinc-600 mx-auto" />
-                <h3 className="text-lg font-bold text-white">Hakuna makala zilizopatikana</h3>
-                <p className="text-xs text-zinc-400 max-w-sm mx-auto">
-                  Jaribu kutafuta kwa maneno mengine kama "AI", "Coding", "Cloud" au "Cybersecurity".
-                </p>
-                <button
-                  onClick={() => {
-                    setSearchQuery('');
-                    setActiveCategory('zote');
-                  }}
-                  className="bg-[#10b981] hover:bg-emerald-400 text-black font-extrabold text-xs uppercase tracking-wider px-4 py-2 rounded transition-colors cursor-pointer"
-                >
-                  Onyesha Makala Zote
-                </button>
-              </div>
-            ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {filteredArticles.map((article) => (
-                  <ArticleCard
-                    key={article.id}
-                    article={article}
-                    onSelectArticle={(art) => setSelectedArticle(art)}
-                    onToggleBookmark={toggleBookmark}
-                    isBookmarked={bookmarkedIds.includes(article.id)}
-                  />
-                ))}
-              </div>
-            )}
-          </section>
+        {/* 2. Dedicated Utalii wa Tanzania Subpage */}
+        {activeCategory === 'utalii' && (
+          <TourismTanzaniaSection
+            onSelectArticle={(art) => setSelectedArticle(art)}
+            articles={ARTICLES_DATA}
+          />
         )}
 
-        {/* Featured Forex Academy Spotlight Banner on 'zote' view */}
-        {activeCategory === 'zote' && !searchQuery && (
-          <div className="bg-gradient-to-r from-zinc-900 via-emerald-950/30 to-zinc-900 border border-emerald-500/30 rounded-2xl p-6 flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl">
-            <div className="space-y-2">
-              <div className="flex items-center gap-2">
-                <span className="bg-[#10b981] text-black text-[10px] font-black px-2.5 py-0.5 rounded-full uppercase">
-                  MPYA • FOREX ACADEMY
-                </span>
-                <span className="text-zinc-400 text-xs font-semibold">
-                  Candlestick Trading Bible & Price Action
-                </span>
-              </div>
-              <h3 className="text-xl font-extrabold text-white">
-                Jifunze Forex kwa Kiswahili: Moduli 7 za Kina & Michoro ya Mishumaa
-              </h3>
-              <p className="text-xs text-zinc-300 max-w-2xl leading-relaxed">
-                Jifunze kuanzia misingi ya Pips, Leverage, Pin Bar, Support & Resistance, hadi Smart Money Concepts (SMC) na usimamizi wa mtaji kulingana na vitabu vikuu vya biashara.
-              </p>
-            </div>
+        {/* 3. Dedicated Kazi za Mtandaoni Subpage */}
+        {activeCategory === 'kazi' && (
+          <FreelanceWorkHubSection
+            onSelectArticle={(art) => setSelectedArticle(art)}
+            articles={ARTICLES_DATA}
+          />
+        )}
 
-            <button
-              onClick={() => setActiveCategory('forex')}
-              className="bg-[#10b981] hover:bg-emerald-400 text-black font-black text-xs uppercase px-5 py-3 rounded-xl whitespace-nowrap transition cursor-pointer shadow-lg hover:scale-105"
-            >
-              Fungua Mafunzo ya Forex ➔
-            </button>
+        {/* 4. Dedicated Dev Hub Subpage */}
+        {activeCategory === 'dev' && (
+          <DevHubSection
+            onSelectArticle={(art) => setSelectedArticle(art)}
+            articles={ARTICLES_DATA}
+          />
+        )}
+
+        {/* 5. Dedicated About Us Subpage */}
+        {activeCategory === 'kuhusu' && (
+          <AboutUsSection onOpenAiAssistant={() => setIsAiAssistantOpen(true)} />
+        )}
+
+        {/* 6. Dedicated Legal / Privacy / Terms Subpage */}
+        {(activeCategory === 'privacy' || activeCategory === 'terms') && (
+          <LegalPagesSection initialTab={activeCategory === 'terms' ? 'terms' : 'privacy'} />
+        )}
+
+        {/* 7. Dedicated Tools Hub Subpage */}
+        {activeCategory === 'tools' && (
+          <div className="space-y-8">
+            <CurrencyConverter />
+            <TechToolsSection />
           </div>
         )}
 
-        {/* Swahili Audio Articles & Podcast Section */}
-        {!searchQuery && <AudioArticlesSection onSelectArticle={(art) => setSelectedArticle(art)} />}
+        {/* Home & General Category Articles View */}
+        {activeCategory !== 'forex' &&
+          activeCategory !== 'utalii' &&
+          activeCategory !== 'kazi' &&
+          activeCategory !== 'dev' &&
+          activeCategory !== 'kuhusu' &&
+          activeCategory !== 'privacy' &&
+          activeCategory !== 'terms' &&
+          activeCategory !== 'tools' && (
+            <>
+              {/* Hero Grid (Home only, no search) */}
+              {activeCategory === 'zote' && !searchQuery && (
+                <HeroGrid
+                  headlineArticle={headlineArticle}
+                  trendingArticles={trendingArticles}
+                  onSelectArticle={(art) => setSelectedArticle(art)}
+                  onToggleBookmark={toggleBookmark}
+                  bookmarkedIds={bookmarkedIds}
+                />
+              )}
 
-        {/* Tech Spotlight & Photo Showcase Section */}
-        {activeCategory === 'zote' && !searchQuery && <TechShowcaseSection />}
+              {/* Gemini AI Hourly Auto-Announcements */}
+              {!searchQuery && (
+                <GeminiHourlyAnnouncementsSection
+                  onSelectArticle={(art) => setSelectedArticle(art)}
+                />
+              )}
 
-        {/* Dev Toolkit & Salary Calculator Section */}
-        {!searchQuery && <TechToolsSection />}
+              {/* Quick Currency Converter */}
+              {!searchQuery && <CurrencyConverter />}
 
-        {/* Tech Assessment Quiz */}
-        {!searchQuery && <TechQuizSection />}
+              {/* In-Feed Monetization / Ad Container */}
+              <NetworkAdBanner placement="in-feed" />
 
-        {/* Community Forum & WhatsApp Direct Feedback Hub (+255691302979) */}
-        {!searchQuery && <CommunityForumSection />}
+              {/* Filterable Articles Grid */}
+              <section className="space-y-6">
+                <div className="flex items-center justify-between border-b border-white/10 pb-3">
+                  <h2 className="editorial-font text-2xl font-extrabold text-white flex items-center gap-2">
+                    <Flame className="w-5 h-5 text-[#10b981]" />
+                    {searchQuery
+                      ? `Matokeo ya "${searchQuery}" (${filteredArticles.length})`
+                      : 'Habari Zote za Teknolojia, AI, Coding & Utalii'}
+                  </h2>
+                  <span className="text-xs text-zinc-300 font-bold uppercase tracking-wider hidden sm:inline">
+                    SANTECH TZ • 2026
+                  </span>
+                </div>
+
+                {filteredArticles.length === 0 ? (
+                  <div className="bg-zinc-900 border border-white/10 rounded-2xl p-12 text-center space-y-3">
+                    <SearchX className="w-12 h-12 text-zinc-600 mx-auto" />
+                    <h3 className="text-lg font-bold text-white">Hakuna makala zilizopatikana</h3>
+                    <p className="text-xs text-zinc-400 max-w-sm mx-auto">
+                      Jaribu kutafuta kwa maneno mengine kama "Forex", "AI", "Utalii", "Coding" au "Kazi".
+                    </p>
+                    <button
+                      onClick={() => {
+                        setSearchQuery('');
+                        setActiveCategory('zote');
+                      }}
+                      className="bg-[#10b981] hover:bg-emerald-400 text-black font-extrabold text-xs uppercase tracking-wider px-4 py-2 rounded-xl transition-colors cursor-pointer"
+                    >
+                      Onyesha Makala Zote
+                    </button>
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {filteredArticles.map((article) => (
+                      <ArticleCard
+                        key={article.id}
+                        article={article}
+                        onSelectArticle={(art) => setSelectedArticle(art)}
+                        onToggleBookmark={toggleBookmark}
+                        isBookmarked={bookmarkedIds.includes(article.id)}
+                      />
+                    ))}
+                  </div>
+                )}
+              </section>
+
+              {/* Subpages Quick Access Cards on Home */}
+              {activeCategory === 'zote' && !searchQuery && (
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+                  {/* Forex Card */}
+                  <div
+                    onClick={() => setActiveCategory('forex')}
+                    className="p-6 rounded-2xl bg-gradient-to-br from-zinc-900 to-emerald-950/40 border border-emerald-500/30 hover:border-emerald-400 transition-all cursor-pointer group shadow-xl"
+                  >
+                    <div className="flex items-center gap-2 mb-2">
+                      <TrendingUp className="w-5 h-5 text-[#10b981]" />
+                      <span className="text-xs font-black uppercase text-[#10b981]">Forex Academy</span>
+                    </div>
+                    <h3 className="text-lg font-bold text-white group-hover:text-[#10b981] transition-colors">
+                      Candlestick Bible & Smart Money Concepts
+                    </h3>
+                    <p className="text-xs text-zinc-400 mt-1 leading-relaxed">
+                      Moduli 7 kamili, michoro ya mishumaa na majaribio ya kupima ujuzi wa soko la fedha.
+                    </p>
+                  </div>
+
+                  {/* Utalii Card */}
+                  <div
+                    onClick={() => setActiveCategory('utalii')}
+                    className="p-6 rounded-2xl bg-gradient-to-br from-zinc-900 to-amber-950/40 border border-yellow-500/30 hover:border-yellow-400 transition-all cursor-pointer group shadow-xl"
+                  >
+                    <div className="flex items-center gap-2 mb-2">
+                      <Compass className="w-5 h-5 text-yellow-400" />
+                      <span className="text-xs font-black uppercase text-yellow-400">Utalii wa Tanzania</span>
+                    </div>
+                    <h3 className="text-lg font-bold text-white group-hover:text-yellow-400 transition-colors">
+                      Serengeti, Zanzibar & Kilimanjaro
+                    </h3>
+                    <p className="text-xs text-zinc-400 mt-1 leading-relaxed">
+                      Mwongozo kamili wa safari, makadirio ya bajeti na fursa za Digital Nomads visiwani.
+                    </p>
+                  </div>
+
+                  {/* Kazi Mtandaoni Card */}
+                  <div
+                    onClick={() => setActiveCategory('kazi')}
+                    className="p-6 rounded-2xl bg-gradient-to-br from-zinc-900 to-amber-950/40 border border-amber-500/30 hover:border-amber-400 transition-all cursor-pointer group shadow-xl"
+                  >
+                    <div className="flex items-center gap-2 mb-2">
+                      <Briefcase className="w-5 h-5 text-amber-400" />
+                      <span className="text-xs font-black uppercase text-amber-400">Kazi za Mbali</span>
+                    </div>
+                    <h3 className="text-lg font-bold text-white group-hover:text-amber-400 transition-colors">
+                      Upwork, Fiverr & Remote Tech Jobs
+                    </h3>
+                    <p className="text-xs text-zinc-400 mt-1 leading-relaxed">
+                      Miongozo ya kupata wateja wa kimataifa na kulipwa kwa Dola ukiwa nyumbani Tanzania.
+                    </p>
+                  </div>
+                </div>
+              )}
+
+              {/* Swahili Audio Articles & Podcasts */}
+              {!searchQuery && <AudioArticlesSection onSelectArticle={(art) => setSelectedArticle(art)} />}
+
+              {/* Tech Showcase Spotlight */}
+              {activeCategory === 'zote' && !searchQuery && <TechShowcaseSection />}
+
+              {/* Dev Toolkit & Salary Calculator */}
+              {!searchQuery && <TechToolsSection />}
+
+              {/* Tech Assessment Quiz */}
+              {!searchQuery && <TechQuizSection />}
+
+              {/* Community Forum & Feedback */}
+              {!searchQuery && <CommunityForumSection />}
+            </>
+          )}
       </main>
-
-      {/* Floating WhatsApp Contact Widget (+255691302979) */}
-      <FloatingWhatsAppButton />
-
-      {/* Floating SANTECH AI Assistant Trigger Widget */}
-      <div className="fixed bottom-6 right-6 z-30">
-        <button
-          onClick={() => setIsAiAssistantOpen(true)}
-          className="flex items-center gap-2 bg-[#10b981] text-black font-black text-xs px-4 py-3 rounded-full shadow-2xl hover:scale-105 transition-all cursor-pointer border border-[#10b981]"
-        >
-          <Sparkles className="w-4 h-4 animate-spin text-black" />
-          <span>SANTECH AI Assistant</span>
-        </button>
-      </div>
 
       {/* Article Detail Modal */}
       <ArticleDetailModal
@@ -315,7 +432,7 @@ function MainApp() {
 
       {/* Footer */}
       <Footer
-        onSelectCategory={setActiveCategory}
+        onSelectCategory={handleSelectCategoryWithHash}
         onScrollToTools={handleScrollToTools}
         onOpenAiAssistant={() => setIsAiAssistantOpen(true)}
       />

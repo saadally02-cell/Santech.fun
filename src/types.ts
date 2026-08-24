@@ -1,4 +1,18 @@
-export type CategoryId = 'zote' | 'ai' | 'dev' | 'forex' | 'cloud' | 'cybersecurity' | 'gadgets' | 'kazi' | 'blockchain';
+export type CategoryId =
+  | 'zote'
+  | 'forex'
+  | 'ai'
+  | 'dev'
+  | 'utalii'
+  | 'kazi'
+  | 'cloud'
+  | 'cybersecurity'
+  | 'gadgets'
+  | 'blockchain'
+  | 'tools'
+  | 'kuhusu'
+  | 'privacy'
+  | 'terms';
 
 export interface CategoryOption {
   id: CategoryId;
