@@ -15,6 +15,8 @@ import { ArticleDetailModal } from './components/ArticleDetailModal';
 import { AiAssistantDrawer } from './components/AiAssistantDrawer';
 import { BookmarksDrawer } from './components/BookmarksDrawer';
 import { CurrencyConverter } from './components/CurrencyConverter';
+import { ForexAcademySection } from './components/ForexAcademySection';
+import { AdBanner } from './components/AdBanner';
 import { Footer } from './components/Footer';
 
 import { ARTICLES_DATA, CATEGORIES } from './data/newsData';
@@ -88,8 +90,8 @@ function MainApp() {
 
     const matchesSearch =
       article.title.toLowerCase().includes(q) ||
-      article.excerpt.toLowerCase().includes(q) ||
-      article.categoryName.toLowerCase().includes(q) ||
+      (article.excerpt && article.excerpt.toLowerCase().includes(q)) ||
+      (article.categoryName && article.categoryName.toLowerCase().includes(q)) ||
       article.tags.some((t) => t.toLowerCase().includes(q));
 
     return matchesCategory && matchesSearch;
@@ -143,11 +145,16 @@ function MainApp() {
 
             <button
               onClick={() => setActiveCategory('zote')}
-              className="text-xs text-zinc-400 hover:text-white bg-zinc-800 px-3 py-1.5 rounded border border-white/10 transition-colors"
+              className="text-xs text-zinc-400 hover:text-white bg-zinc-800 px-3 py-1.5 rounded border border-white/10 transition-colors cursor-pointer"
             >
               Rudi Zote
             </button>
           </div>
+        )}
+
+        {/* Dedicated Full Forex Academy Hub if activeCategory === 'forex' */}
+        {activeCategory === 'forex' && (
+          <ForexAcademySection onBackToHome={() => setActiveCategory('zote')} />
         )}
 
         {/* Hero Grid (Only show on 'zote' view when no search filter) */}
@@ -171,51 +178,85 @@ function MainApp() {
         {/* Currency & Crypto Converter Quick Utility */}
         {!searchQuery && <CurrencyConverter />}
 
-        {/* Articles Section Grid */}
-        <section className="space-y-6">
-          <div className="flex items-center justify-between border-b border-white/10 pb-3">
-            <h2 className="display-serif text-2xl font-extrabold text-white flex items-center gap-2">
-              <Flame className="w-5 h-5 text-[#10b981]" />
-              {searchQuery
-                ? `Matokeo ya "${searchQuery}" (${filteredArticles.length})`
-                : 'Habari Zote za Teknolojia, AI & Coding'}
-            </h2>
-            <span className="text-xs text-zinc-400 font-bold uppercase tracking-wider">
-              SANTECH TECH MEDIA • 2026
-            </span>
-          </div>
+        {/* In-Feed Ad Banner */}
+        <AdBanner label="Tangazo Maalum la Mfadhili" />
 
-          {filteredArticles.length === 0 ? (
-            <div className="bg-zinc-900 border border-white/10 rounded-2xl p-12 text-center space-y-3">
-              <SearchX className="w-12 h-12 text-zinc-600 mx-auto" />
-              <h3 className="text-lg font-bold text-white">Hakuna makala zilizopatikana</h3>
-              <p className="text-xs text-zinc-400 max-w-sm mx-auto">
-                Jaribu kutafuta kwa maneno mengine kama "AI", "Coding", "Cloud" au "Cybersecurity".
+        {/* Articles Section Grid (Hidden when activeCategory is forex) */}
+        {activeCategory !== 'forex' && (
+          <section className="space-y-6">
+            <div className="flex items-center justify-between border-b border-white/10 pb-3">
+              <h2 className="display-serif text-2xl font-extrabold text-white flex items-center gap-2">
+                <Flame className="w-5 h-5 text-[#10b981]" />
+                {searchQuery
+                  ? `Matokeo ya "${searchQuery}" (${filteredArticles.length})`
+                  : 'Habari Zote za Teknolojia, AI & Coding'}
+              </h2>
+              <span className="text-xs text-zinc-400 font-bold uppercase tracking-wider">
+                SANTECH TECH MEDIA • 2026
+              </span>
+            </div>
+
+            {filteredArticles.length === 0 ? (
+              <div className="bg-zinc-900 border border-white/10 rounded-2xl p-12 text-center space-y-3">
+                <SearchX className="w-12 h-12 text-zinc-600 mx-auto" />
+                <h3 className="text-lg font-bold text-white">Hakuna makala zilizopatikana</h3>
+                <p className="text-xs text-zinc-400 max-w-sm mx-auto">
+                  Jaribu kutafuta kwa maneno mengine kama "AI", "Coding", "Cloud" au "Cybersecurity".
+                </p>
+                <button
+                  onClick={() => {
+                    setSearchQuery('');
+                    setActiveCategory('zote');
+                  }}
+                  className="bg-[#10b981] hover:bg-emerald-400 text-black font-extrabold text-xs uppercase tracking-wider px-4 py-2 rounded transition-colors cursor-pointer"
+                >
+                  Onyesha Makala Zote
+                </button>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {filteredArticles.map((article) => (
+                  <ArticleCard
+                    key={article.id}
+                    article={article}
+                    onSelectArticle={(art) => setSelectedArticle(art)}
+                    onToggleBookmark={toggleBookmark}
+                    isBookmarked={bookmarkedIds.includes(article.id)}
+                  />
+                ))}
+              </div>
+            )}
+          </section>
+        )}
+
+        {/* Featured Forex Academy Spotlight Banner on 'zote' view */}
+        {activeCategory === 'zote' && !searchQuery && (
+          <div className="bg-gradient-to-r from-zinc-900 via-emerald-950/30 to-zinc-900 border border-emerald-500/30 rounded-2xl p-6 flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl">
+            <div className="space-y-2">
+              <div className="flex items-center gap-2">
+                <span className="bg-[#10b981] text-black text-[10px] font-black px-2.5 py-0.5 rounded-full uppercase">
+                  MPYA • FOREX ACADEMY
+                </span>
+                <span className="text-zinc-400 text-xs font-semibold">
+                  Candlestick Trading Bible & Price Action
+                </span>
+              </div>
+              <h3 className="text-xl font-extrabold text-white">
+                Jifunze Forex kwa Kiswahili: Moduli 7 za Kina & Michoro ya Mishumaa
+              </h3>
+              <p className="text-xs text-zinc-300 max-w-2xl leading-relaxed">
+                Jifunze kuanzia misingi ya Pips, Leverage, Pin Bar, Support & Resistance, hadi Smart Money Concepts (SMC) na usimamizi wa mtaji kulingana na vitabu vikuu vya biashara.
               </p>
-              <button
-                onClick={() => {
-                  setSearchQuery('');
-                  setActiveCategory('zote');
-                }}
-                className="bg-[#10b981] hover:bg-emerald-400 text-black font-extrabold text-xs uppercase tracking-wider px-4 py-2 rounded transition-colors cursor-pointer"
-              >
-                Onyesha Makala Zote
-              </button>
             </div>
-          ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredArticles.map((article) => (
-                <ArticleCard
-                  key={article.id}
-                  article={article}
-                  onSelectArticle={(art) => setSelectedArticle(art)}
-                  onToggleBookmark={toggleBookmark}
-                  isBookmarked={bookmarkedIds.includes(article.id)}
-                />
-              ))}
-            </div>
-          )}
-        </section>
+
+            <button
+              onClick={() => setActiveCategory('forex')}
+              className="bg-[#10b981] hover:bg-emerald-400 text-black font-black text-xs uppercase px-5 py-3 rounded-xl whitespace-nowrap transition cursor-pointer shadow-lg hover:scale-105"
+            >
+              Fungua Mafunzo ya Forex ➔
+            </button>
+          </div>
+        )}
 
         {/* Swahili Audio Articles & Podcast Section */}
         {!searchQuery && <AudioArticlesSection onSelectArticle={(art) => setSelectedArticle(art)} />}

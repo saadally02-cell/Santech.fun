@@ -392,11 +392,17 @@ export const ArticleDetailModal: React.FC<ArticleDetailModalProps> = ({
 
           {/* Body Paragraphs */}
           <div className={`space-y-4 text-zinc-200 ${getTextClass()}`}>
-            {article.content.map((paragraph, idx) => (
-              <p key={idx} className="leading-relaxed">
-                {paragraph}
+            {Array.isArray(article.content) ? (
+              article.content.map((paragraph, idx) => (
+                <p key={idx} className="leading-relaxed">
+                  {paragraph}
+                </p>
+              ))
+            ) : (
+              <p className="leading-relaxed whitespace-pre-line">
+                {article.content}
               </p>
-            ))}
+            )}
           </div>
 
           {/* Tags */}

@@ -31,10 +31,11 @@ export const AiAssistantDrawer: React.FC<AiAssistantDrawerProps> = ({ isOpen, on
   if (!isOpen) return null;
 
   const quickPrompts = [
+    'Nifundishe mkakati wa Pin Bar & Engulfing kwenye Forex',
     'Jinsi ya kuanza Upwork & Fiverr TZ?',
-    'Nieleze kuhusu Utalii wa Paje Beach Zanzibar',
-    'Akili Bandia na Gemini 3.6 zinanisaidiaje?',
-    'Jinsi ya kupakua video bila watermark',
+    'Nieleze kuhusu Utalii wa Serengeti & Zanzibar',
+    'Akili Bandia na Gemini 3.7 Flash zinanisaidiaje?',
+    'Fomula ya kukokotoa Lot Size & Risk Management',
   ];
 
   const handleSendMessage = async (userText: string) => {

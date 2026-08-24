@@ -2,6 +2,7 @@ import { Article, CategoryOption, TechShowcaseItem } from '../types';
 
 export const CATEGORIES: CategoryOption[] = [
   { id: 'zote', label: 'Zote', iconName: 'LayoutGrid' },
+  { id: 'forex', label: 'Forex Academy', iconName: 'TrendingUp' },
   { id: 'ai', label: 'Akili Bandia (AI)', iconName: 'Cpu' },
   { id: 'dev', label: 'Dev & Coding', iconName: 'Code2' },
   { id: 'cloud', label: 'Cloud & Servers', iconName: 'Server' },

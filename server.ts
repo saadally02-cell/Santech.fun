@@ -1,18 +1,25 @@
 import express from "express";
-import path from "path";
-import { GoogleGenAI } from "@google/genai";
 import { createServer as createViteServer } from "vite";
+import path from "path";
+import { fileURLToPath } from "url";
+import { GoogleGenAI } from "@google/genai";
+import dotenv from "dotenv";
+
+dotenv.config();
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
 app.use(express.json());
-const PORT = 3000;
 
 // Lazy initialization for Gemini AI client
 let aiClient: GoogleGenAI | null = null;
 function getGeminiClient(): GoogleGenAI | null {
-  if (!aiClient && process.env.GEMINI_API_KEY) {
+  const apiKey = process.env.GEMINI_API_KEY || process.env.API_KEY;
+  if (!aiClient && apiKey) {
     aiClient = new GoogleGenAI({
-      apiKey: process.env.GEMINI_API_KEY,
+      apiKey: apiKey,
       httpOptions: {
         headers: {
           "User-Agent": "aistudio-build",
@@ -25,41 +32,43 @@ function getGeminiClient(): GoogleGenAI | null {
 
 // 1. Health check API
 app.get("/api/health", (_req, res) => {
-  res.json({ status: "ok", app: "SANTECH TZ Server" });
+  const hasKey = Boolean(process.env.GEMINI_API_KEY || process.env.API_KEY);
+  res.json({ status: "ok", app: "SANTECH TZ Server", geminiConfigured: hasKey });
 });
 
 // 2. SANTECH Swahili AI Assistant Endpoint
-app.post("/api/chat", async (req, res) => {
+app.post(["/api/ai-chat", "/api/chat"], async (req, res) => {
   try {
-    const { message, conversationHistory } = req.body;
+    const { message } = req.body;
     if (!message) {
-      return res.status(400).json({ error: "Ujumbe unahitajika" });
+      return res.status(400).json({ error: "Ujumbe unahitajika." });
     }
 
     const ai = getGeminiClient();
     if (!ai) {
-      // Fallback response if GEMINI_API_KEY is missing
       return res.json({
-        reply: `[SANTECH AI]: Habari! Nina msaidizi wa SANTECH TZ. Kwa sasa mfumo unafanya kazi katika mfumo wa majaribio. Kuhusu swali lako: "${message}", tunapendekeza usome makala zetu za Akili Bandia na Kazi Mtandaoni au utembelee sehemu ya Video Downloader!`,
+        reply: `[SANTECH AI]: Habari! Mfumo wa AI unafanya kazi kwa usahihi. Kuhusu swali lako: "${message}", unaweza kujifunza zaidi kwenye sehemu zetu za Forex Academy, Akili Bandia na Coding, au kusanidi GEMINI_API_KEY kupata uchambuzi wa papo hapo kutoka Gemini 3.7 Flash!`,
       });
     }
 
-    const systemInstruction = `Wewe ni SANTECH AI Assistant, msaidizi rasmi wa kidijitali wa mtandao wa SANTECH TZ (Teknolojia, Akili Bandia, Kazi Mtandaoni, Fedha za Kidijitali na Utalii wa Tanzania).
-Jibu maswali ya watumiaji kwa Kiswahili fasaha, kizuri, chenye heshima na motisha. 
-Uwe na uelewa wa:
-- Akili Bandia (Gemini, ChatGPT, Machine Learning, Automation).
-- Kazi za mtandaoni Tanzania (Freelancing, Upwork, Fiverr, Remote Jobs).
-- Fedha za kidijitali na Crypto (Bitcoin, Usalama wa fedha).
-- Utalii wa Tanzania (Serengeti, Zanzibar, Ngorongoro, Kilimanjaro, Mafia Island, Pemba, Tarangire).
-- Zana za kidijitali (SANTECH Video Downloader, Software, Coding).
-Weka majibu yako tayari kwa usomaji mzuri ukitumia vipengele kama msisitizo au orodha. Wakati wote kuwa mwenye msaada kwa watumiaji wa Tanzania na Afrika Mashariki.`;
+    const systemInstruction = `Wewe ni SANTECH AI Assistant, msaidizi rasmi wa kidijitali wa jukwaa la SANTECH TZ (Teknolojia, Akili Bandia, Forex Academy & Candlestick Bible, Kazi Mtandaoni, Fedha za Kidijitali na Utalii wa Tanzania).
+Jibu maswali ya watumiaji kwa Kiswahili fasaha, kizuri, chenye heshima, mifano bayana na motisha. 
+Uwe na uelewa wa kina kuhusu:
+1. Akili Bandia (Gemini 3.7 Flash, Machine Learning, Automation, Prompt Engineering).
+2. Forex Trading & Candlestick Bible (Pips, Lot Sizes, Pin Bar, Engulfing, Support/Resistance, Break & Retest, Smart Money Concepts - SMC, Risk Management).
+3. Uandishi wa Msimbo & Web/App Development (Python, TypeScript, React, APIs, Cloud, Cybersecurity).
+4. Kazi za mtandaoni Tanzania (Freelancing, Upwork, Fiverr, Remote Tech Jobs, Malipo ya M-Pesa/Bank).
+5. Utalii wa Tanzania (Serengeti, Zanzibar, Ngorongoro, Kilimanjaro, Mafia Island, Pemba, Tarangire).
+6. Zana za kidijitali (SANTECH Video Downloader, Software, Mobile Apps).
+
+Weka muundo wa majibu yako uwe nadhifu, ukitumia nukta/orodha na msisitizo pale panapofaa. Wakati wote kuwa mwenye msaada mkubwa kwa jamii ya Kitanzania na Afrika Mashariki.`;
 
     const promptText = `
 Mtumiaji anauliza: ${message}
 `;
 
     const response = await ai.models.generateContent({
-      model: "gemini-3.6-flash",
+      model: "gemini-3.7-flash",
       contents: promptText,
       config: {
         systemInstruction,
@@ -67,220 +76,113 @@ Mtumiaji anauliza: ${message}
       },
     });
 
-    const reply = response.text || "Samahani, sijafanikiwa kupata jibu sahihi kwa sasa. Tafadhali jaribu tena.";
+    const reply = response.text || "Samahani, sikupokea jibu sahihi kutoka kwa mfumo wa AI.";
     return res.json({ reply });
   } catch (err: any) {
     console.error("AI Assistant Error:", err);
     return res.status(500).json({
       error: "Imefeli kuwasiliana na msaidizi wa AI.",
-      reply: "Kutokana na changamoto ya kiufundi, jaribu tena baadaye au vinjari makala zetu za Utalii na Teknolojia.",
+      reply: "Kutokana na changamoto ya kiufundi, jaribu tena baadaye au vinjari makala zetu za Forex, Utalii na Teknolojia.",
     });
   }
 });
 
-// 3. SANTECH Gemini AI Hourly Announcement Generator
-let hourlyAnnouncements: any[] = [];
+// 3. Automated Hourly Swahili AI Tech & Forex Announcement Generator
+let latestAnnouncement = {
+  id: "ann-init-1",
+  timestamp: new Date().toISOString(),
+  headline: "Ripoti Maalum: Ukuaji wa AI na Elimu ya Masoko ya Fedha Tanzania",
+  summary:
+    "SANTECH TZ yazindua mwongozo kamili wa Akili Bandia, Forex Academy (Candlestick Bible) na fursa za ajira za kidijitali kwa vijana wa Kitanzania.",
+  fullArticle:
+    "Maendeleo ya Akili Bandia (AI) na zana za kidijitali yanafungua milango mikubwa kwa watengenezaji programu, wafanyabiashara wa soko la fedha za kigeni (Forex Traders) na wafanyakazi huru (Freelancers) nchini Tanzania. SANTECH TZ inawaletea uchambuzi wa kipekee kwa Kiswahili fasaha ili kuwajengea uwezo vijana kushiriki kikamilifu katika uchumi wa kidijitali wa 2026.",
+  audioSummary:
+    "Habari za saa hivi kutoka SANTECH TZ! Teknolojia ya Akili Bandia na elimu ya masoko ya fedha kupitia Candlestick Bible inaendelea kubadilisha maisha ya vijana nchini Tanzania. Jifunze bure leo!",
+  category: "Akili Bandia (AI)",
+};
 
 async function generateHourlyAnnouncement() {
+  const ai = getGeminiClient();
+  if (!ai) return;
+
   try {
-    const ai = getGeminiClient();
-    if (!ai) {
-      console.log("Gemini API key missing, skipping hourly auto-announcement generation.");
-      return null;
-    }
-
-    const topics = [
-      "Maendeleo ya hivi karibuni ya Akili Bandia (AI Models & Gemini 3.6 Pro) mwaka 2026",
-      "Fursa mpya za Kazi za Mbali (Remote Tech Jobs) kwa Vijana wa Tanzania na Afrika Mashariki",
-      "Usalama wa Mtandao (Cybersecurity & Zero-Trust) kwa biashara na programu za simu",
-      "Ubunifu wa Teknolojia ya Utalii wa Tanzania (Smart Tourism & Virtual Guides katika Serengeti na Zanzibar)",
-      "Zana za Uandishi wa Msimbo (AI Coding Assistants, Python & Full-Stack Development)"
-    ];
-
-    const randomTopic = topics[Math.floor(Math.random() * topics.length)];
-
-    const prompt = `Zalisha habari rasmi au tangazo ghafi jipya kabisa la SANTECH TZ kuhusu: "${randomTopic}".
-Iwe kwa Kiswahili fasaha cha kitaalamu na cha kuvutia.
-Toa majibu yakiwa YAMEPANGWA KATIKA FORMAT YA JSON PEKEE kama ilivyo hapa chini bila maandishi mengine:
+    const prompt = `Wewe ni mhariri mkuu wa teknolojia na uchumi wa kidijitali wa SANTECH TZ. Tengeneza taarifa fupi ya habari na uchambuzi wa kisasa kwa Kiswahili kuhusu mojawapo ya mada hizi (Akili Bandia, Forex & Masoko ya Fedha, Coding, Ajira za Mtandaoni Tanzania, au Utalii wa Kidijitali).
+Tuma majibu katika JSON pekee kwa muundo huu:
 {
-  "title": "Kichwa cha Habari cha Kuvutia (Maneno 8-12)",
-  "excerpt": "Muhtasari wa Tangazo/Habari (Maneno 15-25)",
-  "content": [
-    "Aya ya kwanza: Maelezo mafupi ya tangazo jipya...",
-    "Aya ya pili: Ufafanuzi wa kiufundi na faida zake...",
-    "Aya ya tatu: Ushauri wa SANTECH na hatua za kuchukua..."
-  ],
-  "category": "akili-bandia",
-  "categoryName": "Akili Bandia & AI 2026",
-  "readTime": "Dakika 3",
-  "author": "SANTECH Gemini AI Bot 🤖",
-  "authorRole": "Mhariri Mkuu wa AI",
-  "image": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80"
+  "headline": "Kichwa cha habari kifupi na cha kuvutia",
+  "summary": "Muhtasari wa aya moja wa maneno 25-35",
+  "fullArticle": "Makala fupi ya aya 2 zenye maarifa ya kina",
+  "audioSummary": "Maelezo fasaha yatakayosomwa kwa sauti (Audio/TTS) ya sekunde 20 kwa Kiswahili safi",
+  "category": "Akili Bandia (AI) au Forex Academy au Coding & Dev au Kazi Mtandaoni"
 }`;
 
     const response = await ai.models.generateContent({
-      model: "gemini-3.6-flash",
+      model: "gemini-3.7-flash",
       contents: prompt,
       config: {
         temperature: 0.8,
+        responseMimeType: "application/json",
       },
     });
 
-    let rawText = response.text || "";
-    // Clean codeblock formatting if present
-    rawText = rawText.replace(/```json/g, "").replace(/```/g, "").trim();
-
-    const parsed = JSON.parse(rawText);
-    const newAnnouncement = {
-      id: "ai-announcement-" + Date.now(),
-      ...parsed,
-      date: "Sasa hivi (Inayorushwa na Gemini AI)",
-      featured: true,
-      isAiGenerated: true,
-      createdAt: new Date().toISOString(),
-    };
-
-    hourlyAnnouncements.unshift(newAnnouncement);
-    if (hourlyAnnouncements.length > 20) {
-      hourlyAnnouncements = hourlyAnnouncements.slice(0, 20);
+    if (response.text) {
+      const data = JSON.parse(response.text);
+      latestAnnouncement = {
+        id: `ann-${Date.now()}`,
+        timestamp: new Date().toISOString(),
+        headline: data.headline || latestAnnouncement.headline,
+        summary: data.summary || latestAnnouncement.summary,
+        fullArticle: data.fullArticle || latestAnnouncement.fullArticle,
+        audioSummary: data.audioSummary || latestAnnouncement.audioSummary,
+        category: data.category || "Akili Bandia (AI)",
+      };
+      console.log("SANTECH Hourly Announcement Updated successfully via Gemini AI");
     }
-
-    console.log("Successfully generated Gemini AI hourly announcement:", newAnnouncement.title);
-    return newAnnouncement;
   } catch (err) {
-    console.error("Error generating hourly announcement with Gemini:", err);
-    return null;
+    console.error("Hourly announcement generation error:", err);
   }
 }
 
-// Endpoint to fetch hourly announcements
-app.get("/api/announcements", (_req, res) => {
-  res.json({ announcements: hourlyAnnouncements });
+// Generate upon startup & schedule hourly update
+setTimeout(() => generateHourlyAnnouncement(), 3000);
+setInterval(generateHourlyAnnouncement, 60 * 60 * 1000);
+
+app.get("/api/hourly-announcement", (_req, res) => {
+  res.json(latestAnnouncement);
 });
 
-// Kiswahili Fasaha Tanzania Audio TTS Endpoint
-app.get("/api/tts", async (req, res) => {
-  try {
-    const rawText = (req.query.text as string) || "";
-    if (!rawText.trim()) {
-      return res.status(400).json({ error: "No text provided for Swahili TTS" });
-    }
-
-    // Clean and normalize text into pure Tanzanian Swahili phonetics
-    const cleanSwahiliText = rawText
-      .replace(/\bAI\b/gi, "Akili Bandia")
-      .replace(/\bTZ\b/gi, "Tanzania")
-      .replace(/\bSANTECH\b/gi, "Santech")
-      .replace(/\bSummary:\b/gi, "Muhtasari:")
-      .replace(/\bApp\b/gi, "Programu")
-      .replace(/\bOnline\b/gi, "Mtandaoni")
-      .replace(/\bWebsite\b/gi, "Tovuti")
-      .replace(/\bUSD\b/gi, "Dola za Marekani")
-      .replace(/\bTZS\b/gi, "Shilingi za Tanzania")
-      .replace(/\b2026\b/g, "mwaka elfu mbili ishirini na sita")
-      .substring(0, 350)
-      .trim();
-
-    const ttsUrl = `https://translate.google.com/translate_tts?ie=UTF-8&q=${encodeURIComponent(
-      cleanSwahiliText
-    )}&tl=sw&client=tw-ob`;
-
-    const response = await fetch(ttsUrl, {
-      headers: {
-        "User-Agent":
-          "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-      },
-    });
-
-    if (!response.ok) {
-      throw new Error(`Google Swahili TTS request failed with status ${response.status}`);
-    }
-
-    const arrayBuffer = await response.arrayBuffer();
-    const buffer = Buffer.from(arrayBuffer);
-
-    res.setHeader("Content-Type", "audio/mpeg");
-    res.setHeader("Cache-Control", "public, max-age=86400");
-    res.send(buffer);
-  } catch (err) {
-    console.error("Swahili TTS audio error:", err);
-    res.status(500).json({ error: "Failed to generate Swahili audio" });
-  }
-});
-
-// Endpoint to trigger fresh announcement on demand
-app.post("/api/generate-announcement", async (_req, res) => {
-  const result = await generateHourlyAnnouncement();
-  if (result) {
-    return res.json({ success: true, announcement: result });
-  } else {
-    return res.status(500).json({ error: "Imefeli kurusha tangazo jipya na Gemini AI." });
-  }
-});
-
-// Start hourly background loop (Runs every 60 minutes = 3,600,000 ms)
-setInterval(() => {
-  console.log("Running scheduled Gemini AI hourly announcement job...");
-  generateHourlyAnnouncement();
-}, 3600000);
-
-// Run first auto-generation after 5 seconds
-setTimeout(() => {
-  generateHourlyAnnouncement();
-}, 5000);
+// 4. Video Downloader Info Endpoint (Mock/Scraper for YouTube, TikTok, IG, FB)
 app.post("/api/video-info", (req, res) => {
   const { url } = req.body;
-  if (!url || typeof url !== "string") {
-    return res.status(400).json({ error: "Weka URL halali ya video" });
+  if (!url) {
+    return res.status(400).json({ error: "Tafadhali weka kiungo (URL) sahihi cha video." });
   }
 
-  let platform = "Video Link";
-  let title = "Video ya Mtandaoni";
-  let thumbnail = "https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=800&q=80";
+  let platform = "Video ya Mtandaoni";
+  if (url.includes("youtube.com") || url.includes("youtu.be")) platform = "YouTube (HD / 4K)";
+  else if (url.includes("tiktok.com")) platform = "TikTok (Bila Watermark)";
+  else if (url.includes("instagram.com")) platform = "Instagram Reels / Post";
+  else if (url.includes("facebook.com") || url.includes("fb.watch")) platform = "Facebook Watch HD";
+  else if (url.includes("twitter.com") || url.includes("x.com")) platform = "X / Twitter Video";
 
-  const cleanUrl = url.trim().toLowerCase();
-  if (cleanUrl.includes("youtube.com") || cleanUrl.includes("youtu.be")) {
-    platform = "YouTube";
-    title = "YouTube Video Stream - HD 1080p";
-    thumbnail = "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?auto=format&fit=crop&w=800&q=80";
-  } else if (cleanUrl.includes("tiktok.com")) {
-    platform = "TikTok";
-    title = "TikTok Trending Video (No Watermark)";
-    thumbnail = "https://images.unsplash.com/photo-1598550476439-6847785fcea6?auto=format&fit=crop&w=800&q=80";
-  } else if (cleanUrl.includes("instagram.com")) {
-    platform = "Instagram";
-    title = "Instagram Reel / Story HD";
-    thumbnail = "https://images.unsplash.com/photo-1611262588024-d12430b98920?auto=format&fit=crop&w=800&q=80";
-  } else if (cleanUrl.includes("facebook.com") || cleanUrl.includes("fb.watch")) {
-    platform = "Facebook";
-    title = "Facebook Video High Quality";
-    thumbnail = "https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&w=800&q=80";
-  } else if (cleanUrl.includes("twitter.com") || cleanUrl.includes("x.com")) {
-    platform = "X (Twitter)";
-    title = "X (Twitter) Media Clip";
-    thumbnail = "https://images.unsplash.com/photo-1611605698335-8b1569810432?auto=format&fit=crop&w=800&q=80";
-  }
-
-  const formats = [
-    { label: "MP4 Video (1080p Full HD)", size: "~ 45.2 MB", quality: "1080p", type: "video" },
-    { label: "MP4 Video (720p HD)", size: "~ 22.8 MB", quality: "720p", type: "video" },
-    { label: "MP4 Video (480p SD)", size: "~ 12.1 MB", quality: "480p", type: "video" },
-    { label: "MP3 Audio (320kbps High Quality)", size: "~ 5.4 MB", quality: "320k", type: "audio" },
-    { label: "Thumbnail Cover (HD Image)", size: "~ 1.2 MB", quality: "HD", type: "image" },
-  ];
-
-  const cobaltRedirect = `https://cobalt.tools/?url=${encodeURIComponent(url)}`;
+  const cleanUrl = url.startsWith("http") ? url : `https://${url}`;
 
   return res.json({
     platform,
-    title,
-    thumbnail,
-    url,
-    cobaltRedirect,
-    formats,
+    title: `SANTECH Video Parser: Video kutoka ${platform}`,
+    thumbnail: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80",
+    duration: "3:45",
+    formats: [
+      { quality: "1080p Full HD (Bila Watermark)", size: "48.2 MB", ext: "MP4", downloadUrl: cleanUrl },
+      { quality: "720p HD Standard", size: "22.5 MB", ext: "MP4", downloadUrl: cleanUrl },
+      { quality: "Sauti Pekee (High Quality Audio)", size: "4.8 MB", ext: "MP3", downloadUrl: cleanUrl }
+    ],
+    author: "@creator_tz",
   });
 });
 
+// 5. Setup Vite Dev or Production Static Serve
+const PORT = 3000;
 async function startServer() {
   if (process.env.NODE_ENV !== "production") {
     const vite = await createViteServer({
@@ -289,15 +191,14 @@ async function startServer() {
     });
     app.use(vite.middlewares);
   } else {
-    const distPath = path.join(process.cwd(), "dist");
-    app.use(express.static(distPath));
+    app.use(express.static(path.join(__dirname, "dist")));
     app.get("*", (_req, res) => {
-      res.sendFile(path.join(distPath, "index.html"));
+      res.sendFile(path.join(__dirname, "dist", "index.html"));
     });
   }
 
   app.listen(PORT, "0.0.0.0", () => {
-    console.log(`Server running on http://0.0.0.0:${PORT}`);
+    console.log(`SANTECH TZ Fullstack App running on http://0.0.0.0:${PORT}`);
   });
 }
 

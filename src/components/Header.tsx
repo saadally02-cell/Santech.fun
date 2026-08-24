@@ -17,7 +17,8 @@ import {
   Sparkles,
   UserCheck,
   LogIn,
-  LogOut
+  LogOut,
+  TrendingUp
 } from 'lucide-react';
 import { CategoryId } from '../types';
 import { useAuth } from '../context/AuthContext';
@@ -59,6 +60,7 @@ export const Header: React.FC<HeaderProps> = ({
 
   const navItems = [
     { id: 'zote' as CategoryId, label: 'Nyumbani', icon: LayoutGrid },
+    { id: 'forex' as CategoryId, label: 'Forex Academy', icon: TrendingUp },
     { id: 'ai' as CategoryId, label: 'Akili Bandia', icon: Cpu },
     { id: 'dev' as CategoryId, label: 'Coding', icon: Code2 },
     { id: 'cybersecurity' as CategoryId, label: 'Usalama', icon: ShieldCheck },

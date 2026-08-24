@@ -37,6 +37,11 @@ export const Footer: React.FC<FooterProps> = ({
             <h4 className="text-xs font-black uppercase tracking-[0.2em] text-white mb-4">Nguzo Kuu</h4>
             <ul className="space-y-2.5 text-xs">
               <li>
+                <button onClick={() => onSelectCategory('forex')} className="text-[#10b981] font-bold hover:underline transition-colors cursor-pointer flex items-center gap-1">
+                  <span>📈 Forex Academy (Bible Edition)</span>
+                </button>
+              </li>
+              <li>
                 <button onClick={() => onSelectCategory('ai')} className="hover:text-[#10b981] transition-colors cursor-pointer">
                   Akili Bandia (AI & Agents)
                 </button>
