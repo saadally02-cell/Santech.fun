@@ -44,22 +44,25 @@ export const NetworkAdBanner: React.FC<NetworkAdBannerProps> = ({
         {/* Informative fallback & promotion */}
         <div className="w-full mt-2 pt-2 border-t border-white/5 flex flex-wrap items-center justify-between gap-2 text-left">
           <div>
-            <p className="text-xs font-bold text-zinc-200">
-              Jifunze Forex & Candlestick Bible Bure na Upate VPS ya Kasi
+            <p className="text-xs font-bold text-zinc-200 flex items-center gap-1.5">
+              <span className="text-[#10b981]">🌍 Airalo Global eSIM:</span>
+              <span>Intaneti ya Kasi Nchi 200+ Bila Ada za Roaming</span>
             </p>
             <p className="text-[11px] text-zinc-400">
-              Miamala ya haraka, seva zenye usalama wa hali ya juu na miongozo ya Akili Bandia.
+              Inafaa kwa wasafiri, wafanyakazi wa mbali na safari za kitalii Tanzania & Zanzibar.
             </p>
           </div>
-          <a
-            href="https://wa.me/255700000000?text=Habari%20SANTECH,%20nahitaji%20tangazo%20au%20huduma%20za%20Forex/Tech"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#10b981]/15 hover:bg-[#10b981]/25 text-[#10b981] border border-[#10b981]/30 text-[11px] font-bold transition-colors whitespace-nowrap"
-          >
-            <span>Tangaza Nasi</span>
-            <ExternalLink className="w-3 h-3" />
-          </a>
+          <div className="flex items-center gap-2">
+            <a
+              href="https://airalo.tpk.ro/MR9pD32b"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#10b981] hover:bg-emerald-400 text-black text-[11px] font-black uppercase tracking-wider transition-colors whitespace-nowrap shadow"
+            >
+              <span>Nunua eSIM ($4.50+)</span>
+              <ExternalLink className="w-3 h-3" />
+            </a>
+          </div>
         </div>
       </div>
     </div>

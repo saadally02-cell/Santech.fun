@@ -20,6 +20,7 @@ import {
 } from 'lucide-react';
 import { Article, CommentItem } from '../types';
 import { useAuth } from '../context/AuthContext';
+import { AiraloEsimBanner } from './AiraloEsimBanner';
 
 interface ArticleDetailModalProps {
   article: Article | null;
@@ -450,6 +451,9 @@ export const ArticleDetailModal: React.FC<ArticleDetailModalProps> = ({
               SANTECH TZ • Habari za Uhakika
             </div>
           </div>
+
+          {/* Airalo eSIM Global Roaming Partner */}
+          <AiraloEsimBanner variant="compact" />
 
           {/* Related Articles Slider */}
           {relatedArticles.length > 0 && (

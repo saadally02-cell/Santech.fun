@@ -21,6 +21,7 @@ import {
 } from 'lucide-react';
 import { Article } from '../types';
 import { NetworkAdBanner } from './NetworkAdBanner';
+import { AiraloEsimBanner } from './AiraloEsimBanner';
 
 interface FreelanceWorkHubSectionProps {
   onSelectArticle: (article: Article) => void;
@@ -281,6 +282,9 @@ Niko tayari kukuonyesha demo ya moja kwa moja ya mfumo unaofanya kazi!`,
           </button>
         </div>
       </div>
+
+      {/* Airalo eSIM Global Roaming for Digital Nomads */}
+      <AiraloEsimBanner variant="full" />
 
       {/* Articles Grid */}
       <div className="space-y-6">

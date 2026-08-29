@@ -28,6 +28,7 @@ import { BlockchainHubSection } from './components/BlockchainHubSection';
 import { CloudHubSection } from './components/CloudHubSection';
 import { RoboticsHubSection } from './components/RoboticsHubSection';
 import { NetworkAdBanner } from './components/NetworkAdBanner';
+import { AiraloEsimBanner } from './components/AiraloEsimBanner';
 import { Footer } from './components/Footer';
 
 import { ARTICLES_DATA, CATEGORIES } from './data/newsData';
@@ -548,6 +549,9 @@ function MainApp() {
                   </div>
                 </div>
               )}
+
+              {/* Airalo eSIM Global Roaming Partner Banner */}
+              {!searchQuery && <AiraloEsimBanner variant="full" />}
 
               {/* Swahili Audio Articles & Podcasts */}
               {!searchQuery && <AudioArticlesSection onSelectArticle={(art) => setSelectedArticle(art)} />}

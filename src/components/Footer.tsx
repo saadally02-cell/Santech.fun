@@ -106,6 +106,16 @@ export const Footer: React.FC<FooterProps> = ({
             <h4 className="text-xs font-black uppercase tracking-widest text-white mb-3">Zana & Majukwaa</h4>
             <ul className="space-y-2 text-xs">
               <li>
+                <a
+                  href="https://airalo.tpk.ro/MR9pD32b"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-emerald-400 font-bold hover:underline inline-flex items-center gap-1 text-left"
+                >
+                  🌍 Airalo Global eSIM (Nchi 200+)
+                </a>
+              </li>
+              <li>
                 <button
                   onClick={() => onSelectCategory('tools')}
                   className="text-[#10b981] hover:underline cursor-pointer font-semibold text-left"

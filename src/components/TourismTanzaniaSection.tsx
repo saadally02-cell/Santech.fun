@@ -20,6 +20,7 @@ import {
 } from 'lucide-react';
 import { Article } from '../types';
 import { NetworkAdBanner } from './NetworkAdBanner';
+import { AiraloEsimBanner } from './AiraloEsimBanner';
 
 interface TourismTanzaniaSectionProps {
   onSelectArticle: (article: Article) => void;
@@ -260,6 +261,9 @@ export const TourismTanzaniaSection: React.FC<TourismTanzaniaSectionProps> = ({
           </div>
         </div>
       </div>
+
+      {/* Airalo eSIM Travel Partner Banner */}
+      <AiraloEsimBanner variant="travel" />
 
       {/* Safari Budget Calculator */}
       <div className="bg-zinc-900 border border-yellow-500/20 rounded-3xl p-6 sm:p-8 space-y-6">

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Article } from '../types';
 import { Server, Cloud, Activity, ArrowRight, BookOpen, Database, Radio, CheckCircle, Share2, CheckCircle2, Wifi, Zap, HardDrive, Cpu } from 'lucide-react';
+import { AiraloEsimBanner } from './AiraloEsimBanner';
 
 interface CloudHubSectionProps {
   onSelectArticle: (article: Article) => void;
@@ -361,6 +362,9 @@ volumes:
           })}
         </div>
       </section>
+
+      {/* Airalo eSIM Mobile Roaming & Cloud Connectivity Partner */}
+      <AiraloEsimBanner variant="full" />
 
       {/* Cloud Articles Grid */}
       <section className="space-y-6">
