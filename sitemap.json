@@ -1,0 +1,490 @@
+{
+  "hostname": "https://santech.fun",
+  "generatedAt": "2026-11-04T19:03:04.436Z",
+  "totalPages": 63,
+  "pages": [
+    {
+      "url": "https://santech.fun/",
+      "changefreq": "daily",
+      "priority": 1,
+      "title": "SAN25 Marine Engineering | Kituo cha Uhandisi wa Meli, Mitambo, STCW na MARPOL"
+    },
+    {
+      "url": "https://santech.fun/naval-architecture",
+      "changefreq": "daily",
+      "priority": 0.98,
+      "title": "Naval Architecture Suite (Ship Hydrodynamics, Stability & Design) - SAN25"
+    },
+    {
+      "url": "https://santech.fun/hydrodynamics",
+      "changefreq": "daily",
+      "priority": 0.95,
+      "title": "Ship Hydrodynamics & Resistance Module (ITTC 1957 & Holtrop-Mennen) - SAN25"
+    },
+    {
+      "url": "https://santech.fun/ship-stability",
+      "changefreq": "daily",
+      "priority": 0.95,
+      "title": "Ship Stability & GZ Curve Laboratory (IMO 2008 Intact Stability) - SAN25"
+    },
+    {
+      "url": "https://santech.fun/ship-design",
+      "changefreq": "daily",
+      "priority": 0.95,
+      "title": "Ship Design Methodology & Evans Design Spiral Studio - SAN25"
+    },
+    {
+      "url": "https://santech.fun/injini-kuu",
+      "category": "injini-kuu",
+      "changefreq": "daily",
+      "priority": 0.9,
+      "title": "Injini Kuu & Propulsion - SAN25 Marine Engineering"
+    },
+    {
+      "url": "https://santech.fun/mitambo-msaidizi",
+      "category": "mitambo-msaidizi",
+      "changefreq": "daily",
+      "priority": 0.9,
+      "title": "Mitambo Msaidizi - SAN25 Marine Engineering"
+    },
+    {
+      "url": "https://santech.fun/umeme-na-otomesheni",
+      "category": "umeme-na-otomesheni",
+      "changefreq": "daily",
+      "priority": 0.9,
+      "title": "Umeme & Otomesheni - SAN25 Marine Engineering"
+    },
+    {
+      "url": "https://santech.fun/sheria-na-usalama",
+      "category": "sheria-na-usalama",
+      "changefreq": "daily",
+      "priority": 0.9,
+      "title": "Sheria & Usalama (IMO) - SAN25 Marine Engineering"
+    },
+    {
+      "url": "https://santech.fun/vipimo-na-miongozo",
+      "category": "vipimo-na-miongozo",
+      "changefreq": "daily",
+      "priority": 0.9,
+      "title": "Vipimo & MEO Exams - SAN25 Marine Engineering"
+    },
+    {
+      "url": "https://santech.fun/calculator",
+      "changefreq": "weekly",
+      "priority": 0.85,
+      "title": "Kikokotoo cha Meli (SFOC, Propeller Slip, ASTM 54B & OWS) - SAN25"
+    },
+    {
+      "url": "https://santech.fun/checklist",
+      "changefreq": "weekly",
+      "priority": 0.85,
+      "title": "Engine Room Watchkeeping Checklists (Pre-Departure, Bunkering & Blackout) - SAN25"
+    },
+    {
+      "url": "https://santech.fun/quiz",
+      "changefreq": "weekly",
+      "priority": 0.85,
+      "title": "MEO Class 1, 2 & 4 Exam Prep Simulator - SAN25"
+    },
+    {
+      "url": "https://santech.fun/injini-kuu/uendeshaji-na-matengenezo-ya-injini-za-man-bw-me-c",
+      "category": "injini-kuu",
+      "slug": "uendeshaji-na-matengenezo-ya-injini-za-man-bw-me-c",
+      "title": "Uendeshaji na Matengenezo ya Injini za MAN B&W ME-C za Kielektroniki",
+      "changefreq": "weekly",
+      "priority": 0.8
+    },
+    {
+      "url": "https://santech.fun/injini-kuu/sulzer-wartsila-rta-rt-flex-common-rail",
+      "category": "injini-kuu",
+      "slug": "sulzer-wartsila-rta-rt-flex-common-rail",
+      "title": "Wärtsilä-Sulzer RTA & RT-flex: Uendeshaji wa Mfumo wa Common Rail",
+      "changefreq": "weekly",
+      "priority": 0.8
+    },
+    {
+      "url": "https://santech.fun/injini-kuu/uchambuzi-wa-indicator-diagram-pmax",
+      "category": "injini-kuu",
+      "slug": "uchambuzi-wa-indicator-diagram-pmax",
+      "title": "Uchambuzi wa Indicator Diagram: Kupima Pmax, Pcomp na Indicated Power",
+      "changefreq": "weekly",
+      "priority": 0.8
+    },
+    {
+      "url": "https://santech.fun/injini-kuu/turbocharger-overhaul-na-scavenge-cooler",
+      "category": "injini-kuu",
+      "slug": "turbocharger-overhaul-na-scavenge-cooler",
+      "title": "Marine Turbocharger Overhaul, Surging na Usafi wa Scavenge Air Cooler",
+      "changefreq": "weekly",
+      "priority": 0.8
+    },
+    {
+      "url": "https://santech.fun/injini-kuu/controllable-pitch-propeller-cpp-vs-fpp",
+      "category": "injini-kuu",
+      "slug": "controllable-pitch-propeller-cpp-vs-fpp",
+      "title": "Controllable Pitch Propeller (CPP) vs Fixed Pitch (FPP) na Mfumo wa Shafting",
+      "changefreq": "weekly",
+      "priority": 0.8
+    },
+    {
+      "url": "https://santech.fun/injini-kuu/cylinder-liner-wear-cold-corrosion",
+      "category": "injini-kuu",
+      "slug": "cylinder-liner-wear-cold-corrosion",
+      "title": "Cylinder Liner Wear & Cold Corrosion kwenye Injini za Kisasa za Meli",
+      "changefreq": "weekly",
+      "priority": 0.8
+    },
+    {
+      "url": "https://santech.fun/injini-kuu/bearing-clearances-inspection-marine-engine",
+      "category": "injini-kuu",
+      "slug": "bearing-clearances-inspection-marine-engine",
+      "title": "Upimaji wa Bearing Clearances & Crankshaft Deflection kwenye Injini ya Meli",
+      "changefreq": "weekly",
+      "priority": 0.8
+    },
+    {
+      "url": "https://santech.fun/injini-kuu/crankcase-explosion-oil-mist-detector",
+      "category": "injini-kuu",
+      "slug": "crankcase-explosion-oil-mist-detector",
+      "title": "Crankcase Explosion: Visababishi, Oil Mist Detector (OMD) na Relief Valves",
+      "changefreq": "weekly",
+      "priority": 0.8
+    },
+    {
+      "url": "https://santech.fun/injini-kuu/marine-dual-fuel-engines-lng-methanol",
+      "category": "injini-kuu",
+      "slug": "marine-dual-fuel-engines-lng-methanol",
+      "title": "Marine Dual-Fuel Engines: Teknolojia ya LNG, Methanol na Ammonia",
+      "changefreq": "weekly",
+      "priority": 0.8
+    },
+    {
+      "url": "https://santech.fun/injini-kuu/stern-tube-seal-leakages-solutions",
+      "category": "injini-kuu",
+      "slug": "stern-tube-seal-leakages-solutions",
+      "title": "Stern Tube Seal Leakages: Visababishi na Mifumo ya Air Seal (Kobe/Cedervall)",
+      "changefreq": "weekly",
+      "priority": 0.8
+    },
+    {
+      "url": "https://santech.fun/mitambo-msaidizi/boilers-za-meli-na-vipimo-vya-boiler-water",
+      "category": "mitambo-msaidizi",
+      "slug": "boilers-za-meli-na-vipimo-vya-boiler-water",
+      "title": "Marine Auxiliary Boilers: Uendeshaji na Vipimo vya Boiler Feed Water",
+      "changefreq": "weekly",
+      "priority": 0.8
+    },
+    {
+      "url": "https://santech.fun/mitambo-msaidizi/alfa-laval-centrifugal-purifiers-operation",
+      "category": "mitambo-msaidizi",
+      "slug": "alfa-laval-centrifugal-purifiers-operation",
+      "title": "Alfa Laval & Westfalia Centrifugal Purifiers: Kanuni, Gravity Disc na Desludging",
+      "changefreq": "weekly",
+      "priority": 0.8
+    },
+    {
+      "url": "https://santech.fun/mitambo-msaidizi/mwongozo-wa-15-ppm-oily-water-separator",
+      "category": "mitambo-msaidizi",
+      "slug": "mwongozo-wa-15-ppm-oily-water-separator",
+      "title": "Mwongozo wa 15 PPM Oily Water Separator (OWS) na Sheria za MARPOL Annex I",
+      "changefreq": "weekly",
+      "priority": 0.8
+    },
+    {
+      "url": "https://santech.fun/mitambo-msaidizi/fresh-water-generator-fwg-salinometer",
+      "category": "mitambo-msaidizi",
+      "slug": "fresh-water-generator-fwg-salinometer",
+      "title": "Fresh Water Generator (FWG): Utendaji wa Ombwe na Salinometer Calibration",
+      "changefreq": "weekly",
+      "priority": 0.8
+    },
+    {
+      "url": "https://santech.fun/mitambo-msaidizi/shipboard-steering-gear-systems-solas",
+      "category": "mitambo-msaidizi",
+      "slug": "shipboard-steering-gear-systems-solas",
+      "title": "Shipboard Steering Gear: Mfumo wa 4-Ram Hydraulic na Emergency Steering Drills",
+      "changefreq": "weekly",
+      "priority": 0.8
+    },
+    {
+      "url": "https://santech.fun/mitambo-msaidizi/marine-air-compressor-starting-air-30-bar",
+      "category": "mitambo-msaidizi",
+      "slug": "marine-air-compressor-starting-air-30-bar",
+      "title": "Marine Air Compressors: Starting Air ya Bar 30, Unloader Valves na Bursting Discs",
+      "changefreq": "weekly",
+      "priority": 0.8
+    },
+    {
+      "url": "https://santech.fun/mitambo-msaidizi/marine-sewage-treatment-plant-mepc-227",
+      "category": "mitambo-msaidizi",
+      "slug": "marine-sewage-treatment-plant-mepc-227",
+      "title": "Sewage Treatment Plant (STP) Melini: Kanuni za IMO MEPC.227(64) na Bakteria",
+      "changefreq": "weekly",
+      "priority": 0.8
+    },
+    {
+      "url": "https://santech.fun/mitambo-msaidizi/marine-plate-heat-exchangers-cleaning-gaskets",
+      "category": "mitambo-msaidizi",
+      "slug": "marine-plate-heat-exchangers-cleaning-gaskets",
+      "title": "Marine Plate Heat Exchangers (PHE): Kusafisha, Gaskets na Mtihani wa Presha",
+      "changefreq": "weekly",
+      "priority": 0.8
+    },
+    {
+      "url": "https://santech.fun/mitambo-msaidizi/marine-refrigeration-provision-plant-troubleshooting",
+      "category": "mitambo-msaidizi",
+      "slug": "marine-refrigeration-provision-plant-troubleshooting",
+      "title": "Marine Provision Refrigeration Plant: Gesi ya R404A/R134a, Expansion Valves na Defrosting",
+      "changefreq": "weekly",
+      "priority": 0.8
+    },
+    {
+      "url": "https://santech.fun/mitambo-msaidizi/emergency-bilge-suction-catastrophic-flooding",
+      "category": "mitambo-msaidizi",
+      "slug": "emergency-bilge-suction-catastrophic-flooding",
+      "title": "Emergency Bilge Suction: Utaratibu wa Dharura Wakati wa Maji Kuingia Engine Room",
+      "changefreq": "weekly",
+      "priority": 0.8
+    },
+    {
+      "url": "https://santech.fun/umeme-na-otomesheni/marine-alternator-synchronization-synchroscope",
+      "category": "umeme-na-otomesheni",
+      "slug": "marine-alternator-synchronization-synchroscope",
+      "title": "Marine Alternator Synchronization: Mbinu za Synchroscope na Taa (Dark/Bright Lamps)",
+      "changefreq": "weekly",
+      "priority": 0.8
+    },
+    {
+      "url": "https://santech.fun/umeme-na-otomesheni/high-voltage-6-6kv-marine-systems-safety",
+      "category": "umeme-na-otomesheni",
+      "slug": "high-voltage-6-6kv-marine-systems-safety",
+      "title": "High Voltage (HV 6.6 kV / 11 kV) Kwenye Meli: Sheria za Usalama na Arc Flash",
+      "changefreq": "weekly",
+      "priority": 0.8
+    },
+    {
+      "url": "https://santech.fun/umeme-na-otomesheni/emergency-switchboard-blackout-recovery",
+      "category": "umeme-na-otomesheni",
+      "slug": "emergency-switchboard-blackout-recovery",
+      "title": "Emergency Switchboard (ESB) & Blackout Recovery Ndani ya Sekunde 45",
+      "changefreq": "weekly",
+      "priority": 0.8
+    },
+    {
+      "url": "https://santech.fun/umeme-na-otomesheni/marine-440v-insulated-neutral-earth-fault",
+      "category": "umeme-na-otomesheni",
+      "slug": "marine-440v-insulated-neutral-earth-fault",
+      "title": "Mfumo wa 440V Insulated Neutral (IT System) na Kutatua Earth Faults Melini",
+      "changefreq": "weekly",
+      "priority": 0.8
+    },
+    {
+      "url": "https://santech.fun/umeme-na-otomesheni/power-management-system-pms-load-sharing",
+      "category": "umeme-na-otomesheni",
+      "slug": "power-management-system-pms-load-sharing",
+      "title": "Power Management System (PMS): Usimamizi wa Mizigo, Auto Start na Preferential Trip",
+      "changefreq": "weekly",
+      "priority": 0.8
+    },
+    {
+      "url": "https://santech.fun/umeme-na-otomesheni/upimaji-wa-insulation-resistance-megger-test",
+      "category": "umeme-na-otomesheni",
+      "slug": "upimaji-wa-insulation-resistance-megger-test",
+      "title": "Upimaji wa Insulation Resistance kwa Megger Tester: Kanuni za 1 Megaohm",
+      "changefreq": "weekly",
+      "priority": 0.8
+    },
+    {
+      "url": "https://santech.fun/umeme-na-otomesheni/marine-batteries-maintenance-gmdss-rules",
+      "category": "umeme-na-otomesheni",
+      "slug": "marine-batteries-maintenance-gmdss-rules",
+      "title": "Marine Batteries & GMDSS Radio Batteries: Matengenezo na Sheria za SOLAS",
+      "changefreq": "weekly",
+      "priority": 0.8
+    },
+    {
+      "url": "https://santech.fun/umeme-na-otomesheni/programmable-logic-controllers-marine-automation",
+      "category": "umeme-na-otomesheni",
+      "slug": "programmable-logic-controllers-marine-automation",
+      "title": "Programmable Logic Controllers (PLC) na Sensor Loops (4-20mA) Melini",
+      "changefreq": "weekly",
+      "priority": 0.8
+    },
+    {
+      "url": "https://santech.fun/umeme-na-otomesheni/marine-electronic-governor-woodward-speed-control",
+      "category": "umeme-na-otomesheni",
+      "slug": "marine-electronic-governor-woodward-speed-control",
+      "title": "Marine Electronic Governors: Udhibiti wa Kasi (Woodward & Nabtesco) na Droop",
+      "changefreq": "weekly",
+      "priority": 0.8
+    },
+    {
+      "url": "https://santech.fun/umeme-na-otomesheni/shaft-generators-power-take-off-pto-systems",
+      "category": "umeme-na-otomesheni",
+      "slug": "shaft-generators-power-take-off-pto-systems",
+      "title": "Shaft Generators & Power Take Off (PTO): Uokoaji wa Mafuta na Frequency Converters",
+      "changefreq": "weekly",
+      "priority": 0.8
+    },
+    {
+      "url": "https://santech.fun/sheria-na-usalama/ujazaji-sahihi-wa-oil-record-book-part-1",
+      "category": "sheria-na-usalama",
+      "slug": "ujazaji-sahihi-wa-oil-record-book-part-1",
+      "title": "Ujazaji Sahihi wa Oil Record Book Part I (Machinery) Bila Makosa ya PSC",
+      "changefreq": "weekly",
+      "priority": 0.8
+    },
+    {
+      "url": "https://santech.fun/sheria-na-usalama/marpol-annex-vi-sox-nox-scrubbers",
+      "category": "sheria-na-usalama",
+      "slug": "marpol-annex-vi-sox-nox-scrubbers",
+      "title": "MARPOL Annex VI: SOx Scrubber Systems, Tier III NOx na Viwango vya EEXI/CII",
+      "changefreq": "weekly",
+      "priority": 0.8
+    },
+    {
+      "url": "https://santech.fun/sheria-na-usalama/solas-fire-fighting-appliances-co2",
+      "category": "sheria-na-usalama",
+      "slug": "solas-fire-fighting-appliances-co2",
+      "title": "SOLAS Fire Fighting Appliances (FFA): Mtambo wa Fixed CO2 na Usalama Wake",
+      "changefreq": "weekly",
+      "priority": 0.8
+    },
+    {
+      "url": "https://santech.fun/sheria-na-usalama/stcw-2010-marine-engineer-officer-coc-exams",
+      "category": "sheria-na-usalama",
+      "slug": "stcw-2010-marine-engineer-officer-coc-exams",
+      "title": "STCW 2010 MEO Class 1, 2 na 4: Muundo wa Mitihani na Vigezo vya Kupata Cheti (CoC)",
+      "changefreq": "weekly",
+      "priority": 0.8
+    },
+    {
+      "url": "https://santech.fun/sheria-na-usalama/psc-engine-room-inspection-checklist",
+      "category": "sheria-na-usalama",
+      "slug": "psc-engine-room-inspection-checklist",
+      "title": "Port State Control (PSC) Engine Room Checklist: Mbinu za Kupata Zero Detention",
+      "changefreq": "weekly",
+      "priority": 0.8
+    },
+    {
+      "url": "https://santech.fun/sheria-na-usalama/ism-code-enclosed-space-entry-permit",
+      "category": "sheria-na-usalama",
+      "slug": "ism-code-enclosed-space-entry-permit",
+      "title": "ISM Code & Enclosed Space Entry: Mwongozo wa Kuingia Ndani ya Mizinga kwa Usalama",
+      "changefreq": "weekly",
+      "priority": 0.8
+    },
+    {
+      "url": "https://santech.fun/sheria-na-usalama/ballast-water-management-convention-bwmc-systems",
+      "category": "sheria-na-usalama",
+      "slug": "ballast-water-management-convention-bwmc-systems",
+      "title": "Ballast Water Management Convention (BWMC): Mifumo ya UV na Electro-Chlorination",
+      "changefreq": "weekly",
+      "priority": 0.8
+    },
+    {
+      "url": "https://santech.fun/sheria-na-usalama/maritime-labour-convention-mlc-2006",
+      "category": "sheria-na-usalama",
+      "slug": "maritime-labour-convention-mlc-2006",
+      "title": "Maritime Labour Convention (MLC 2006): Masaa ya Kupumzika na Haki za Mabaharia",
+      "changefreq": "weekly",
+      "priority": 0.8
+    },
+    {
+      "url": "https://santech.fun/sheria-na-usalama/lifeboat-engine-inspection-maintenance-solas",
+      "category": "sheria-na-usalama",
+      "slug": "lifeboat-engine-inspection-maintenance-solas",
+      "title": "Lifeboat Engine & Launching Appliances: Ukaguzi na Majaribio Chini ya SOLAS",
+      "changefreq": "weekly",
+      "priority": 0.8
+    },
+    {
+      "url": "https://santech.fun/sheria-na-usalama/drydocking-procedures-sea-valves-survey",
+      "category": "sheria-na-usalama",
+      "slug": "drydocking-procedures-sea-valves-survey",
+      "title": "Drydocking Procedures: Ukaguzi wa Sea Chest Valves, Anodes na Tailshaft Survey",
+      "changefreq": "weekly",
+      "priority": 0.8
+    },
+    {
+      "url": "https://santech.fun/vipimo-na-miongozo/sfoc-na-engine-brake-horsepower-formula",
+      "category": "vipimo-na-miongozo",
+      "slug": "sfoc-na-engine-brake-horsepower-formula",
+      "title": "SFOC na Engine Brake Horsepower: Fomula, Hesabu na Uchambuzi wa Mafuta",
+      "changefreq": "weekly",
+      "priority": 0.8
+    },
+    {
+      "url": "https://santech.fun/vipimo-na-miongozo/propeller-slip-na-ship-speed-calculation",
+      "category": "vipimo-na-miongozo",
+      "slug": "propeller-slip-na-ship-speed-calculation",
+      "title": "Ukokotoaji wa Propeller Slip: Apparent Slip, Real Slip na Daily Noon Reports",
+      "changefreq": "weekly",
+      "priority": 0.8
+    },
+    {
+      "url": "https://santech.fun/vipimo-na-miongozo/hatua-za-scavenge-fire-emergency",
+      "category": "vipimo-na-miongozo",
+      "slug": "hatua-za-scavenge-fire-emergency",
+      "title": "Hatua za Kuchukua Wakati wa Scavenge Fire Katika Engine Room",
+      "changefreq": "weekly",
+      "priority": 0.8
+    },
+    {
+      "url": "https://santech.fun/vipimo-na-miongozo/marine-chief-engineer-top-oral-exam-questions",
+      "category": "vipimo-na-miongozo",
+      "slug": "marine-chief-engineer-top-oral-exam-questions",
+      "title": "Maswali 50 Bora ya Mtihani wa Oral wa Marine Chief Engineer (MEO Class 1 & 2)",
+      "changefreq": "weekly",
+      "priority": 0.8
+    },
+    {
+      "url": "https://santech.fun/vipimo-na-miongozo/bunkering-operation-safety-checklist",
+      "category": "vipimo-na-miongozo",
+      "slug": "bunkering-operation-safety-checklist",
+      "title": "Miongozo ya Bunkering na Usalama wa Kupokea Mafuta Melini (ISGOTT Checklist)",
+      "changefreq": "weekly",
+      "priority": 0.8
+    },
+    {
+      "url": "https://santech.fun/vipimo-na-miongozo/boiler-flame-failure-troubleshooting",
+      "category": "vipimo-na-miongozo",
+      "slug": "boiler-flame-failure-troubleshooting",
+      "title": "Boiler Flame Failure: Utatuzi wa Photocell, Solenoid Valves na Pre-Purge",
+      "changefreq": "weekly",
+      "priority": 0.8
+    },
+    {
+      "url": "https://santech.fun/vipimo-na-miongozo/ship-hydrostatic-stability-engineers-perspective",
+      "category": "vipimo-na-miongozo",
+      "slug": "ship-hydrostatic-stability-engineers-perspective",
+      "title": "Ship Stability & Trim kwa Wahandisi wa Meli: GM, GZ Curve na Uhamishaji wa Maji",
+      "changefreq": "weekly",
+      "priority": 0.8
+    },
+    {
+      "url": "https://santech.fun/vipimo-na-miongozo/astm-tables-54b-fuel-density-temperature-correction",
+      "category": "vipimo-na-miongozo",
+      "slug": "astm-tables-54b-fuel-density-temperature-correction",
+      "title": "ASTM Tables 54B: Kurekebisha Wiani wa Mafuta kulingana na Joto na Kupima Tani",
+      "changefreq": "weekly",
+      "priority": 0.8
+    },
+    {
+      "url": "https://santech.fun/vipimo-na-miongozo/planimeter-indicator-card-ihp-calculation",
+      "category": "vipimo-na-miongozo",
+      "slug": "planimeter-indicator-card-ihp-calculation",
+      "title": "Kupima Indicated Horsepower (IHP) kwa Planimeter na Mechanical Indicator",
+      "changefreq": "weekly",
+      "priority": 0.8
+    },
+    {
+      "url": "https://santech.fun/vipimo-na-miongozo/career-roadmap-marine-engineering-tanzania-global",
+      "category": "vipimo-na-miongozo",
+      "slug": "career-roadmap-marine-engineering-tanzania-global",
+      "title": "Njia ya Ajira ya Uhandisi wa Meli Tanzania na Kimataifa (DMI, TASAC na Maersk)",
+      "changefreq": "weekly",
+      "priority": 0.8
+    }
+  ]
+}

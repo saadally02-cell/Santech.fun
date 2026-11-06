@@ -1,5 +1,5 @@
 import React from 'react';
-import { Bot, X, Send, Sparkles, User, RefreshCw } from 'lucide-react';
+import { Bot, X, Send, Anchor, User, RefreshCw, Ship } from 'lucide-react';
 import { ChatMessage } from '../types';
 
 interface AiAssistantDrawerProps {
@@ -12,7 +12,7 @@ export const AiAssistantDrawer: React.FC<AiAssistantDrawerProps> = ({ isOpen, on
     {
       id: 'welcome',
       sender: 'ai',
-      text: 'Habari! Mimi ni SANTECH AI Assistant. Ninaweza kukusaidia kuelewa Teknolojia, Akili Bandia, Kazi za Mtandaoni (Freelancing), au kupanga Safari za Utalii Tanzania. Una swali gani leo?',
+      text: 'Habari Afisa Mhandisi! Mimi ni SAN25 Chief Engineer AI Assistant. Ninaweza kukusaidia kuhusu: Uendeshaji wa Injini za MAN B&W & WinGD, Matatizo ya Boilers & Purifiers, Mifumo ya Umeme ya 6.6kV & ESB Blackout Recovery, Kanuni za SOLAS & MARPOL, Hesabu za SFOC/Slip, au kujiandaa na Mitihani ya TASAC MEO Class 1, 2, na 4. Una changamoto gani ya kiufundi leo?',
       timestamp: 'Sasa hivi',
     },
   ]);
@@ -31,11 +31,12 @@ export const AiAssistantDrawer: React.FC<AiAssistantDrawerProps> = ({ isOpen, on
   if (!isOpen) return null;
 
   const quickPrompts = [
-    'Nifundishe mkakati wa Pin Bar & Engulfing kwenye Forex',
-    'Jinsi ya kuanza Upwork & Fiverr TZ?',
-    'Nieleze kuhusu Utalii wa Serengeti & Zanzibar',
-    'Akili Bandia na Gemini 3.7 Flash zinanisaidiaje?',
-    'Fomula ya kukokotoa Lot Size & Risk Management',
+    'Hatua za kuzima Scavenge Fire kwenye injini kuu',
+    'Jinsi ya kukokotoa Propeller Slip & SFOC',
+    'Maswali ya mtihani wa Oral wa MEO Class 2 TASAC',
+    'Kwanini 15 PPM OWS inashindwa kutoa maji baharini?',
+    'Mbinu za Alternator Synchronization kwa Synchroscope',
+    'Ujazaji sahihi wa Oil Record Book Part I Code C & D',
   ];
 
   const handleSendMessage = async (userText: string) => {
@@ -59,130 +60,146 @@ export const AiAssistantDrawer: React.FC<AiAssistantDrawerProps> = ({ isOpen, on
         body: JSON.stringify({ message: userText.trim() }),
       });
 
+      if (!res.ok) {
+        throw new Error('Hitilafu ya seva');
+      }
+
       const data = await res.json();
-      const aiMsg: ChatMessage = {
+      const aiReply: ChatMessage = {
         id: (Date.now() + 1).toString(),
         sender: 'ai',
-        text: data.reply || 'Samahani, sijafanikiwa kupata jibu kwa sasa.',
+        text: data.reply || 'Samahani, sikupokea jibu sahihi kutoka kwa mfumo wa Marine AI.',
         timestamp: new Date().toLocaleTimeString('sw-TZ', { hour: '2-digit', minute: '2-digit' }),
       };
 
-      setMessages((prev) => [...prev, aiMsg]);
+      setMessages((prev) => [...prev, aiReply]);
     } catch (err) {
-      setMessages((prev) => [
-        ...prev,
-        {
-          id: (Date.now() + 1).toString(),
-          sender: 'ai',
-          text: 'Imetokea changamoto ndogo ya mtandao. Tafadhali jaribu kuuliza tena.',
-          timestamp: 'Sasa hivi',
-        },
-      ]);
+      const errorReply: ChatMessage = {
+        id: (Date.now() + 1).toString(),
+        sender: 'ai',
+        text: '[C/Eng Technical Advisor]: Mtandao wa dharura wa Marine AI unafanya kazi. Kwa maswali ya kiufundi kuhusu MAN B&W, Boilers, OWS 15ppm au STCW MEO Viva, rejea pia makala zetu za vitengo vya Injini Kuu, Mitambo Msaidizi na Vipimo.',
+        timestamp: new Date().toLocaleTimeString('sw-TZ', { hour: '2-digit', minute: '2-digit' }),
+      };
+      setMessages((prev) => [...prev, errorReply]);
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex justify-end bg-black/80 backdrop-blur-sm animate-fadeIn">
-      <div className="w-full max-w-md bg-zinc-900 border-l border-white/10 h-full flex flex-col shadow-2xl max-w-full overflow-hidden">
-        {/* Header */}
-        <div className="p-4 bg-zinc-950 border-b border-white/10 flex items-center justify-between">
-          <div className="flex items-center gap-2.5">
-            <div className="w-9 h-9 rounded-xl bg-[#10b981]/20 border border-[#10b981]/40 flex items-center justify-center text-[#10b981]">
-              <Bot className="w-5 h-5 animate-pulse" />
+    <div className="fixed inset-0 z-50 overflow-hidden bg-black/70 backdrop-blur-sm flex justify-end">
+      <div className="w-full max-w-lg bg-zinc-950 border-l border-white/10 h-full flex flex-col shadow-2xl animate-slideIn">
+        {/* Drawer Header */}
+        <div className="p-4 border-b border-white/10 flex items-center justify-between bg-zinc-900/80">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-[#FFC107] text-black flex items-center justify-center font-black shadow-md border-2 border-amber-300">
+              <Ship className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="text-sm font-extrabold text-white">SANTECH AI Assistant</h3>
-              <p className="text-[10px] text-[#10b981] font-medium uppercase tracking-wider">Msaidizi wa Swahili AI • Gemini Powered</p>
+              <div className="flex items-center gap-2">
+                <h3 className="font-black text-sm text-white">SAN25 Chief Engineer AI</h3>
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              </div>
+              <p className="text-[10px] text-zinc-400 font-semibold">
+                Marine Engineering & STCW Diagnostic Assistant
+              </p>
             </div>
           </div>
-
           <button
             onClick={onClose}
-            className="p-1.5 text-zinc-400 hover:text-white bg-zinc-800 rounded border border-white/10 transition-colors cursor-pointer"
+            className="p-2 text-zinc-400 hover:text-white bg-white/5 rounded-xl transition-colors cursor-pointer"
           >
-            <X className="w-5 h-5" />
+            <X className="w-4 h-4" />
           </button>
         </div>
 
-        {/* Quick Suggestion Chips */}
-        <div className="p-3 bg-zinc-900/90 border-b border-white/10 flex gap-2 overflow-x-auto scrollbar-none">
+        {/* Quick Prompts Container */}
+        <div className="p-3 bg-black/60 border-b border-white/5 overflow-x-auto flex gap-2 no-scrollbar">
           {quickPrompts.map((prompt, i) => (
             <button
               key={i}
               onClick={() => handleSendMessage(prompt)}
-              className="text-[11px] font-semibold bg-zinc-800 hover:bg-zinc-700 text-zinc-300 hover:text-white px-3 py-1 rounded border border-white/10 shrink-0 transition-colors cursor-pointer"
+              className="text-[10px] bg-white/5 hover:bg-[#FFC107] hover:text-black text-zinc-300 border border-white/10 px-2.5 py-1 rounded-lg shrink-0 transition-colors font-semibold cursor-pointer"
             >
-              ✨ {prompt}
+              {prompt}
             </button>
           ))}
         </div>
 
-        {/* Chat Messages */}
-        <div className="flex-1 p-4 overflow-y-auto space-y-3 bg-zinc-950/60">
+        {/* Messages List */}
+        <div className="flex-1 p-4 overflow-y-auto space-y-4">
           {messages.map((msg) => (
             <div
               key={msg.id}
-              className={`flex items-start gap-2.5 ${msg.sender === 'user' ? 'flex-row-reverse' : ''}`}
+              className={`flex gap-3 ${msg.sender === 'user' ? 'flex-row-reverse' : 'flex-row'}`}
             >
               <div
-                className={`w-7 h-7 rounded flex items-center justify-center text-xs shrink-0 ${
-                  msg.sender === 'user' ? 'bg-[#10b981] text-black font-bold' : 'bg-zinc-800 text-[#10b981] border border-white/10'
+                className={`w-7 h-7 rounded-lg flex items-center justify-center text-xs shrink-0 ${
+                  msg.sender === 'user' ? 'bg-[#FFC107] text-black font-bold' : 'bg-blue-600/30 text-blue-400 border border-blue-500/40'
                 }`}
               >
-                {msg.sender === 'user' ? <User className="w-4 h-4" /> : <Bot className="w-4 h-4" />}
+                {msg.sender === 'user' ? <User className="w-3.5 h-3.5" /> : <Anchor className="w-3.5 h-3.5" />}
               </div>
-
               <div
-                className={`max-w-[82%] p-3 rounded-xl text-xs leading-relaxed ${
+                className={`max-w-[85%] rounded-2xl p-3.5 text-xs leading-relaxed ${
                   msg.sender === 'user'
-                    ? 'bg-[#10b981] text-black font-medium rounded-tr-none'
-                    : 'bg-zinc-900 border border-white/10 text-zinc-200 rounded-tl-none'
+                    ? 'bg-[#FFC107] text-black font-semibold rounded-tr-none shadow-md'
+                    : 'bg-zinc-900 border border-white/10 text-zinc-200 rounded-tl-none whitespace-pre-wrap'
                 }`}
               >
-                <p className="whitespace-pre-line">{msg.text}</p>
-                <span className={`block text-[9px] mt-1 ${msg.sender === 'user' ? 'text-black/70 text-right' : 'text-zinc-500'}`}>
+                {msg.text}
+                <div
+                  className={`text-[9px] mt-1.5 font-mono ${
+                    msg.sender === 'user' ? 'text-black/60 text-right' : 'text-zinc-500'
+                  }`}
+                >
                   {msg.timestamp}
-                </span>
+                </div>
               </div>
             </div>
           ))}
-
           {loading && (
-            <div className="flex items-center gap-2 text-xs text-[#10b981] p-2 bg-zinc-900 border border-white/10 rounded-xl w-fit">
-              <RefreshCw className="w-3.5 h-3.5 animate-spin" />
-              <span>SANTECH AI inaandika jibu...</span>
+            <div className="flex gap-3">
+              <div className="w-7 h-7 rounded-lg bg-blue-600/30 text-blue-400 border border-blue-500/40 flex items-center justify-center text-xs">
+                <Anchor className="w-3.5 h-3.5 animate-spin" />
+              </div>
+              <div className="bg-zinc-900 border border-white/10 rounded-2xl rounded-tl-none p-3 text-xs text-zinc-400 flex items-center gap-2">
+                <RefreshCw className="w-3.5 h-3.5 animate-spin text-[#FFC107]" />
+                <span>Chief Engineer anachambua mwongozo wa mtambo...</span>
+              </div>
             </div>
           )}
-
           <div ref={messagesEndRef} />
         </div>
 
         {/* Input Bar */}
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            handleSendMessage(input);
-          }}
-          className="p-3 bg-zinc-950 border-t border-white/10 flex gap-2"
-        >
-          <input
-            type="text"
-            placeholder="Uliza chochote kwa Kiswahili..."
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            disabled={loading}
-            className="flex-1 bg-zinc-800 border border-white/10 text-white text-xs px-3 py-2.5 rounded focus:outline-none focus:border-[#10b981]"
-          />
-          <button
-            type="submit"
-            disabled={loading || !input.trim()}
-            className="bg-[#10b981] hover:bg-emerald-400 disabled:opacity-50 text-black font-bold px-3.5 rounded transition-colors flex items-center justify-center cursor-pointer"
+        <div className="p-4 border-t border-white/10 bg-zinc-900/90">
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleSendMessage(input);
+            }}
+            className="flex gap-2"
           >
-            <Send className="w-4 h-4" />
-          </button>
-        </form>
+            <input
+              type="text"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder="Uliza swali la MAN B&W, Boilers, OWS, HV, SOLAS..."
+              className="flex-1 bg-black border border-white/10 rounded-xl px-3 py-2 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-[#FFC107]"
+            />
+            <button
+              type="submit"
+              disabled={loading || !input.trim()}
+              className="px-3.5 bg-[#FFC107] hover:bg-amber-400 text-black rounded-xl text-xs font-bold transition-all disabled:opacity-40 cursor-pointer flex items-center justify-center"
+            >
+              <Send className="w-3.5 h-3.5" />
+            </button>
+          </form>
+          <p className="text-[10px] text-zinc-500 text-center mt-2">
+            Inaendeshwa na Gemini 3.7 Pro Maritime Engine • SAN25 Marine Engineering
+          </p>
+        </div>
       </div>
     </div>
   );

@@ -9,7 +9,7 @@ export const TechShowcaseSection: React.FC = () => {
 
   const filteredItems = activeTab === 'zote'
     ? TECH_SHOWCASE_DATA
-    : TECH_SHOWCASE_DATA.filter((item) => item.category.toLowerCase().includes(activeTab.toLowerCase()));
+    : TECH_SHOWCASE_DATA.filter((item) => (item.category || item.tag || '').toLowerCase().includes(activeTab.toLowerCase()));
 
   return (
     <section id="tech-showcase" className="my-12 space-y-6">
@@ -82,7 +82,7 @@ export const TechShowcaseSection: React.FC = () => {
             <div className="p-5 flex-1 flex flex-col justify-between space-y-4">
               <div>
                 <span className="text-[10px] text-zinc-500 font-bold uppercase tracking-widest block mb-1">
-                  YEAR {item.year} • HARDWARE SPEC
+                  YEAR {item.year || '2026'} • HARDWARE SPEC
                 </span>
                 <h3 className="text-base font-extrabold text-white group-hover:text-[#10b981] transition-colors line-clamp-1">
                   {item.title}
@@ -100,14 +100,14 @@ export const TechShowcaseSection: React.FC = () => {
                       key={i}
                       className="text-[10px] font-mono bg-zinc-900 text-zinc-300 px-2 py-0.5 rounded border border-white/10"
                     >
-                      ⚡ {spec}
+                      ⚡ {spec.label}: {spec.value}
                     </span>
                   ))}
                 </div>
 
                 <div className="flex items-center justify-between text-xs text-[#10b981] font-semibold pt-1">
                   <span className="flex items-center gap-1 text-[11px]">
-                    <Sparkles className="w-3.5 h-3.5" /> {item.impact}
+                    <Sparkles className="w-3.5 h-3.5" /> {item.impact || item.tag}
                   </span>
                   <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </div>
@@ -125,9 +125,9 @@ export const TechShowcaseSection: React.FC = () => {
             <div className="p-4 bg-zinc-950 border-b border-white/10 flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <span className="px-2.5 py-0.5 rounded text-[10px] font-extrabold uppercase tracking-widest bg-[#10b981]/20 text-[#10b981] border border-[#10b981]/30">
-                  {selectedItem.category}
+                  {selectedItem.category || selectedItem.tag}
                 </span>
-                <span className="text-xs text-zinc-400 font-bold uppercase tracking-wider">SANTECH HARDWARE SPOTLIGHT</span>
+                <span className="text-xs text-zinc-400 font-bold uppercase tracking-wider">SAN25 MARINE HARDWARE SPOTLIGHT</span>
               </div>
               <button
                 onClick={() => setSelectedItem(null)}
@@ -152,7 +152,7 @@ export const TechShowcaseSection: React.FC = () => {
                   {selectedItem.title}
                 </h2>
                 <p className="text-xs text-[#10b981] font-bold uppercase tracking-wider mb-4">
-                  {selectedItem.subtitle}
+                  {selectedItem.subtitle || selectedItem.tag}
                 </p>
                 <p className="text-sm text-zinc-300 leading-relaxed">
                   {selectedItem.description}
@@ -164,11 +164,11 @@ export const TechShowcaseSection: React.FC = () => {
                 <h4 className="text-xs font-black uppercase tracking-[0.2em] text-zinc-300 flex items-center gap-2">
                   <Zap className="w-4 h-4 text-[#10b981]" /> Vipimo vya Kiufundi (Technical Specifications)
                 </h4>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                   {selectedItem.specs.map((spec, idx) => (
                     <div key={idx} className="p-2.5 bg-zinc-900 rounded border border-white/10 text-xs font-mono text-zinc-200 flex items-center gap-2">
                       <span className="w-2 h-2 rounded-full bg-[#10b981]" />
-                      {spec}
+                      <span><span className="text-zinc-400">{spec.label}:</span> {spec.value}</span>
                     </div>
                   ))}
                 </div>
@@ -179,7 +179,7 @@ export const TechShowcaseSection: React.FC = () => {
                 <Shield className="w-6 h-6 text-[#10b981] shrink-0" />
                 <div>
                   <h5 className="text-xs font-bold text-white uppercase tracking-wider">Athari Katika Sekta:</h5>
-                  <p className="text-xs text-[#10b981] font-semibold">{selectedItem.impact}</p>
+                  <p className="text-xs text-[#10b981] font-semibold">{selectedItem.impact || selectedItem.tag}</p>
                 </div>
               </div>
             </div>

@@ -1,39 +1,32 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Search,
-  Moon,
   Sun,
+  Moon,
   Bookmark,
-  Bot,
-  LayoutGrid,
-  Cpu,
-  Coins,
-  Briefcase,
-  Code2,
-  ShieldCheck,
-  Server,
   Menu,
   X,
-  Sparkles,
-  UserCheck,
-  LogIn,
-  LogOut,
-  TrendingUp,
-  Compass,
-  Info,
+  Ship,
+  Wrench,
+  Zap,
+  ShieldAlert,
+  Calculator,
+  Anchor,
+  Bot,
   HelpCircle,
-  Volume2,
-  Users,
-  Layers
+  FileText,
+  ClipboardCheck,
+  CheckCircle2,
+  Compass,
+  Waves
 } from 'lucide-react';
 import { CategoryId } from '../types';
-import { useAuth } from '../context/AuthContext';
 
 interface HeaderProps {
   theme: 'dark' | 'light';
   onToggleTheme: () => void;
   searchQuery: string;
-  onSearchChange: (query: string) => void;
+  onSearchChange: (q: string) => void;
   activeCategory: CategoryId;
   onSelectCategory: (cat: CategoryId) => void;
   bookmarksCount: number;
@@ -54,66 +47,62 @@ export const Header: React.FC<HeaderProps> = ({
   onOpenAiAssistant,
   onScrollToTools,
 }) => {
-  const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
-  const { currentUser, loginWithGoogle, logoutUser } = useAuth();
-
-  const todayFormatted = new Date().toLocaleDateString('sw-TZ', {
-    weekday: 'long',
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric'
-  });
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const mainNavItems = [
     { id: 'zote' as CategoryId, label: 'Nyumbani' },
-    { id: 'forex' as CategoryId, label: 'Forex Academy' },
-    { id: 'utalii' as CategoryId, label: 'Utalii TZ' },
-    { id: 'kazi' as CategoryId, label: 'Kazi Mtandaoni' },
-    { id: 'ai' as CategoryId, label: 'Akili Bandia' },
-    { id: 'dev' as CategoryId, label: 'Dev Hub' },
+    { id: 'naval-architecture' as CategoryId, label: 'Naval Architecture' },
+    { id: 'injini-kuu' as CategoryId, label: 'Injini Kuu' },
+    { id: 'mitambo-msaidizi' as CategoryId, label: 'Mitambo Msaidizi' },
+    { id: 'umeme-na-otomesheni' as CategoryId, label: 'Umeme & Otomesheni' },
+    { id: 'sheria-na-usalama' as CategoryId, label: 'Sheria (IMO)' },
+    { id: 'vipimo-na-miongozo' as CategoryId, label: 'Vipimo & MEO' },
   ];
 
   const allCategoryItems = [
-    { id: 'zote' as CategoryId, label: 'Nyumbani', icon: LayoutGrid },
-    { id: 'forex' as CategoryId, label: 'Forex Academy', icon: TrendingUp },
-    { id: 'candlestick' as CategoryId, label: 'Candlestick Bible', icon: Sparkles },
-    { id: 'smc' as CategoryId, label: 'Smart Money (SMC)', icon: TrendingUp },
-    { id: 'ai' as CategoryId, label: 'Akili Bandia (AI)', icon: Cpu },
-    { id: 'dev' as CategoryId, label: 'Dev & Coding', icon: Code2 },
-    { id: 'utalii' as CategoryId, label: 'Utalii wa Tanzania', icon: Compass },
-    { id: 'kazi' as CategoryId, label: 'Kazi Mtandaoni', icon: Briefcase },
-    { id: 'cybersecurity' as CategoryId, label: 'Usalama wa Mtandao', icon: ShieldCheck },
-    { id: 'blockchain' as CategoryId, label: 'FinTech & Web3', icon: Coins },
-    { id: 'cloud' as CategoryId, label: 'Cloud & Seva', icon: Server },
-    { id: 'gadgets' as CategoryId, label: 'Robotics & Hardware', icon: Bot },
-    { id: 'tools' as CategoryId, label: 'Zana za Kidijitali', icon: Sparkles },
-    { id: 'quiz' as CategoryId, label: 'Tech Quiz & Jaribio', icon: HelpCircle },
-    { id: 'audio' as CategoryId, label: 'Makala za Sauti', icon: Volume2 },
-    { id: 'forum' as CategoryId, label: 'Jukwaa la Jamii', icon: Users },
-    { id: 'showcase' as CategoryId, label: 'Maonyesho ya Teknolojia', icon: Layers },
-    { id: 'kuhusu' as CategoryId, label: 'Kuhusu Sisi', icon: Info },
+    { id: 'zote' as CategoryId, label: 'Nyumbani (Marine Hub)', icon: Anchor },
+    { id: 'naval-architecture' as CategoryId, label: 'Naval Architecture (Hydrodynamics, Stability & Design)', icon: Compass },
+    { id: 'injini-kuu' as CategoryId, label: 'Injini Kuu & Propulsion', icon: Ship },
+    { id: 'mitambo-msaidizi' as CategoryId, label: 'Mitambo Msaidizi (Auxiliary)', icon: Wrench },
+    { id: 'umeme-na-otomesheni' as CategoryId, label: 'Umeme, HV & Otomesheni', icon: Zap },
+    { id: 'sheria-na-usalama' as CategoryId, label: 'Sheria za IMO, SOLAS & MARPOL', icon: ShieldAlert },
+    { id: 'vipimo-na-miongozo' as CategoryId, label: 'Vipimo, SFOC & Mitihani', icon: Calculator },
+    { id: 'checklist' as CategoryId, label: 'Engine Room Checklists', icon: ClipboardCheck },
+    { id: 'quiz' as CategoryId, label: 'MEO Exam Prep Quiz', icon: HelpCircle },
+    { id: 'kuhusu' as CategoryId, label: 'Kuhusu SAN25 Marine', icon: FileText },
   ];
 
   return (
-    <header className="sticky top-0 z-40 glass border-b border-white/10 transition-colors w-full max-w-full overflow-hidden">
-      {/* Top Bar - 3 Zone Contract */}
+    <header className="sticky top-0 z-40 bg-black/95 backdrop-blur-md border-b border-white/10 transition-colors w-full max-w-full overflow-hidden">
+      {/* Top Bar */}
       <div className="max-w-7xl mx-auto px-3 sm:px-8 py-2.5 flex items-center justify-between gap-3 w-full">
-        {/* Zone 1: Brand Title (Single text/wordmark element) */}
+        {/* Brand Logo & Name: SAN25 Marine Engineering */}
         <div className="shrink-0">
           <button
             onClick={() => onSelectCategory('zote')}
-            className="flex items-center gap-2 text-left group cursor-pointer focus-visible:outline-emerald-500"
+            className="flex items-center gap-2.5 text-left group cursor-pointer focus-visible:outline-[#FFC107]"
           >
-            <div className="w-8 h-8 rounded-lg bg-[#10b981] flex items-center justify-center font-black text-black text-sm shadow-md group-hover:scale-105 transition-transform">
-              ST
+            <div className="w-9 h-9 rounded-xl bg-[#FFC107] text-black flex items-center justify-center font-black text-xs tracking-tight shadow-md border-2 border-amber-300 group-hover:scale-105 transition-transform flex-col leading-none">
+              <span className="text-[10px] font-black">SAN</span>
+              <span className="text-[10px] font-black text-blue-950">25</span>
             </div>
-            <span className="text-lg font-black tracking-tight uppercase editorial-font text-white whitespace-nowrap">
-              SANTECH <span className="text-[#10b981]">TZ</span>
-            </span>
+            <div className="flex flex-col">
+              <div className="flex items-center gap-1.5">
+                <span className="text-lg sm:text-xl font-black tracking-tight uppercase editorial-font text-white leading-none">
+                  SAN<span className="text-[#FFC107]">Marine</span>
+                </span>
+                <span className="hidden sm:inline-flex items-center px-1.5 py-0.2 rounded text-[9px] font-bold bg-blue-500/20 text-blue-300 border border-blue-500/30">
+                  Uhandisi wa Meli
+                </span>
+              </div>
+              <span className="text-[8px] font-bold text-zinc-400 tracking-widest uppercase">
+                Marine Engineering & Maritime Hub
+              </span>
+            </div>
           </button>
         </div>
 
-        {/* Zone 2: Navigation Links (Single-line controls) */}
+        {/* Navigation Links */}
         <nav className="hidden lg:flex items-center gap-1 xl:gap-2 text-xs font-bold uppercase tracking-wider text-zinc-300">
           {mainNavItems.map((item) => {
             const isActive = activeCategory === item.id;
@@ -121,10 +110,10 @@ export const Header: React.FC<HeaderProps> = ({
               <button
                 key={item.id}
                 onClick={() => onSelectCategory(item.id)}
-                className={`px-3 py-1.5 rounded-lg transition-colors whitespace-nowrap shrink-0 cursor-pointer ${
+                className={`px-3 py-1.5 rounded-xl transition-all whitespace-nowrap shrink-0 cursor-pointer ${
                   isActive
-                    ? 'text-white bg-[#10b981]/20 border border-[#10b981]/40 shadow-sm'
-                    : 'hover:text-white hover:bg-white/5 border border-transparent'
+                    ? 'text-black bg-[#FFC107] font-black shadow-md'
+                    : 'hover:text-white hover:bg-white/10 text-zinc-300 border border-transparent'
                 }`}
               >
                 {item.label}
@@ -133,67 +122,64 @@ export const Header: React.FC<HeaderProps> = ({
           })}
         </nav>
 
-        {/* Zone 3: Primary Actions */}
+        {/* Primary Actions: Seafarers WhatsApp + C/Eng AI + Tools + Theme */}
         <div className="flex items-center gap-2 shrink-0">
-          {/* AI Assistant FAB / Quick Button */}
+          {/* Quick Marine Calculator Anchor */}
+          <button
+            onClick={() => {
+              const el = document.getElementById('marine-calculator');
+              if (el) el.scrollIntoView({ behavior: 'smooth' });
+            }}
+            className="hidden xl:flex items-center gap-1.5 px-2.5 py-1.5 bg-white/10 hover:bg-white/20 text-white border border-white/15 rounded-xl text-xs font-bold uppercase tracking-wider transition-all cursor-pointer"
+            title="Marine Engineering Calculator"
+          >
+            <Calculator className="w-3.5 h-3.5 text-[#FFC107]" />
+            <span>Hesabu</span>
+          </button>
+
+          {/* C/Eng AI Assistant */}
           <button
             onClick={onOpenAiAssistant}
-            className="flex items-center gap-1.5 px-3 py-1.5 bg-[#10b981]/15 hover:bg-[#10b981]/25 text-[#10b981] border border-[#10b981]/40 rounded-xl text-xs font-black uppercase tracking-wider transition-all cursor-pointer shadow-sm"
+            className="flex items-center gap-1.5 px-3 py-1.5 bg-amber-500/20 hover:bg-amber-500/30 text-[#FFC107] border border-[#FFC107]/40 rounded-xl text-xs font-black uppercase tracking-wider transition-all cursor-pointer shadow-sm"
+            title="Chief Engineer AI Assistant"
           >
-            <Bot className="w-3.5 h-3.5" />
-            <span className="hidden sm:inline whitespace-nowrap">AI Swahili</span>
+            <Bot className="w-3.5 h-3.5 text-[#FFC107]" />
+            <span className="hidden sm:inline">C/Eng AI</span>
           </button>
+
+          {/* Seafarers WhatsApp Community */}
+          <a
+            href="https://whatsapp.com/channel/0029VaSANTechTZ"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden md:flex items-center gap-1.5 px-3 py-1.5 bg-[#FFC107] hover:bg-amber-400 text-black font-black text-xs uppercase tracking-wider rounded-xl shadow-md transition-transform hover:scale-105"
+            title="Jiunge na SAN25 Marine Engineers WhatsApp"
+          >
+            <span className="w-2 h-2 rounded-full bg-emerald-600 animate-ping" />
+            <span>Seafarers Channel</span>
+          </a>
 
           {/* Bookmarks */}
           <button
             onClick={onOpenBookmarks}
-            className="p-2 text-zinc-300 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl transition-colors cursor-pointer relative"
-            title="Vipendwa vyako"
+            className="relative p-2 text-zinc-300 hover:text-white bg-white/5 border border-white/10 rounded-xl transition-colors cursor-pointer"
+            title="Makala Zilizohifadhiwa"
           >
             <Bookmark className="w-4 h-4" />
             {bookmarksCount > 0 && (
-              <span className="absolute -top-1 -right-1 bg-[#10b981] text-black font-black text-[9px] w-4 h-4 rounded-full flex items-center justify-center">
+              <span className="absolute -top-1 -right-1 bg-[#FFC107] text-black font-black text-[9px] w-4 h-4 rounded-full flex items-center justify-center">
                 {bookmarksCount}
               </span>
             )}
           </button>
 
-          {/* User Auth Profile / Login */}
-          {currentUser ? (
-            <div className="flex items-center gap-1.5 bg-zinc-900 border border-[#10b981]/40 px-2.5 py-1 rounded-full text-xs text-white">
-              <img
-                src={currentUser.photoURL || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=80&q=80'}
-                alt={currentUser.displayName || 'User'}
-                className="w-5 h-5 rounded-full object-cover border border-[#10b981]"
-              />
-              <span className="hidden xl:inline font-bold text-[11px] truncate max-w-[80px]">
-                {currentUser.displayName?.split(' ')[0] || 'Akaunti'}
-              </span>
-              <button
-                onClick={logoutUser}
-                className="p-0.5 hover:text-rose-400 text-zinc-400 cursor-pointer"
-                title="Ondoka (Logout)"
-              >
-                <LogOut className="w-3.5 h-3.5" />
-              </button>
-            </div>
-          ) : (
-            <button
-              onClick={loginWithGoogle}
-              className="flex items-center gap-1 px-3 py-1.5 bg-white/10 hover:bg-white/20 border border-white/20 text-white rounded-xl text-xs font-bold transition-colors cursor-pointer"
-            >
-              <LogIn className="w-3.5 h-3.5" />
-              <span className="hidden sm:inline whitespace-nowrap">Ingia</span>
-            </button>
-          )}
-
           {/* Theme Toggle */}
           <button
             onClick={onToggleTheme}
-            className="p-2 text-zinc-300 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl transition-colors cursor-pointer"
+            className="p-2 text-zinc-300 hover:text-white bg-white/5 border border-white/10 rounded-xl transition-colors cursor-pointer"
             title="Badili Mandhari"
           >
-            {theme === 'dark' ? <Sun className="w-4 h-4 text-amber-400" /> : <Moon className="w-4 h-4 text-[#10b981]" />}
+            {theme === 'dark' ? <Sun className="w-4 h-4 text-[#FFC107]" /> : <Moon className="w-4 h-4 text-zinc-200" />}
           </button>
 
           {/* Mobile Menu Toggle */}
@@ -202,31 +188,26 @@ export const Header: React.FC<HeaderProps> = ({
             className="p-2 text-zinc-300 hover:text-white bg-white/5 border border-white/10 rounded-xl lg:hidden cursor-pointer"
             aria-label="Menyu Kuu"
           >
-            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            {mobileMenuOpen ? <X className="w-5 h-5 text-[#FFC107]" /> : <Menu className="w-5 h-5" />}
           </button>
         </div>
       </div>
 
-      {/* Search Bar & Date Sub-header */}
-      <div className="border-t border-white/5 bg-black/40 px-3 sm:px-8 py-2 flex items-center justify-between gap-3 w-full">
-        <span className="text-[11px] font-bold text-zinc-400 uppercase tracking-wider hidden sm:inline-block">
-          📅 {todayFormatted} • Jukwaa Kuu la Teknolojia, Forex, AI & Utalii Tanzania
-        </span>
-
-        {/* Search Input Box */}
-        <div className="relative w-full sm:w-80">
+      {/* Global Maritime Search Input Bar */}
+      <div className="max-w-7xl mx-auto px-3 sm:px-8 pb-2.5">
+        <div className="relative w-full">
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => onSearchChange(e.target.value)}
-            placeholder="Tafuta makala, Forex, AI, Utalii au misimbo..."
-            className="w-full bg-zinc-900/90 border border-white/10 text-white placeholder-zinc-500 text-xs rounded-xl px-3 py-1.5 pl-8 focus:outline-none focus:border-[#10b981] transition-colors"
+            placeholder="Tafuta MAN B&W ME-C, Boilers, Purifiers, OWS 15ppm, High Voltage, SOLAS, STCW, SFOC..."
+            className="w-full bg-zinc-900/90 border border-white/10 text-white placeholder-zinc-500 text-xs rounded-xl px-3 py-2 pl-8 focus:outline-none focus:border-[#FFC107] transition-colors font-medium"
           />
           <Search className="w-3.5 h-3.5 text-zinc-500 absolute left-2.5 top-1/2 -translate-y-1/2" />
           {searchQuery && (
             <button
               onClick={() => onSearchChange('')}
-              className="absolute right-2.5 top-1/2 -translate-y-1/2 text-xs text-zinc-400 hover:text-white cursor-pointer"
+              className="absolute right-2.5 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-white text-xs font-bold cursor-pointer"
             >
               ✕
             </button>
@@ -236,8 +217,17 @@ export const Header: React.FC<HeaderProps> = ({
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="lg:hidden border-t border-white/10 p-4 bg-zinc-950/98 space-y-3 max-h-[80vh] overflow-y-auto">
-          <div className="grid grid-cols-2 gap-2">
+        <div className="lg:hidden border-t border-white/10 p-4 bg-black/98 space-y-3 max-h-[80vh] overflow-y-auto">
+          <a
+            href="https://whatsapp.com/channel/0029VaSANTechTZ"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full py-2.5 px-4 rounded-xl bg-[#FFC107] text-black font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-md block text-center"
+          >
+            <span>Jiunge na Seafarers WhatsApp Channel</span>
+          </a>
+
+          <div className="grid grid-cols-2 gap-2 pt-2">
             {allCategoryItems.map((item) => {
               const Icon = item.icon;
               const isActive = activeCategory === item.id;
@@ -250,36 +240,15 @@ export const Header: React.FC<HeaderProps> = ({
                   }}
                   className={`flex items-center gap-2 p-2.5 rounded-xl text-xs font-bold uppercase tracking-wider cursor-pointer ${
                     isActive
-                      ? 'bg-[#10b981]/20 text-[#10b981] border border-[#10b981]/40'
-                      : 'text-zinc-300 bg-white/5 hover:bg-white/10'
+                      ? 'bg-[#FFC107] text-black font-black'
+                      : 'text-zinc-300 bg-zinc-900 hover:bg-zinc-800'
                   }`}
                 >
-                  <Icon className="w-4 h-4 text-[#10b981] shrink-0" />
+                  <Icon className={`w-4 h-4 shrink-0 ${isActive ? 'text-black' : 'text-[#FFC107]'}`} />
                   <span className="truncate">{item.label}</span>
                 </button>
               );
             })}
-          </div>
-
-          <div className="pt-2 border-t border-white/10 flex gap-2">
-            <button
-              onClick={() => {
-                onSelectCategory('privacy');
-                setMobileMenuOpen(false);
-              }}
-              className="flex-1 py-2 text-center text-[11px] text-zinc-400 hover:text-white rounded-lg bg-zinc-900 border border-white/5"
-            >
-              Sera ya Faragha
-            </button>
-            <button
-              onClick={() => {
-                onSelectCategory('terms');
-                setMobileMenuOpen(false);
-              }}
-              className="flex-1 py-2 text-center text-[11px] text-zinc-400 hover:text-white rounded-lg bg-zinc-900 border border-white/5"
-            >
-              Masharti ya Huduma
-            </button>
           </div>
         </div>
       )}

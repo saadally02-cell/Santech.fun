@@ -1,5 +1,27 @@
 export type CategoryId =
   | 'zote'
+  | 'injini-kuu'
+  | 'mitambo-msaidizi'
+  | 'umeme-na-otomesheni'
+  | 'sheria-na-usalama'
+  | 'vipimo-na-miongozo'
+  | 'calculator'
+  | 'checklist'
+  | 'quiz'
+  | 'naval-architecture'
+  | 'hydrodynamics'
+  | 'ship-stability'
+  | 'ship-design'
+  | 'diagrams'
+  | 'kuhusu'
+  | 'privacy'
+  | 'terms'
+  // Backward compatibility aliases
+  | 'simu'
+  | 'apps'
+  | 'internet'
+  | 'jinsi-ya'
+  | 'bei'
   | 'forex'
   | 'candlestick'
   | 'smc'
@@ -12,18 +34,15 @@ export type CategoryId =
   | 'gadgets'
   | 'blockchain'
   | 'tools'
-  | 'quiz'
   | 'audio'
   | 'forum'
-  | 'showcase'
-  | 'kuhusu'
-  | 'privacy'
-  | 'terms';
+  | 'showcase';
 
 export interface CategoryOption {
   id: CategoryId;
   label: string;
   iconName: string;
+  description?: string;
 }
 
 export interface NewsArticle {
@@ -54,60 +73,45 @@ export interface NewsArticle {
   isHeadline?: boolean;
   isTrending?: boolean;
   rankNumber?: number;
-  audioDuration?: string;
   tags: string[];
 }
 
 export type Article = NewsArticle;
 
-export interface QuizQuestion {
-  id: number;
-  question: string;
-  options: string[];
-  correctAnswer: number;
-  explanation: string;
+export interface ChatMessage {
+  id: string;
+  sender: 'user' | 'ai';
+  text: string;
+  timestamp: string;
 }
 
 export interface CommentItem {
   id: string;
   articleId?: string;
-  authorName?: string;
-  userName?: string;
-  author?: string;
-  userAvatar?: string;
-  authorAvatar?: string;
-  avatarBg?: string;
-  content?: string;
-  text?: string;
-  createdAt?: string;
-  date?: string;
-  timestamp?: string;
-  likes?: number;
-}
-
-export type Comment = CommentItem;
-
-export interface ChatMessage {
-  id: string;
-  sender: 'user' | 'bot' | 'ai';
+  author: string;
   text: string;
-  timestamp: string;
-  quickActions?: { label: string; action: string }[];
+  date: string;
+  likes: number;
 }
 
 export interface TechShowcaseItem {
   id: string;
   title: string;
-  subtitle?: string;
-  creatorName?: string;
-  creatorLocation?: string;
-  category?: string;
   description: string;
-  image?: string;
+  subtitle?: string;
   year?: string;
-  specs?: string[];
   impact?: string;
-  link?: string;
-  starsCount?: number;
-  badge?: string;
+  category?: string;
+  specs: { label: string; value: string }[];
+  tag: string;
+  image: string;
+  priceEstimate?: string;
 }
+
+export interface CurrencyRate {
+  pair: string;
+  rate: number;
+  change24h: number;
+  flag: string;
+}
+

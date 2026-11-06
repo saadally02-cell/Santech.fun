@@ -1,5 +1,5 @@
 import React from 'react';
-import { Clock, User, Eye, ArrowRight, Bookmark, TrendingUp } from 'lucide-react';
+import { Clock, User, Eye, ArrowRight, Bookmark, Flame, Sparkles } from 'lucide-react';
 import { Article } from '../types';
 
 interface HeroGridProps {
@@ -18,25 +18,27 @@ export const HeroGrid: React.FC<HeroGridProps> = ({
   bookmarkedIds,
 }) => {
   const isBookmarked = bookmarkedIds.includes(headlineArticle.id);
+  const sideArticles = trendingArticles.slice(0, 4);
 
   return (
-    <section className="grid grid-cols-1 lg:grid-cols-12 gap-6 my-6">
-      {/* Main Headline Article Card (Spans 8 columns on lg) */}
-      <div className="lg:col-span-8 glass border border-white/10 rounded-2xl overflow-hidden shadow-2xl hover:border-[#10b981]/50 transition-all group flex flex-col justify-between">
+    <section className="grid grid-cols-1 lg:grid-cols-12 gap-5 my-6">
+      {/* 1 Main Trending Article Card (8 cols) - GSMArena + TechCrunch style */}
+      <div className="lg:col-span-8 bg-zinc-950 border border-white/10 rounded-2xl overflow-hidden shadow-2xl hover:border-[#FFC107]/50 transition-all group flex flex-col justify-between relative">
         {/* Headline Image */}
-        <div className="relative h-72 sm:h-96 w-full overflow-hidden bg-zinc-950">
+        <div className="relative h-72 sm:h-[400px] w-full overflow-hidden bg-black">
           <img
             src={headlineArticle.image}
             alt={headlineArticle.title}
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-90"
-            loading="lazy"
+            loading="eager"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/50 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
 
           {/* Category Badge & Bookmark */}
           <div className="absolute top-4 left-4 right-4 flex items-center justify-between">
-            <span className="inline-block px-3 py-1 bg-[#10b981]/20 text-[#10b981] text-[10px] font-black uppercase tracking-widest border border-[#10b981]/30 backdrop-blur-md">
-              KIFUNIKO CHA MAKALA • {headlineArticle.categoryName}
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#FFC107] text-black text-[11px] font-black uppercase tracking-wider rounded-lg shadow-md">
+              <Flame className="w-3.5 h-3.5 fill-black" />
+              HOT TRENDING • {headlineArticle.categoryName}
             </span>
 
             <button
@@ -44,10 +46,10 @@ export const HeroGrid: React.FC<HeroGridProps> = ({
                 e.stopPropagation();
                 onToggleBookmark(headlineArticle.id);
               }}
-              className={`p-2 rounded border backdrop-blur-md transition-all cursor-pointer ${
+              className={`p-2 rounded-xl border backdrop-blur-md transition-all cursor-pointer ${
                 isBookmarked
-                  ? 'bg-[#10b981] text-black font-bold border-[#10b981]'
-                  : 'bg-black/60 text-white border-white/10 hover:bg-black/80'
+                  ? 'bg-[#FFC107] text-black font-bold border-[#FFC107]'
+                  : 'bg-black/70 text-white border-white/15 hover:bg-black'
               }`}
               title={isBookmarked ? 'Ondoa kwenye bookmarks' : 'Hifadhi makala'}
             >
@@ -57,15 +59,15 @@ export const HeroGrid: React.FC<HeroGridProps> = ({
         </div>
 
         {/* Content Details */}
-        <div className="p-6 sm:p-8 flex-1 flex flex-col justify-between bg-zinc-900/60">
+        <div className="p-6 sm:p-8 flex-1 flex flex-col justify-between bg-zinc-900/80">
           <div>
             <h2
               onClick={() => onSelectArticle(headlineArticle)}
-              className="display-serif text-2xl sm:text-4xl lg:text-5xl leading-tight tracking-tighter text-white hover:text-[#10b981] transition-colors cursor-pointer mb-4 break-words"
+              className="text-2xl sm:text-4xl lg:text-5xl leading-tight font-black tracking-tight text-white hover:text-[#FFC107] transition-colors cursor-pointer mb-3 editorial-font"
             >
               {headlineArticle.title}
             </h2>
-            <p className="text-zinc-400 text-sm sm:text-base leading-relaxed mb-6 line-clamp-3">
+            <p className="text-zinc-300 text-sm sm:text-base leading-relaxed mb-6 line-clamp-3 font-normal">
               {headlineArticle.excerpt}
             </p>
           </div>
@@ -73,60 +75,63 @@ export const HeroGrid: React.FC<HeroGridProps> = ({
           <div className="pt-4 border-t border-white/10 flex items-center justify-between flex-wrap gap-3">
             <div className="flex items-center gap-3 text-xs text-zinc-400 flex-wrap">
               <span className="flex items-center gap-1.5">
-                <Clock className="w-3.5 h-3.5 text-[#10b981]" />
+                <Clock className="w-3.5 h-3.5 text-[#FFC107]" />
                 {headlineArticle.date}
               </span>
-              <span className="flex items-center gap-1.5">
-                <User className="w-3.5 h-3.5 text-[#10b981]" />
-                {headlineArticle.author}
+              <span className="flex items-center gap-1.5 font-bold text-zinc-300">
+                <User className="w-3.5 h-3.5 text-[#FFC107]" />
+                {headlineArticle.author || 'SAN25'}
               </span>
               <span className="flex items-center gap-1.5">
-                <Eye className="w-3.5 h-3.5 text-[#10b981]" />
-                {headlineArticle.views.toLocaleString()} viewers
+                <Eye className="w-3.5 h-3.5 text-[#FFC107]" />
+                {headlineArticle.views.toLocaleString()} wasomaji
               </span>
             </div>
 
             <button
               onClick={() => onSelectArticle(headlineArticle)}
-              className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#10b981] hover:text-emerald-300 transition-colors cursor-pointer group-hover:translate-x-1"
+              className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-wider text-black bg-[#FFC107] hover:bg-amber-400 px-4 py-2 rounded-xl transition-all cursor-pointer shadow-md group-hover:scale-102"
             >
-              Soma Makala Kamili <ArrowRight className="w-4 h-4" />
+              Soma Kamili <ArrowRight className="w-4 h-4" />
             </button>
           </div>
         </div>
       </div>
 
-      {/* Sidebar Panel: Zinazotrend (Spans 4 columns on lg) */}
-      <div className="lg:col-span-4 bg-zinc-900/50 border border-white/10 rounded-2xl p-6 sm:p-8 shadow-xl flex flex-col justify-between">
+      {/* 4 Side Articles - GSMArena style list */}
+      <div className="lg:col-span-4 bg-zinc-950 border border-white/10 rounded-2xl p-5 sm:p-6 shadow-xl flex flex-col justify-between">
         <div>
-          <div className="flex items-center justify-between mb-6 pb-3 border-b border-white/10">
-            <h3 className="text-xs font-black uppercase tracking-[0.3em] text-zinc-400 flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-[#10b981] animate-pulse"></span>
-              Zinazotrend
+          <div className="flex items-center justify-between mb-4 pb-3 border-b border-white/10">
+            <h3 className="text-xs font-black uppercase tracking-widest text-white flex items-center gap-2">
+              <span className="w-2.5 h-2.5 rounded-full bg-[#FFC107] animate-pulse"></span>
+              Zinazotrend Hivi Sasa
             </h3>
-            <span className="text-[10px] font-extrabold text-[#10b981] bg-[#10b981]/15 px-2 py-0.5 rounded border border-[#10b981]/30">
+            <span className="text-[10px] font-black text-black bg-[#FFC107] px-2.5 py-0.5 rounded-md">
               TOP 4
             </span>
           </div>
 
-          <div className="space-y-6">
-            {trendingArticles.map((article, idx) => {
+          <div className="space-y-4">
+            {sideArticles.map((article, idx) => {
               const rank = (idx + 1).toString().padStart(2, '0');
               return (
                 <div
                   key={article.id}
                   onClick={() => onSelectArticle(article)}
-                  className="flex gap-4 group cursor-pointer border-b border-white/5 pb-4 last:border-0 last:pb-0"
+                  className="flex gap-3 group cursor-pointer border-b border-white/5 pb-3.5 last:border-0 last:pb-0"
                 >
-                  <span className="display-serif text-3xl font-bold text-[#10b981] opacity-40 group-hover:opacity-100 transition-opacity shrink-0">
+                  <span className="text-2xl font-black text-[#FFC107] opacity-60 group-hover:opacity-100 transition-opacity shrink-0 w-8">
                     {rank}
                   </span>
-                  <div className="flex-1">
-                    <h4 className="text-sm font-bold leading-snug text-zinc-100 group-hover:text-[#10b981] transition-colors line-clamp-2">
+                  <div className="flex-1 min-w-0">
+                    <h4 className="text-xs font-bold leading-snug text-zinc-200 group-hover:text-[#FFC107] transition-colors line-clamp-2">
                       {article.title}
                     </h4>
-                    <div className="flex items-center gap-3 text-[10px] text-zinc-500 mt-1.5">
-                      <span className="text-[#10b981] font-bold uppercase tracking-wider">{article.categoryName}</span>
+                    <div className="flex items-center gap-3 text-[10px] text-zinc-500 mt-1">
+                      <span className="text-[#FFC107] font-bold uppercase tracking-wider">
+                        {article.categoryName}
+                      </span>
+                      <span>•</span>
                       <span className="flex items-center gap-1">
                         <Eye className="w-3 h-3 text-zinc-500" />
                         {article.views.toLocaleString()}
@@ -139,26 +144,25 @@ export const HeroGrid: React.FC<HeroGridProps> = ({
           </div>
         </div>
 
-        {/* Newsletter Box */}
-        <div className="mt-8 pt-4 border-t border-white/10 bg-black/40 p-4 rounded-xl border border-white/5">
-          <p className="text-xs font-bold text-white mb-1 uppercase tracking-wider">📰 Upate Habari za Hivi Punde</p>
-          <p className="text-[11px] text-zinc-400 mb-3">
-            Jiunge na zaidi ya wasomaji 25,000 wanaopata barua pepe kila wiki za Teknolojia, Akili Bandia na Coding.
+        {/* WhatsApp Channel Small Promo Card */}
+        <div className="mt-6 pt-4 border-t border-white/10 bg-zinc-900/90 p-4 rounded-xl border border-white/5">
+          <div className="flex items-center gap-2 mb-1.5">
+            <Sparkles className="w-4 h-4 text-[#FFC107]" />
+            <p className="text-xs font-black text-white uppercase tracking-wider">
+              SANTech WhatsApp Channel
+            </p>
+          </div>
+          <p className="text-[11px] text-zinc-400 mb-3 leading-relaxed">
+            Jiunge sasa na maelfu ya Watanzania kupata habari za kiteknolojia kila siku.
           </p>
-          <form onSubmit={(e) => { e.preventDefault(); alert("Asante kwa kujiunga na SANTECH TZ Newsletter!"); }} className="flex gap-2">
-            <input
-              type="email"
-              placeholder="Barua pepe yako..."
-              required
-              className="w-full bg-zinc-800 border border-white/10 text-white text-xs px-3 py-2 rounded focus:outline-none focus:border-[#10b981]"
-            />
-            <button
-              type="submit"
-              className="bg-[#10b981] hover:bg-emerald-400 text-black text-xs font-bold uppercase tracking-wider px-3.5 py-2 rounded transition-colors cursor-pointer shrink-0"
-            >
-              Jiunge
-            </button>
-          </form>
+          <a
+            href="https://whatsapp.com/channel/0029VaSANTechTZ"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-full bg-[#FFC107] hover:bg-amber-400 text-black text-xs font-black uppercase tracking-wider py-2 rounded-xl transition-all shadow-md block text-center"
+          >
+            Jiunge WhatsApp Bure
+          </a>
         </div>
       </div>
     </section>
