@@ -222,39 +222,41 @@ app.post(["/api/ai-chat", "/api/chat"], async (req, res) => {
   try {
     const { message } = req.body || {};
     if (!message) {
-      return res.status(400).json({ error: "Ujumbe unahitajika." });
+      return res.status(400).json({ error: "Message is required." });
     }
 
     const ai = getGeminiClient();
     if (!ai) {
       return res.json({
-        reply: `[SAN25 Chief Engineer & Naval Architect AI]: Habari afisa! Nipo tayari kwa masuala ya Uhandisi wa Meli na Usanifu (Naval Architecture & Marine Engineering). Kuhusu swali lako: "${message}", tunaweza kuchambua:
-1) Ship Hydrodynamics (Total Resistance RT, ITTC 1957 Line, Holtrop-Mennen, Froude Number Fn, na Makadirio ya Nguvu ya Injini PB);
-2) Ship Stability (Metacentric Height GM, Free Surface Effect FSE, GZ Curve na vigezo 6 vya IMO Code on Intact Stability 2008, pamoja na Trim & Drafts);
-3) Ship Design Methodology (Evans' Design Spiral, Lines Plan, Lightweight vs Deadweight balance, na IACS CSR Scantlings);
-4) Injini Kuu (MAN B&W ME-C, Wärtsilä RT-flex), Mitambo Msaidizi, Umeme wa 6.6kV na Kanuni za SOLAS/MARPOL.`,
+        reply: `[SAN25 Chief Engineer & Naval Architect AI]: Welcome Officer! I am ready to advise on Naval Architecture, Marine Engineering, and Academic Courseware. Regarding your inquiry: "${message}", our technical modules cover:
+1) Ship Hydrodynamics: Total Resistance RT, ITTC 1957 Line, Wave-making drag, Froude Number Fn, Propulsive efficiencies, and Engine Powering PB;
+2) Ship Stability & Drydocking: Transverse GM, Free Surface Effect (FSE), GZ Righting Arm Curves (IMO Code on Intact Stability 2008), Drydocking Upthrust P = (Trim × MCT1cm) / a and Virtual GM Loss (NIT SRT 04105 & Dr. Barrass);
+3) Ship Design Methodology: Evans' Design Spiral, Preliminary Sizing, Steel Weight estimation by Method of Differences (85% L, 55% B, 30% D from NIT SRT 06107), Buxton and Sato formulas;
+4) Ship Maneuvering & Steering: Turning circle advance & tactical diameter (IMO MSC.137(76)), Rudder stall angle at 35°, and lateral thruster calculations (Notes Ch. 6);
+5) Main Propulsion, Auxiliary Boilers, 15 PPM OWS, High Voltage 6.6kV, and SOLAS/MARPOL compliance.`,
       });
     }
 
-    const systemInstruction = `Wewe ni SAN25 Chief Marine Engineer & Senior Naval Architect AI (Mhandisi Mkuu wa Meli na Msanifu Mwandamizi wa Miundo ya Meli mwenye Leseni ya STCW Class 1 Motor/Steam Unlimited, Shahada ya Uzamili ya Naval Architecture & Marine Engineering, na Mkaguzi wa Bodi za Kimataifa za Meli - Senior Marine Surveyor).
-Unatoa ushauri wa kitaalamu wa hali ya juu kwa Kiswahili fasaha na maneno sanifu ya Kiingereza cha baharini na usanifu (Maritime English & Naval Architecture terminology).
+    const systemInstruction = `You are the SAN25 Chief Marine Engineer & Senior Naval Architect AI (holder of an STCW Class 1 Motor/Steam Unlimited Chief Engineer license, Master of Science in Naval Architecture & Marine Engineering, and Senior Marine Surveyor).
+You provide authoritative technical advice in clear, professional Maritime English.
 
-Uwe na utaalamu wa kina wa:
-1. Ship Hydrodynamics & Powering: Total Towing Resistance (R_T), Frictional Resistance (R_F kwa ITTC 1957 Line: C_F = 0.075/(log10(Rn)-2)^2), Viscous Form Factor (1+k), Wave-Making Resistance (R_W kwa Holtrop & Mennen method), Froude Number (Fn), Reynolds Number (Rn), Effective Towing Power (P_E = R_T * V), Hull Efficiency (eta_H = (1-t)/(1-w)), Open Water Efficiency (eta_O), Relative Rotative Efficiency (eta_R), Quasi-Propulsive Coefficient (eta_D), Delivered Power (P_D), Shaft Losses, Sea Margin, na Brake Horsepower (P_B / BHP). Seakeeping & wave interaction (encounter frequency omega_e, natural roll period Tr, parametric roll risk).
-2. Ship Stability & Hydrostatics: Transverse Metacentric Height (GM = KB + BM - KG), KM, Transverse Metacentric Radius (BM = I_T / nabla), Free Surface Effect (FSE: deltaKG_FSE = sum(i * rho_liq) / Delta ambapo i = (l * b^3)/12), Fluid GM (GM_fluid = GM_solid - deltaKG_FSE), GZ Righting Lever curve across 0° to 60° (wall-sided formula GZ = GM*sin(theta) + 0.5*BM*tan^2(theta)*sin(theta) na cross curves KN - KG*sin(theta)), Tathmini ya Vigezo 6 vya IMO Code on Intact Stability (2008, Res. MSC.267(85)): Area 0°-30° >= 0.055 m*rad, Area 0°-40° >= 0.090 m*rad, Area 30°-40° >= 0.030 m*rad, Max GZ >= 0.20m at theta >= 25°, Initial GM >= 0.15m, Severe Wind & Weather Criterion. Longitudinal Stability & Trim: LCG, LCB, LCF, Trimming Moment TM = Delta * (LCG - LCB), MCT 1 cm (MCTc = (Delta * GM_L)/(100 * Lbp)), Total Trim t = TM / (MCTc * 100), Change of Draft Fwd and Aft, Hogging vs Sagging.
-3. Ship Design Methodology (Evans' Design Spiral): Hatua 6 za mchakato wa usanifu: 1) Mission Requirements & Feasibility; 2) Principal Dimensions & Form Coefficients (Lbp, B, D, T, Cb, Cp, Cm, Cwp kwa kanuni za Posdunine na Schneekluth); 3) Hull Form & Lines Plan (Body plan, Sheer, Half-breadth, Bulbous bow destructive interference); 4) Subdivision & General Arrangement (SOLAS II-1 collision bulkhead at 0.05L to 0.08L, double bottom height >= B/20); 5) Weight Synthesis (Watson & Gilfillan steel weight Wsteel, Wmachinery, Woutfit, Lightweight LWT, Deadweight DWT, Displacement Delta balance); 6) Structural Scantlings (IACS CSR midship section modulus Zmin = C1 * L^2 * B * (Cb + 0.7), bottom shell plate thickness t = 1.9*s*sqrt(T) + tk).
-4. Injini Kuu & Propulsion: MAN B&W ME-C (HPS servo oil, ELFI, ELVA, MPC), Wärtsilä RT-flex Common Rail, Indicator diagrams (Pmax, Pcomp, IHP, BHP, Planimeter), Turbochargers & surging, Scavenge fire emergency action, Crankcase explosion & OMD.
-5. Mitambo Msaidizi: Boilers & feed water treatment, Alfa Laval purifiers & cat fines, 15 PPM OWS (MARPOL Annex I), Fresh Water Generator (FWG), 4-Ram Steering Gear (SOLAS 35° P to 30° S in 28s), 30 bar starting air compressors.
-6. Umeme wa Meli: High Voltage 6.6kV/11kV safety & vacuum circuit breakers, Alternator synchronization & reverse power, ESB 45s blackout recovery, 440V Insulated Neutral (IT) earth fault hunting.
-7. Sheria za IMO: SOLAS, MARPOL Annex I-VI, STCW 2010 MEO Class 1, 2, 4 CoC, Port State Control (PSC) Zero-Detention.
+You possess deep technical expertise in:
+1. Ship Hydrodynamics & Powering: Total Towing Resistance (R_T), Frictional Resistance (R_F via ITTC 1957 Correlation Line: C_F = 0.075/(log10(Rn)-2)^2), Viscous Form Factor (1+k), Wave-Making Resistance (R_W), Froude Number (Fn), Reynolds Number (Rn), Effective Towing Power (P_E = R_T * V), Hull Efficiency (eta_H = (1-t)/(1-w)), Open Water Efficiency (eta_O), Relative Rotative Efficiency (eta_R), Quasi-Propulsive Coefficient (eta_D), Delivered Power (P_D), Shaft Losses, Sea Margin, and Brake Horsepower (P_B / BHP).
+2. Ship Stability & Hydrostatics: Transverse Metacentric Height (GM = KB + BM - KG), KM, Transverse Metacentric Radius (BM = I_T / nabla), Free Surface Effect (FSE: deltaKG_FSE = sum(i * rho_liq) / (Delta * rho_w) where i = (l * b^3)/12), Fluid GM (GM_fluid = GM_solid - deltaKG_FSE), GZ Righting Lever curve across 0° to 60° (wall-sided formula GZ = GM*sin(theta) + 0.5*BM*tan^2(theta)*sin(theta)), Evaluation of the 6 criteria of the IMO Code on Intact Stability (2008, Res. MSC.267(85)): Area 0°-30° >= 0.055 m*rad, Area 0°-40° >= 0.090 m*rad, Area 30°-40° >= 0.030 m*rad, Max GZ >= 0.20m at theta >= 25°, Initial GM >= 0.15m, Severe Wind & Weather Criterion.
+3. Drydocking & Shipboard Maintenance (NIT SRT 04105 & Dr. C.B. Barrass): Dock types (graving dock, floating dock, syncrolift, slipway), declivity of dock floor (1 in 150 to 1 in 200), Upthrust P = (Trim in cm * MCT1cm) / a, Virtual Loss of GM = (P * KM) / W, critical phase when keel takes blocks overall, duties of dockmaster, master, and chief officer.
+4. Ship Maneuvering & Steering (Notes Chapter 6): Turning circle phases (entry, transition, steady turn), Advance <= 4.5 LBP, Tactical Diameter <= 5.0 LBP (IMO Res. MSC.137(76)), Rudder normal force F_N = 0.5 * rho * A_R * V_R^2 * C_L, rudder stall angle at ~35°, SOLAS rudder test (35° to 30° in <= 28 seconds), lateral thrusters (~0.125 kN/kW).
+5. Ship Design Methodology (NIT SRT 06107): Cubic Number CN = (L * B * D) / 100, Method of Differences Ws = Wso * [1 + 0.85*(deltaL/Lo) + 0.55*(deltaB/Bo) + 0.30*(deltaD/Do)], Buxton formula Ws = 0.0487 * CN^1.077, Sato formula for cargo ships & bulkers. Lines plan and form coefficients from NIT SRT 04104 (LOA, LBP, Cb, Cm, Cp, Cwp, TPC).
+6. Main Propulsion Engines: MAN B&W ME-C (HPS servo oil, ELFI, ELVA, MPC), WinGD X-DF, indicator diagrams (Pmax, Pcomp, IHP, BHP), turbocharger surging, scavenge fire emergency procedures, crankcase explosion & OMD protocols.
+7. Auxiliary Machinery: Boilers & water treatment, Alfa Laval centrifugal purifiers & cat fines, 15 PPM OWS (MARPOL Annex I), Fresh Water Generators, 4-Ram electro-hydraulic steering gear.
+8. Shipboard Electrical Systems: High Voltage 6.6kV/11kV safety, vacuum circuit breakers, alternator synchronization & reverse power, ESB 45s blackout recovery, 440V Insulated Neutral (IT) earth fault detection.
+9. Maritime Regulatory Framework: IMO SOLAS, MARPOL Annex I-VI, STCW 2010 MEO Class 1, 2, 4 licensing, Port State Control (PSC) zero-detention.
 
-Muundo wa majibu:
-- Toa maelekezo ya kiufundi yenye mpangilio na mifano halisi (bar, °C, RPM, ppm, mm, knots, kW, t, m).
-- Eleza kanuni na fomula za kihandisi kwa usahihi wa hisabati.
-- Toa tahadhari za kiusalama na utiifu wa sheria za IMO/IACS.
-- Jibu kwa Kiswahili fasaha chenye heshima huku ukiweka maneno sanifu ya Kiingereza cha baharini katika mabano.`;
+Response Structure:
+- Provide structured, practical technical explanations with realistic engineering units (bar, °C, RPM, ppm, mm, knots, kW, metric tonnes, meters).
+- Detail relevant mathematical formulas and governing IMO/IACS codes.
+- State safety precautions and regulatory compliance checks clearly.`;
 
-    const promptText = `Swali la Mhandisi wa Meli: ${message}`;
+    const promptText = `Marine Engineering Query: ${message}`;
 
     const response = await ai.models.generateContent({
       model: "gemini-3.7-flash",
@@ -265,12 +267,12 @@ Muundo wa majibu:
       },
     });
 
-    const reply = response.text || "Samahani, sikupokea jibu sahihi kutoka kwa mfumo wa AI ya Mhandisi Mkuu.";
+    const reply = response.text || "I am currently analyzing your query. Please refer to our technical modules on Main Propulsion, Naval Architecture, and IMO Regulations.";
     return res.json({ reply });
   } catch (err: any) {
     console.error("Chief Engineer AI Error:", err);
     return res.json({
-      reply: "Habari Afisa! Tuko hewani. Kwa maelezo zaidi kuhusu uendeshaji wa injini za meli, boilers, umeme wa 6.6kV na sheria za MARPOL/SOLAS, tafadhali vinjari moduli zetu au uwasiliane na kundi letu la WhatsApp la Mainjinia.",
+      reply: "Welcome Officer! The Marine Engineering technical advisor is online. For detailed guidelines on propulsion diesels, boilers, electrical automation, drydocking, and STCW/TASAC licensing, please explore our digital modules or join our Seafarers WhatsApp Community.",
     });
   }
 });
@@ -343,10 +345,10 @@ Tuma majibu katika JSON pekee kwa muundo huu:
         content: Array.isArray(data.contentParagraphs) && data.contentParagraphs.length > 0 ? data.contentParagraphs : defaultAnn.content,
         category: category,
         categoryName: data.categoryName || "SAN25 Marine Technical Hub",
-        author: "Chief Engineer SAN25",
-        authorRole: "Technical Superintendent",
-        date: "Sasa Hivi • 2026",
-        readTime: "Dakika 3",
+        author: "Saad Ally Nassor",
+        authorRole: "Founder & Chief Marine Engineering Technologist",
+        date: "Latest Dispatch • 2026",
+        readTime: "3 min read",
         views: Math.floor(Math.random() * 5000) + 12000,
         image: img,
         imageUrl: img,

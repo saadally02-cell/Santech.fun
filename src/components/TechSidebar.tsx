@@ -12,7 +12,8 @@ import {
   Flame,
   FileText,
   Anchor,
-  Compass
+  Compass,
+  GraduationCap
 } from 'lucide-react';
 
 interface TechSidebarProps {
@@ -29,7 +30,6 @@ export const TechSidebar: React.FC<TechSidebarProps> = ({
   const [selectedTab, setSelectedTab] = React.useState<string>('injini-kuu');
 
   const currentCategoryArticles = ALL_SUBPAGES.filter((a) => a.category === selectedTab).slice(0, 6);
-
   const trendingArticles = [...ALL_SUBPAGES].sort((a, b) => b.views - a.views).slice(0, 5);
 
   const getCategoryIcon = (id: string) => {
@@ -56,17 +56,38 @@ export const TechSidebar: React.FC<TechSidebarProps> = ({
 
   return (
     <aside className="w-full space-y-6">
+      {/* Founder Card: Saad Ally Nassor */}
+      <div className="bg-gradient-to-br from-amber-950/30 via-zinc-900 to-black rounded-2xl p-4 border border-[#FFC107]/40 shadow-lg space-y-2">
+        <div className="flex items-center gap-2.5">
+          <div className="w-9 h-9 rounded-xl bg-[#FFC107] text-black font-black flex items-center justify-center text-xs shadow shrink-0">
+            SAN
+          </div>
+          <div>
+            <span className="text-[10px] font-black uppercase tracking-wider text-[#FFC107] block">
+              Muanzilishi / Founder
+            </span>
+            <h4 className="text-sm font-black text-white">Saad Ally Nassor</h4>
+          </div>
+        </div>
+        <p className="text-[11px] text-zinc-300 leading-relaxed">
+          Founder & Chief Marine Engineering Technologist of SAN25 Marine Hub. Dedicated to delivering university-grade naval architecture calculations and NIT academic courseware.
+        </p>
+        <div className="text-[10px] text-zinc-400 font-mono">
+          Email: <a href="mailto:saadally02@gmail.com" className="text-[#FFC107] hover:underline">saadally02@gmail.com</a>
+        </div>
+      </div>
+
       {/* Category Subpages Explorer Widget */}
       <div className="bg-zinc-900/80 rounded-2xl p-5 border border-white/10 shadow-lg">
         <div className="flex items-center justify-between mb-4 pb-3 border-b border-white/10">
           <div className="flex items-center gap-2">
             <div className="w-2.5 h-2.5 rounded-full bg-[#FFC107] animate-pulse" />
             <h3 className="text-sm font-black uppercase tracking-wider text-white">
-              Vitengo Kuu vya Meli (Subpages)
+              Marine Engineering Subpages
             </h3>
           </div>
           <span className="text-[10px] font-bold text-black bg-[#FFC107] px-2 py-0.5 rounded-full">
-            50+ Makala
+            50+ Articles
           </span>
         </div>
 
@@ -91,7 +112,7 @@ export const TechSidebar: React.FC<TechSidebarProps> = ({
           })}
         </div>
 
-        {/* List of Latest Subpages in Active Category with REAL Working Links */}
+        {/* List of Latest Subpages in Active Category */}
         <div className="space-y-2.5">
           {currentCategoryArticles.map((article, idx) => (
             <button
@@ -121,7 +142,42 @@ export const TechSidebar: React.FC<TechSidebarProps> = ({
           onClick={() => onNavigateToCategory(selectedTab)}
           className="w-full mt-4 py-2 text-center text-xs font-bold text-[#FFC107] hover:underline cursor-pointer border-t border-white/5 pt-3 block"
         >
-          Fungua Makala Zote za /{selectedTab}/ &rarr;
+          View all technical guides in /{selectedTab}/ &rarr;
+        </button>
+      </div>
+
+      {/* NIT Academic Courseware & PDF Library Widget */}
+      <div className="bg-gradient-to-br from-amber-950/40 via-zinc-900 to-black rounded-2xl p-5 border border-[#FFC107]/30 shadow-lg space-y-3">
+        <div className="flex items-center gap-2.5">
+          <div className="w-9 h-9 rounded-xl bg-white p-1 border border-amber-300 shadow shrink-0 flex items-center justify-center">
+            <img
+              src="/assets/aistudio/IMG-20261104-WA0113_1__cc428c64.jpg"
+              alt="NIT Emblem"
+              className="w-full h-full object-contain"
+            />
+          </div>
+          <div>
+            <span className="text-[10px] font-black uppercase tracking-wider text-[#FFC107] block">
+              NIT Dar es Salaam Repository
+            </span>
+            <h4 className="text-sm font-black text-white">Course Notes & Textbooks</h4>
+          </div>
+        </div>
+        <p className="text-xs text-zinc-300 leading-relaxed">
+          Access all 10 lecture notes: Drydocking (SRT 04105), Maneuvering (Ch. 6), Ship Design (SRT 06107), Lines Plan (SRT 04104), and Dr. C.B. Barrass Stability.
+        </p>
+        <button
+          onClick={() => {
+            onNavigateToCategory('naval-architecture');
+            setTimeout(() => {
+              const el = document.getElementById('academic-library');
+              if (el) el.scrollIntoView({ behavior: 'smooth' });
+            }, 100);
+          }}
+          className="w-full py-2 px-3 rounded-xl bg-[#FFC107] hover:bg-amber-400 text-black font-black text-xs uppercase tracking-wider flex items-center justify-center gap-1.5 transition-colors cursor-pointer shadow-md"
+        >
+          <GraduationCap className="w-3.5 h-3.5" />
+          <span>Open Academic Library</span>
         </button>
       </div>
 
@@ -139,13 +195,13 @@ export const TechSidebar: React.FC<TechSidebarProps> = ({
           </div>
         </div>
         <p className="text-xs text-zinc-300 leading-relaxed">
-          Pima upinzani wa meli (Total Drag $R_T$), mchoro wa $GZ$ Curve chini ya IMO 2008, na hatua 6 za Design Spiral.
+          Compute total ship resistance ($R_T$), IMO 2008 intact GZ curves, drydocking upthrust ($P$), and 6-stage Design Spiral sizing.
         </p>
         <button
           onClick={() => onNavigateToCategory('naval-architecture')}
           className="w-full py-2 px-3 rounded-xl bg-blue-600/30 hover:bg-blue-600/50 border border-blue-500/40 text-blue-200 font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
         >
-          <span>Fungua Zana za Usanifu</span>
+          <span>Open Naval Architecture Lab</span>
           <ChevronRight className="w-3.5 h-3.5" />
         </button>
       </div>
@@ -159,13 +215,13 @@ export const TechSidebar: React.FC<TechSidebarProps> = ({
           </div>
           <div>
             <span className="text-[10px] font-black uppercase tracking-wider text-[#FFC107] block">
-              Mabaharia & Bandari
+              Seafarers & Port Roaming
             </span>
             <h4 className="text-sm font-black text-white">Airalo Global Seafarer eSIM</h4>
           </div>
         </div>
         <p className="text-xs text-zinc-300 leading-relaxed mb-4">
-          Pata intaneti ya kasi mara meli yako inapofika bandarini (Singapore, Rotterdam, Dubai, Mombasa, Dar es Salaam) bila kununua laini za kienyeji.
+          Stay connected instantly the moment your vessel arrives in port (Singapore, Rotterdam, Dubai, Mombasa, Dar es Salaam) without swapping local plastic SIMs.
         </p>
         <a
           href="https://airalo.tpk.ro/MR9pD32b"
@@ -173,7 +229,7 @@ export const TechSidebar: React.FC<TechSidebarProps> = ({
           rel="noopener noreferrer"
           className="w-full py-2.5 px-4 rounded-xl bg-[#FFC107] hover:bg-amber-400 text-black font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-md hover:scale-102 transition-all block text-center"
         >
-          <span>Unganisha Airalo eSIM Bandarini</span>
+          <span>Connect Airalo eSIM in Port</span>
           <ExternalLink className="w-3.5 h-3.5" />
         </a>
       </div>
@@ -183,7 +239,7 @@ export const TechSidebar: React.FC<TechSidebarProps> = ({
         <div className="flex items-center gap-2 mb-4 pb-3 border-b border-white/10">
           <Flame className="w-4 h-4 text-amber-400" />
           <h3 className="text-sm font-black uppercase tracking-wider text-white">
-            Zinazosomwa Zaidi (Popular Marine Topics)
+            Most Read Maritime Topics
           </h3>
         </div>
         <div className="space-y-3">
@@ -204,7 +260,7 @@ export const TechSidebar: React.FC<TechSidebarProps> = ({
                   {art.title}
                 </h4>
                 <span className="text-[10px] text-zinc-500 mt-0.5 block">
-                  {art.views.toLocaleString()} wasomaji
+                  {art.views.toLocaleString()} readers
                 </span>
               </div>
             </button>
@@ -218,7 +274,7 @@ export const TechSidebar: React.FC<TechSidebarProps> = ({
           <FileText className="w-4 h-4 text-[#FFC107]" />
           <div>
             <h5 className="text-xs font-bold text-white">Google Sitemap</h5>
-            <span className="text-[10px] text-zinc-400">sitemap.json (Kurasa 55+)</span>
+            <span className="text-[10px] text-zinc-400">sitemap.json (55+ URLs)</span>
           </div>
         </div>
         <a
@@ -227,7 +283,7 @@ export const TechSidebar: React.FC<TechSidebarProps> = ({
           rel="noopener noreferrer"
           className="text-xs font-black text-[#FFC107] hover:underline flex items-center gap-1"
         >
-          <span>Fungua</span>
+          <span>Open</span>
           <ExternalLink className="w-3 h-3" />
         </a>
       </div>

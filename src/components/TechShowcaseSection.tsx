@@ -1,13 +1,13 @@
 import React from 'react';
 import { TECH_SHOWCASE_DATA } from '../data/newsData';
 import { TechShowcaseItem } from '../types';
-import { Cpu, Eye, Sparkles, Zap, Shield, ChevronRight, X, Layers } from 'lucide-react';
+import { Ship, Eye, Sparkles, Zap, Shield, ChevronRight, X, Layers } from 'lucide-react';
 
 export const TechShowcaseSection: React.FC = () => {
   const [selectedItem, setSelectedItem] = React.useState<TechShowcaseItem | null>(null);
-  const [activeTab, setActiveTab] = React.useState<string>('zote');
+  const [activeTab, setActiveTab] = React.useState<string>('all');
 
-  const filteredItems = activeTab === 'zote'
+  const filteredItems = activeTab === 'all'
     ? TECH_SHOWCASE_DATA
     : TECH_SHOWCASE_DATA.filter((item) => (item.category || item.tag || '').toLowerCase().includes(activeTab.toLowerCase()));
 
@@ -17,32 +17,37 @@ export const TechShowcaseSection: React.FC = () => {
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-4 border-b border-white/10">
         <div>
           <div className="flex items-center gap-2 mb-1">
-            <span className="px-2.5 py-0.5 rounded text-[10px] font-black uppercase tracking-widest bg-[#10b981]/15 text-[#10b981] border border-[#10b981]/30">
-              SANTECH TECH SPOTLIGHT 2026
+            <span className="px-2.5 py-0.5 rounded text-[10px] font-black uppercase tracking-widest bg-[#FFC107]/15 text-[#FFC107] border border-[#FFC107]/30">
+              SAN25 MARINE MACHINERY SPOTLIGHT 2026
             </span>
           </div>
           <h2 className="display-serif text-2xl sm:text-3xl font-extrabold text-white tracking-tight flex items-center gap-2">
-            <Cpu className="w-6 h-6 text-[#10b981]" />
-            Nyumba ya Ubunifu wa Teknolojia & Vifaa vya Kisasa
+            <Ship className="w-6 h-6 text-[#FFC107]" />
+            Advanced Marine Propulsion & Auxiliary Machinery Systems
           </h2>
           <p className="text-xs text-zinc-400 mt-1">
-            Gundua picha za ubora wa juu, vipimo vya kiufundi na athari za teknolojia mpya za Akili Bandia, Quantum & Robotics.
+            Explore cutting-edge marine propulsion, shipboard autonomous control, subsea robotics, and naval architecture innovations.
           </p>
         </div>
 
-        {/* Categories / Filter Pills */}
+        {/* Marine Engineering Machinery Categories / Filter Pills */}
         <div className="flex items-center gap-2 overflow-x-auto scrollbar-none pb-1">
-          {['zote', 'AI', 'Robotics', 'Quantum', 'Hardware'].map((tab) => (
+          {[
+            { id: 'all', label: 'All Marine Systems' },
+            { id: 'injini-kuu', label: 'Main Propulsion' },
+            { id: 'mitambo-msaidizi', label: 'Auxiliary Machinery' },
+            { id: 'umeme-na-otomesheni', label: 'Automation & HV' }
+          ].map((tab) => (
             <button
-              key={tab}
-              onClick={() => setActiveTab(tab)}
-              className={`px-3 py-1.5 rounded text-xs font-bold uppercase tracking-wider transition-all cursor-pointer whitespace-nowrap ${
-                activeTab === tab
-                  ? 'bg-[#10b981] text-black shadow-lg shadow-[#10b981]/20'
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              className={`px-3 py-1.5 rounded-xl text-xs font-bold uppercase tracking-wider transition-all cursor-pointer whitespace-nowrap ${
+                activeTab === tab.id
+                  ? 'bg-[#FFC107] text-black shadow-lg shadow-amber-500/20 font-black'
                   : 'bg-zinc-900 text-zinc-400 hover:text-white border border-white/10'
               }`}
             >
-              {tab === 'zote' ? 'Vyote' : tab}
+              {tab.label}
             </button>
           ))}
         </div>
@@ -73,7 +78,7 @@ export const TechShowcaseSection: React.FC = () => {
 
               <div className="absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
                 <span className="p-2 rounded bg-[#10b981] text-black font-bold text-xs flex items-center gap-1 shadow-lg">
-                  <Eye className="w-3.5 h-3.5" /> Tazama
+                  <Eye className="w-3.5 h-3.5" /> Inspect
                 </span>
               </div>
             </div>
@@ -162,7 +167,7 @@ export const TechShowcaseSection: React.FC = () => {
               {/* Specs Box */}
               <div className="bg-zinc-950/80 p-4 rounded-xl border border-white/10 space-y-3">
                 <h4 className="text-xs font-black uppercase tracking-[0.2em] text-zinc-300 flex items-center gap-2">
-                  <Zap className="w-4 h-4 text-[#10b981]" /> Vipimo vya Kiufundi (Technical Specifications)
+                  <Zap className="w-4 h-4 text-[#10b981]" /> Technical Specifications & Engineering Data
                 </h4>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                   {selectedItem.specs.map((spec, idx) => (
@@ -178,7 +183,7 @@ export const TechShowcaseSection: React.FC = () => {
               <div className="p-4 bg-[#10b981]/10 rounded-xl border border-[#10b981]/30 flex items-center gap-3">
                 <Shield className="w-6 h-6 text-[#10b981] shrink-0" />
                 <div>
-                  <h5 className="text-xs font-bold text-white uppercase tracking-wider">Athari Katika Sekta:</h5>
+                  <h5 className="text-xs font-bold text-white uppercase tracking-wider">Maritime Sector Impact:</h5>
                   <p className="text-xs text-[#10b981] font-semibold">{selectedItem.impact || selectedItem.tag}</p>
                 </div>
               </div>

@@ -1,20 +1,20 @@
 <!doctype html>
-<html lang="sw" class="h-full scroll-smooth">
+<html lang="en" class="h-full scroll-smooth">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
     <!-- Core SEO & Search Ranking Meta -->
-    <title>SAN25 Marine Engineering | Kituo cha Uhandisi wa Meli, Mitambo ya Majini, STCW, MARPOL & Usalama Baharini</title>
-    <meta name="title" content="SAN25 Marine Engineering | Kituo cha Uhandisi wa Meli, Mitambo ya Majini, STCW, MARPOL & Usalama Baharini" />
-    <meta name="description" content="SAN25 Marine Hub (santech.fun) - Tovuti rasmi ya kitaalamu ya Uhandisi wa Meli Tanzania na Afrika Mashariki: Uendeshaji wa MAN B&W ME-C, Wärtsilä RT-flex, Boilers, Alfa Laval Purifiers, 15 PPM OWS, High Voltage 6.6kV, Mahesabu ya SFOC na maandalizi ya mitihani ya MEO Class 1, 2 na 4." />
-    <meta name="keywords" content="Marine Engineering Tanzania, SAN25 Marine, santech.fun, Mhandisi wa Meli, MAN B&W ME-C, Wärtsilä RT-flex, 15 PPM OWS MARPOL, Auxiliary Boiler, STCW 2010 MEO Class 1 2 4, DMI Dar es Salaam Maritime Institute, TASAC, SFOC Calculator, Propeller Slip, Crankcase Explosion, High Voltage Marine, Seafarer Roaming eSIM" />
-    <meta name="author" content="SAN25 Marine Engineering Bureau" />
-    <meta name="publisher" content="SAN25 Marine Hub" />
+    <title>SAN25 Marine Engineering & Naval Architecture | Hydrodynamics, Stability, Ship Design & Drydocking</title>
+    <meta name="title" content="SAN25 Marine Engineering & Naval Architecture | Hydrodynamics, Stability, Ship Design & Drydocking" />
+    <meta name="description" content="SANMarine (santech.fun) - Founded by Saad Ally Nassor. Comprehensive Marine Engineering & Naval Architecture portal. Featuring Ship Hydrodynamics, GZ Stability curves, Ship Design Methodology (NIT SRT 06107), Maneuvering & Steering, Drydocking mechanics (SRT 04105), STCW MEO Class 1/2/4 preparation, and official National Institute of Transport (NIT) courseware library with direct PDF downloads." />
+    <meta name="keywords" content="Saad Ally Nassor, Marine Engineering, Naval Architecture, Ship Stability, Hydrodynamics, Ship Design Methodology, NIT Tanzania, National Institute of Transport, Drydocking, Rudder Maneuvering, MAN B&W ME-C, Wärtsilä RT-flex, STCW MEO Exam Prep, Dr CB Barrass, Ship Propulsion FPP CPP, Seafarer Roaming eSIM" />
+    <meta name="author" content="Saad Ally Nassor - Founder & Chief Marine Engineering Technologist, SAN25 Marine Hub" />
+    <meta name="publisher" content="SANMarine Hub" />
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
     <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
     <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
-    <meta name="language" content="Swahili, English" />
+    <meta name="language" content="English" />
     <meta name="geo.region" content="TZ" />
     <meta name="geo.placename" content="Dar es Salaam Port, Tanzania" />
     <meta name="geo.position" content="-6.792354;39.208328" />
@@ -26,18 +26,17 @@
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://santech.fun/" />
-    <meta property="og:title" content="SAN25 Marine Engineering | Kituo cha Uhandisi wa Meli & Mitambo ya Majini" />
-    <meta property="og:description" content="Mwongozo kamili wa kiufundi kwa mainjinia wa meli: Injini Kuu, Mitambo Msaidizi, Umeme wa Meli 6.6kV, Kanuni za IMO (SOLAS/MARPOL) na Mahesabu ya Meli." />
+    <meta property="og:title" content="SAN25 Marine Engineering & Naval Architecture Hub" />
+    <meta property="og:description" content="Professional engineering calculations, lecture modules, drydocking mechanics, maneuvering simulations, and academic courseware." />
     <meta property="og:image" content="https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=1200&q=80" />
-    <meta property="og:site_name" content="SAN25 Marine Engineering Hub" />
-    <meta property="og:locale" content="sw_TZ" />
-    <meta property="og:locale:alternate" content="en_US" />
+    <meta property="og:site_name" content="SANMarine Hub" />
+    <meta property="og:locale" content="en_US" />
 
     <!-- Twitter Cards -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:url" content="https://santech.fun/" />
-    <meta name="twitter:title" content="SAN25 Marine Engineering - Kituo cha Uhandisi wa Meli" />
-    <meta name="twitter:description" content="Uendeshaji wa injini za MAN B&W, Wärtsilä, Boilers, 15 PPM OWS, STCW MEO Exam Prep na zana za baharini." />
+    <meta name="twitter:title" content="SAN25 Marine Engineering & Naval Architecture" />
+    <meta name="twitter:description" content="Interactive ship stability, hydrodynamics, design methodology, drydocking, and NIT courseware library." />
     <meta name="twitter:image" content="https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=1200&q=80" />
     <meta name="twitter:site" content="@SantechTZ" />
     <meta name="twitter:creator" content="@SantechTZ" />
@@ -47,23 +46,81 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700;1,900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 
+    <!-- Third-Party Affiliate & Analytics Error Guard -->
+    <script>
+      (function() {
+        var nativeConsoleError = console.error;
+        console.error = function() {
+          var args = Array.prototype.slice.call(arguments);
+          var message = args.map(function(arg) {
+            if (arg instanceof Error) return arg.message + ' ' + (arg.stack || '');
+            if (typeof arg === 'object') {
+              try { return JSON.stringify(arg); } catch(e) { return String(arg); }
+            }
+            return String(arg);
+          }).join(' ');
+
+          var isThirdPartyBenign = 
+            message.indexOf('config is not valid') !== -1 ||
+            message.indexOf('namespace is not valid') !== -1 ||
+            message.indexOf('partner URLs') !== -1 ||
+            message.indexOf('content status') !== -1 ||
+            message.indexOf('check_auth') !== -1 ||
+            message.indexOf('tp-em.com') !== -1 ||
+            message.indexOf('chunk.CI9K441D') !== -1 ||
+            message.indexOf('chunk.SJM36BpI') !== -1 ||
+            message.indexOf('chunk.CIPJjNb3') !== -1 ||
+            message.indexOf('impactStat') !== -1 ||
+            message.indexOf('impactcdn') !== -1 ||
+            (message.indexOf('Failed to fetch') !== -1 && (message.indexOf('tp') !== -1 || message.indexOf('impact') !== -1));
+
+          if (isThirdPartyBenign) {
+            console.info('[Third-party affiliate / analytics notice handled]:', message);
+            return;
+          }
+          return nativeConsoleError.apply(console, args);
+        };
+
+        window.addEventListener('unhandledrejection', function(event) {
+          var reason = event.reason;
+          var str = reason ? (reason.stack || reason.message || String(reason)) : '';
+          if (
+            str.indexOf('tp-em.com') !== -1 ||
+            str.indexOf('chunk.CI9K') !== -1 ||
+            str.indexOf('chunk.SJM36') !== -1 ||
+            str.indexOf('chunk.CIPJ') !== -1 ||
+            str.indexOf('check_auth') !== -1 ||
+            str.indexOf('getAffiliatedUrls') !== -1 ||
+            str.indexOf('partner URLs') !== -1 ||
+            str.indexOf('impactcdn') !== -1 ||
+            (str.indexOf('Failed to fetch') !== -1 && (str.indexOf('tp') !== -1 || str.indexOf('impact') !== -1))
+          ) {
+            event.preventDefault();
+            console.info('[Third-party promise rejection handled]:', str);
+          }
+        });
+      })();
+    </script>
+
     <!-- Travelpayouts Drive Integration -->
     <script nowprocket data-noptimize="1" data-cfasync="false" data-wpfc-render="false" seraph-accel-crit="1" data-no-defer="1" data-cmp-ab="2">
       (function () {
+        var host = window.location.hostname;
+        var isProduction = host === 'santech.fun' || host === 'www.santech.fun' || host.indexOf('santech.fun') !== -1;
+        if (isProduction) {
           var script = document.createElement("script");
           script.async = 1;
           script.setAttribute("data-cmp-ab","2");
           script.src = 'https://tp-em.com/NTY3OTY0.js?t=567964';
           document.head.appendChild(script);
+        } else {
+          console.info('[Travelpayouts Drive] Standby in preview environment. Automatically runs live on https://santech.fun/');
+        }
       })();
     </script>
 
     <!-- Impact Universal Tracking Tag (UTT) -->
     <script type="text/javascript">(function(i,m,p,a,c,t){c.ire_o=p;c[p]=c[p]||function(){(c[p].a=c[p].a||[]).push(arguments)};t=a.createElement(m);var z=a.getElementsByTagName(m)[0];t.async=1;t.src=i;z.parentNode.insertBefore(t,z)})('https://utt.impactcdn.com/P-A7698474-2271-4def-82a4-407f9f84858d1.js','script','impactStat',document,window);impactStat('transformLinks');impactStat('trackImpression');</script>
-
-    <!-- Ad Network Popunder & Banner Scripts (Profitable Rate CPM Network) -->
-    <script async="async" data-cfasync="false" src="https://pl30562410.profitableratecpmnetwork.com/2333fa0649d82db60c328c346534b6a9/invoke.js"></script>
-    <script src="https://pl30562202.profitableratecpmnetwork.com/49/4a/39/494a3982415b6ec7fa31eb7539595e94.js"></script>
 
     <!-- Rich Structured Data: JSON-LD Schemas for Marine Engineering Technical Authority -->
     <script type="application/ld+json">

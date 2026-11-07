@@ -22,7 +22,7 @@ export const HeroGrid: React.FC<HeroGridProps> = ({
 
   return (
     <section className="grid grid-cols-1 lg:grid-cols-12 gap-5 my-6">
-      {/* 1 Main Trending Article Card (8 cols) - GSMArena + TechCrunch style */}
+      {/* 1 Main Trending Article Card (8 cols) */}
       <div className="lg:col-span-8 bg-zinc-950 border border-white/10 rounded-2xl overflow-hidden shadow-2xl hover:border-[#FFC107]/50 transition-all group flex flex-col justify-between relative">
         {/* Headline Image */}
         <div className="relative h-72 sm:h-[400px] w-full overflow-hidden bg-black">
@@ -38,7 +38,7 @@ export const HeroGrid: React.FC<HeroGridProps> = ({
           <div className="absolute top-4 left-4 right-4 flex items-center justify-between">
             <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#FFC107] text-black text-[11px] font-black uppercase tracking-wider rounded-lg shadow-md">
               <Flame className="w-3.5 h-3.5 fill-black" />
-              HOT TRENDING • {headlineArticle.categoryName}
+              FEATURED DISCIPLINE • {headlineArticle.categoryName}
             </span>
 
             <button
@@ -51,7 +51,7 @@ export const HeroGrid: React.FC<HeroGridProps> = ({
                   ? 'bg-[#FFC107] text-black font-bold border-[#FFC107]'
                   : 'bg-black/70 text-white border-white/15 hover:bg-black'
               }`}
-              title={isBookmarked ? 'Ondoa kwenye bookmarks' : 'Hifadhi makala'}
+              title={isBookmarked ? 'Remove bookmark' : 'Bookmark technical article'}
             >
               <Bookmark className="w-4 h-4 fill-current" />
             </button>
@@ -80,11 +80,11 @@ export const HeroGrid: React.FC<HeroGridProps> = ({
               </span>
               <span className="flex items-center gap-1.5 font-bold text-zinc-300">
                 <User className="w-3.5 h-3.5 text-[#FFC107]" />
-                {headlineArticle.author || 'SAN25'}
+                {headlineArticle.author || 'Saad Ally Nassor'}
               </span>
               <span className="flex items-center gap-1.5">
                 <Eye className="w-3.5 h-3.5 text-[#FFC107]" />
-                {headlineArticle.views.toLocaleString()} wasomaji
+                {headlineArticle.views.toLocaleString()} readers
               </span>
             </div>
 
@@ -92,19 +92,19 @@ export const HeroGrid: React.FC<HeroGridProps> = ({
               onClick={() => onSelectArticle(headlineArticle)}
               className="inline-flex items-center gap-2 text-xs font-black uppercase tracking-wider text-black bg-[#FFC107] hover:bg-amber-400 px-4 py-2 rounded-xl transition-all cursor-pointer shadow-md group-hover:scale-102"
             >
-              Soma Kamili <ArrowRight className="w-4 h-4" />
+              Read Full Analysis <ArrowRight className="w-4 h-4" />
             </button>
           </div>
         </div>
       </div>
 
-      {/* 4 Side Articles - GSMArena style list */}
+      {/* 4 Side Articles */}
       <div className="lg:col-span-4 bg-zinc-950 border border-white/10 rounded-2xl p-5 sm:p-6 shadow-xl flex flex-col justify-between">
         <div>
           <div className="flex items-center justify-between mb-4 pb-3 border-b border-white/10">
             <h3 className="text-xs font-black uppercase tracking-widest text-white flex items-center gap-2">
               <span className="w-2.5 h-2.5 rounded-full bg-[#FFC107] animate-pulse"></span>
-              Zinazotrend Hivi Sasa
+              Trending Maritime Briefs
             </h3>
             <span className="text-[10px] font-black text-black bg-[#FFC107] px-2.5 py-0.5 rounded-md">
               TOP 4
@@ -144,25 +144,11 @@ export const HeroGrid: React.FC<HeroGridProps> = ({
           </div>
         </div>
 
-        {/* WhatsApp Channel Small Promo Card */}
-        <div className="mt-6 pt-4 border-t border-white/10 bg-zinc-900/90 p-4 rounded-xl border border-white/5">
-          <div className="flex items-center gap-2 mb-1.5">
-            <Sparkles className="w-4 h-4 text-[#FFC107]" />
-            <p className="text-xs font-black text-white uppercase tracking-wider">
-              SANTech WhatsApp Channel
-            </p>
+        <div className="pt-4 mt-4 border-t border-white/10">
+          <div className="flex items-center justify-between text-xs text-zinc-400">
+            <span>Verified STCW Standards</span>
+            <span className="text-[#FFC107] font-bold">Class 1, 2, 4 CoC</span>
           </div>
-          <p className="text-[11px] text-zinc-400 mb-3 leading-relaxed">
-            Jiunge sasa na maelfu ya Watanzania kupata habari za kiteknolojia kila siku.
-          </p>
-          <a
-            href="https://whatsapp.com/channel/0029VaSANTechTZ"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-full bg-[#FFC107] hover:bg-amber-400 text-black text-xs font-black uppercase tracking-wider py-2 rounded-xl transition-all shadow-md block text-center"
-          >
-            Jiunge WhatsApp Bure
-          </a>
         </div>
       </div>
     </section>

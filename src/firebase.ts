@@ -22,6 +22,8 @@ import {
   orderBy,
   limit,
   Timestamp,
+  initializeFirestore,
+  Firestore,
 } from 'firebase/firestore';
 
 // Load config from firebase-applet-config.json
@@ -29,7 +31,21 @@ import firebaseConfig from '../firebase-applet-config.json';
 
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 
-export const db = getFirestore(app, firebaseConfig.firestoreDatabaseId);
+// Use long-polling transport to prevent streaming connection timeouts in iframe/proxy environments
+let firestoreInstance: Firestore;
+try {
+  firestoreInstance = initializeFirestore(
+    app,
+    {
+      experimentalForceLongPolling: true,
+    },
+    firebaseConfig.firestoreDatabaseId
+  );
+} catch {
+  firestoreInstance = getFirestore(app, firebaseConfig.firestoreDatabaseId);
+}
+
+export const db = firestoreInstance;
 export const auth = getAuth(app);
 export const googleProvider = new GoogleAuthProvider();
 
@@ -60,8 +76,14 @@ export interface FirestoreErrorInfo {
 }
 
 export function handleFirestoreError(error: unknown, operationType: OperationType, path: string | null) {
+  const message = error instanceof Error ? error.message : String(error);
+  const isPermissionDenied =
+    message.includes('permission-denied') ||
+    message.includes('Missing or insufficient permissions') ||
+    message.includes('PERMISSION_DENIED');
+
   const errInfo: FirestoreErrorInfo = {
-    error: error instanceof Error ? error.message : String(error),
+    error: message,
     authInfo: {
       userId: auth.currentUser?.uid,
       email: auth.currentUser?.email,
@@ -77,19 +99,30 @@ export function handleFirestoreError(error: unknown, operationType: OperationTyp
     operationType,
     path,
   };
-  console.error('Firestore Error: ', JSON.stringify(errInfo));
-  throw new Error(JSON.stringify(errInfo));
+
+  if (isPermissionDenied) {
+    console.error('Firestore Permission Error: ', JSON.stringify(errInfo));
+    throw new Error(JSON.stringify(errInfo));
+  } else {
+    console.warn(`Firestore [${operationType}] network/sync notice on [${path}]:`, message);
+  }
 }
 
-// Test Connection helper as mandated by firebase-integration skill
+// Test Connection helper as mandated by firebase-integration skill with safe timeout guard
 export async function testConnection(): Promise<boolean> {
   try {
-    await getDocFromServer(doc(db, 'test', 'connection'));
+    const timeoutPromise = new Promise<never>((_, reject) =>
+      setTimeout(() => reject(new Error('Connection check timeout')), 3500)
+    );
+    await Promise.race([
+      getDocFromServer(doc(db, 'test', 'connection')),
+      timeoutPromise,
+    ]);
     console.log('Firebase Firestore connection verified successfully!');
     return true;
   } catch (error) {
-    if (error instanceof Error && error.message.includes('offline')) {
-      console.warn('Firebase client is offline or initializing.');
+    if (error instanceof Error && (error.message.includes('offline') || error.message.includes('timeout') || error.message.includes('10 seconds'))) {
+      console.warn('Firebase client operating in offline cache mode.');
     }
     return false;
   }

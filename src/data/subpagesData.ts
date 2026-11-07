@@ -41,32 +41,32 @@ export interface SubpageCategory {
 export const SUBPAGE_CATEGORIES: SubpageCategory[] = [
   {
     id: 'injini-kuu',
-    label: 'Injini Kuu & Propulsion',
-    description: 'MAN B&W, Wärtsilä Sulzer, Turbochargers, Indicator Cards na Propeller Shafting',
+    label: 'Main Propulsion Engines',
+    description: 'MAN B&W, WinGD, 2-Stroke Diesels, Turbochargers, Indicator Cards & Shafting',
     iconName: 'Ship',
   },
   {
     id: 'mitambo-msaidizi',
-    label: 'Mitambo Msaidizi',
-    description: 'Auxiliary Boilers, Centrifugal Purifiers, 15 PPM OWS, FWG na Steering Gear',
+    label: 'Auxiliary Machinery Systems',
+    description: 'Auxiliary Boilers, Centrifugal Purifiers, 15 PPM OWS, Fresh Water Generators & Steering',
     iconName: 'Wrench',
   },
   {
     id: 'umeme-na-otomesheni',
-    label: 'Umeme & Otomesheni',
-    description: 'High Voltage 6.6kV, Alternator Synchronization, PMS, ESB na Blackout Recovery',
+    label: 'Electrical & Automation',
+    description: 'High Voltage 6.6kV, Alternator Synchronization, PMS, ESB & Emergency Power Restoration',
     iconName: 'Zap',
   },
   {
     id: 'sheria-na-usalama',
-    label: 'Sheria & Usalama (IMO)',
-    description: 'SOLAS Fire Fighting, MARPOL Annex I-VI, STCW 2010, PSC Checklists na MLC 2006',
+    label: 'IMO Regulations & Safety',
+    description: 'SOLAS Fire Protection, MARPOL Annex I-VI, STCW 2010, PSC Checklists & ISM Code',
     iconName: 'ShieldAlert',
   },
   {
     id: 'vipimo-na-miongozo',
-    label: 'Vipimo & MEO Exams',
-    description: 'SFOC Calculator, Propeller Slip, Planimeter, Scavenge Fire na Class 1/2 Oral Viva',
+    label: 'Calculations & MEO Examinations',
+    description: 'SFOC Calculations, Propeller Slip, Planimeter Analysis, ASTM 54B & Oral Exam Bank',
     iconName: 'Calculator',
   },
 ];

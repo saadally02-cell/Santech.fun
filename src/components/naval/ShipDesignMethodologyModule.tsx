@@ -12,13 +12,14 @@ import {
   TrendingUp,
   FileSpreadsheet,
   Cpu,
-  Info
+  Info,
+  ExternalLink,
+  BookOpen
 } from 'lucide-react';
 
 interface DesignSpiralStage {
   id: number;
   title: string;
-  swahiliTitle: string;
   shortDesc: string;
   keyOutputs: string[];
   principles: string[];
@@ -27,74 +28,68 @@ interface DesignSpiralStage {
 const SPIRAL_STAGES: DesignSpiralStage[] = [
   {
     id: 1,
-    title: "Mission Requirements & Concept Exploration",
-    swahiliTitle: "1. Mahitaji ya Safari & Malengo ya Meli",
-    shortDesc: "Kufafanua uwezo wa kubeba mzigo (Deadweight / TEU), kasi ya safari (Service Speed), umbali wa safari (Range nm), na vikwazo vya kijiografia (Canal & Port restrictions).",
-    keyOutputs: ["Deadweight (DWT) au TEU", "Kasi ya Kiuchumi (Knots)", "Endurance (Days / Nautical Miles)", "Vikwazo vya Mfereji (Panamax, Suezmax)"],
+    title: "1. Mission Requirements & Concept Exploration",
+    shortDesc: "Define deadweight capacity (DWT / TEU), design service speed (Knots), endurance range (nautical miles), and geographical boundary limits (Panamax, Suezmax, draft constraints).",
+    keyOutputs: ["Deadweight (DWT) or TEU Capacity", "Service Speed (Knots)", "Endurance Range (Nautical Miles)", "Canal & Port Draft Limits"],
     principles: [
-      "Uwiano wa gharama ya mafuta dhidi ya kasi ya safari (Economic Slow Steaming)",
-      "Uchaguzi wa daraja la barafu (Ice Class) au meli ya kawaida kulingana na njia za biashara",
-      "Kuzingatia sheria za IMO EEXI (Energy Efficiency Existing Ship Index) na CII (Carbon Intensity Indicator)"
+      "Economic slow steaming trade-off between fuel expenditure and voyage charter rates",
+      "Ice class notation versus open water optimization based on global trade corridors",
+      "Compliance with IMO EEXI (Energy Efficiency Existing Ship Index) & CII (Carbon Intensity Indicator)"
     ]
   },
   {
     id: 2,
-    title: "Principal Dimensions & Form Coefficients",
-    swahiliTitle: "2. Vipimo Vikuu & Mgawo wa Umbo (Hull Form)",
-    shortDesc: "Kubainisha urefu (Lbp), upana (B), kina (D), mzammo (T), na uwiano wa kijiometri (Cb, Cp, Cm, Cwp) kwa kutumia kanuni za Posdunine na Schneekluth.",
-    keyOutputs: ["Length B.P (Lbp)", "Beam Moulded (B)", "Depth Moulded (D)", "Draft (T)", "Block Coefficient (Cb)"],
+    title: "2. Principal Dimensions & Hull Form Coefficients",
+    shortDesc: "Derive length between perpendiculars (Lbp), beam (B), depth (D), draft (T), and form coefficients (Cb, Cp, Cm, Cwp) using Schneekluth, Posdunine, and Alexander formulas.",
+    keyOutputs: ["Length B.P. (Lbp)", "Molded Beam (B)", "Molded Depth (D)", "Design Draft (T)", "Block Coefficient (Cb)"],
     principles: [
-      "Slenderness ratio L/∇^(1/3) inayoamua kiasi cha wave-making resistance",
-      "Uwiano wa B/T unaoathiri uthabiti wa pembeni (Transverse stability na initial GM)",
-      "Kadirio la Cb kulingana na Froude Number: Cb = 1.05 - 0.23 * Fn"
+      "Slenderness ratio L / ∇^(1/3) governing wave-making resistance",
+      "Beam-to-draft ratio (B/T) dictating transverse metacentric height (initial GM)",
+      "Alexander formula for block coefficient: Cb = 1.05 - 0.23 × Fn"
     ]
   },
   {
     id: 3,
-    title: "Hull Form Design & Bulbous Bow Optimization",
-    swahiliTitle: "3. Usanifu wa Umbo la Hull & Pua ya Meli (Bulbous Bow)",
-    shortDesc: "Uchoraji wa mistari ya meli (Lines Plan: Body Plan, Sheer Plan, Half-Breadth Plan), pua ya mviringo ya kupunguza mawimbi, na mtindo wa uelekeo wa nyuma (Stern).",
-    keyOutputs: ["Lines Plan 3D Offsets", "Bulbous Bow Cross-Section Area (ABT)", "Transom Stern Immersion", "Wetted Surface Area (S)"],
+    title: "3. Hull Lines, Forebody & Bulbous Bow Optimization",
+    shortDesc: "Develop the 3D Lines Plan (Body Plan, Sheer Plan, Half-Breadth Plan), bulbous bow cross-sectional area, and stern skeg clearance for optimum flow into propeller.",
+    keyOutputs: ["Lines Plan 3D Offsets", "Bulbous Bow Area (ABT)", "Transom Stern Immersion", "Wetted Surface Area (S)"],
     principles: [
-      "Bulbous bow inazalisha wimbi linalokinzana na wimbi la pua (Destructive Wave Interference) na kuokoa 8-15% ya nguvu",
-      "Urefu na umbo la skeg kuelekeza mtiririko safi wa maji kuelekea kwenye propeller",
-      "Kupunguza vortex shedding kwenye sehemu ya nyuma (Aft run)"
+      "Bulbous bow creates destructive wave interference, cancelling bow wave and saving 8% to 15% propulsive power",
+      "Skeg alignment directs uniform wake into the propeller disc",
+      "Minimizing bilge vortex shedding and stern eddy flow"
     ]
   },
   {
     id: 4,
-    title: "Subdivision & General Arrangement (GA)",
-    swahiliTitle: "4. Mgawanyo wa Ndani & Mpangilio Mkuu (GA & SOLAS)",
-    shortDesc: "Kuweka bulkheads zisizopenyeza maji (Watertight Bulkheads), chumba cha injini (Engine Room), collision bulkhead kwa mujibu wa SOLAS Chapter II-1, na double bottom.",
-    keyOutputs: ["Collision Bulkhead (0.05L hadi 0.08L)", "Aft Peak Bulkhead", "Double Bottom Height (≥ 760 mm)", "Cargo Hold Compartments"],
+    title: "4. Internal Subdivision & General Arrangement (GA)",
+    shortDesc: "Position watertight bulkheads, machinery spaces, collision bulkhead per SOLAS Reg. II-1/11, and double bottom tanks.",
+    keyOutputs: ["Collision Bulkhead (0.05L to 0.08L)", "Aft Peak Bulkhead", "Double Bottom Height (≥ 760 mm)", "Cargo Holds & Hatch Openings"],
     principles: [
-      "Kanuni za SOLAS Probabilistic Damage Stability (Attained Index A ≥ Required Index R)",
-      "Urefu wa double bottom usiopungua B/20 kuzuia uvujaji wakati wa kusimama mchangani (Grounding)",
-      "Ufikiaji rahisi wa vituo vya dharura (Emergency Generator, Fire Pump, Lifeboats)"
+      "SOLAS probabilistic damage stability: Attained Subdivision Index A ≥ Required Index R",
+      "Double bottom height not less than B/20 to protect against grounding breaches",
+      "Independent segregation of hazardous and heavy fuel oil storage"
     ]
   },
   {
     id: 5,
-    title: "Weight Estimation & Displacement Balance",
-    swahiliTitle: "5. Makadirio ya Uzito & Uwiano wa Mvuto (Weight Synthesis)",
-    shortDesc: "Kugawanya uzito katika Lightweight (Steel Hull + Machinery + Outfit) na Deadweight (Cargo + Fuel + Ballast + Crew) na kusawazisha na ujazo wa maji (Archimedes).",
+    title: "5. Steel Weight Estimation & Weight Synthesis",
+    shortDesc: "Calculate lightweight components (Steel hull, Machinery, Outfit) using Cubic Number (CN), Method of Differences, Buxton, and Sato formulas.",
     keyOutputs: ["Steel Hull Weight (Wsteel)", "Machinery Weight (Wmach)", "Outfit Weight (Woutfit)", "Deadweight (DWT)", "Displacement Balance (Δ)"],
     principles: [
-      "Watson & Gilfillan formula ya ukadirio wa uzito wa chuma: Wsteel = K * L * B * D",
-      "Kuhakikisha kitovu cha uzito (KG) kinaruhusu GM salama katika safari ya mtupu (Ballast) na mzigo kamili (Full Load)",
-      "Kupima LCG dhidi ya LCB ili kuzuia trim kubwa isiyotakiwa"
+      "Method of Differences (NIT SRT 06107): 85% ΔL, 55% ΔB, 30% ΔD relative to parent ship",
+      "Buxton formula: Ws = 0.0487 × CN^1.077 for merchant hull structures",
+      "Longitudinal weight center (LCG) balance matching center of buoyancy (LCB) for zero unwanted trim"
     ]
   },
   {
     id: 6,
-    title: "Structural Scantlings & Classification Rules",
-    swahiliTitle: "6. Unene wa Vyuma & Sheria za Bodi za Ukaguzi (IACS CSR)",
-    shortDesc: "Hesabu za nguvu ya uti wa mgongo wa meli (Hull Girder Section Modulus Zmin), unene wa bati za chini (Bottom Plating) na sitaha (Deck Plating) chini ya sheria za IACS.",
+    title: "6. Structural Scantlings & Classification Rules (IACS)",
+    shortDesc: "Compute hull girder section modulus (Zmin), bottom shell plating thickness, and deck plate requirements under IACS Common Structural Rules (CSR).",
     keyOutputs: ["Minimum Section Modulus (Zmin)", "Bottom Plate Thickness (t)", "Deck Plate Thickness", "Corrosion Addition (tk)"],
     principles: [
-      "Still Water Bending Moment (MSW) + Wave Bending Moment (MWV) kwa hali ya Hogging na Sagging",
-      "Unene wa chuma lazima uhusishe ziada ya kutu (Corrosion margin ya mm 2.0 - 3.5)",
-      "Uimarishaji maalum wa pua kuzuia mshtuko wa mawimbi makali (Bottom Slamming)"
+      "Still water bending moment (MSW) + wave bending moment (MWV) under hogging and sagging",
+      "Net thickness approach with mandatory 2.0 mm to 3.5 mm corrosion additions",
+      "Strengthened forward bottom structure against heavy slamming pressures"
     ]
   }
 ];
@@ -102,407 +97,504 @@ const SPIRAL_STAGES: DesignSpiralStage[] = [
 export const ShipDesignMethodologyModule: React.FC = () => {
   const [activeStageId, setActiveStageId] = useState<number>(1);
 
-  // Interactive Sizing Parameters
-  const [shipType, setShipType] = useState<'container' | 'bulk' | 'tanker' | 'ferry'>('container');
-  const [targetDWT, setTargetDWT] = useState<number>(65000); // tonnes
-  const [targetSpeedKnots, setTargetSpeedKnots] = useState<number>(20.0); // knots
-  const [enduranceDays, setEnduranceDays] = useState<number>(25); // days at sea
+  // Preliminary Sizing Interactive State
+  const [shipType, setShipType] = useState<'container' | 'bulk' | 'tanker' | 'ferry'>('bulk');
+  const [targetDWT, setTargetDWT] = useState<number>(82000); // tonnes
+  const [targetSpeedKnots, setTargetSpeedKnots] = useState<number>(14.5); // knots
+  const [enduranceDays, setEnduranceDays] = useState<number>(30); // days at sea
 
-  // Naval Architecture Synthesis Formulae
+  // Steel Weight Estimation State (NIT SRT 06107 Method of Differences)
+  const [useParentShipMethod, setUseParentShipMethod] = useState<boolean>(true);
+  const [parentL, setParentL] = useState<number>(220.0); // m
+  const [parentB, setParentB] = useState<number>(32.0); // m
+  const [parentD, setParentD] = useState<number>(19.0); // m
+  const [parentWsteel, setParentWsteel] = useState<number>(11200); // tonnes
+
+  // Design Synthesis Calculations
   const designSynthesis = useMemo(() => {
-    // Speed in m/s
     const V_ms = targetSpeedKnots * 0.514444;
 
-    // Estimate Block Coefficient based on ship type and Froude Number
-    let defaultCb = 0.65;
-    let lengthConstant = 5.2; // Schneekluth length factor
+    // Block Coefficient & Form Coefficients
+    let defaultCb = 0.82;
+    let lengthConstant = 4.8;
     if (shipType === 'container') {
       defaultCb = Math.min(0.68, Math.max(0.55, 1.05 - 0.23 * (targetSpeedKnots / Math.sqrt(240))));
       lengthConstant = 5.6;
     } else if (shipType === 'bulk') {
-      defaultCb = 0.82;
+      defaultCb = 0.84;
       lengthConstant = 4.8;
     } else if (shipType === 'tanker') {
-      defaultCb = 0.84;
+      defaultCb = 0.85;
       lengthConstant = 4.6;
     } else {
       defaultCb = 0.58;
       lengthConstant = 6.2;
     }
 
-    // Estimate Lightweight ratio (LWT / Displacement)
-    // Container ~ 0.25 - 0.30; Bulk ~ 0.16 - 0.20; Tanker ~ 0.15 - 0.18; Ferry ~ 0.40 - 0.55
-    let lwtRatio = 0.24;
-    if (shipType === 'bulk') lwtRatio = 0.18;
+    // Lightweight Ratio (LWT / Δ)
+    let lwtRatio = 0.18;
+    if (shipType === 'container') lwtRatio = 0.26;
     if (shipType === 'tanker') lwtRatio = 0.16;
     if (shipType === 'ferry') lwtRatio = 0.45;
 
-    // Required Displacement Delta = DWT / (1 - lwtRatio)
-    const displacement = targetDWT / (1 - lwtRatio);
-    const lightweight = displacement - targetDWT;
+    // Required Displacement (tonnes)
+    const displacementTonnes = targetDWT / (1 - lwtRatio);
+    const volumeM3 = displacementTonnes / 1.025;
 
-    // Underwater Volume V = Delta / rho (rho = 1.025 t/m3)
-    const underwaterVol = displacement / 1.025;
+    // Length between perpendiculars (Lbp) via Posdunine formula
+    const Lbp = lengthConstant * Math.pow(targetSpeedKnots / (targetSpeedKnots + 2), 2) * Math.pow(displacementTonnes, 1 / 3);
 
-    // Estimate Length Lbp using Schneekluth empirical formula: L = C * (V / (V + 2))^2 * Vol^(1/3)
-    const Lbp = lengthConstant * Math.pow(targetSpeedKnots / (targetSpeedKnots + 2), 2) * Math.pow(underwaterVol, 1 / 3) * 3.8;
-    const clampedLbp = Math.max(80, Math.min(400, Lbp));
+    // Beam (B) using typical L/B ratio (Container: 6.8, Bulker: 6.5, Tanker: 6.0)
+    let lbRatio = 6.8;
+    if (shipType === 'bulk') lbRatio = 6.9;
+    if (shipType === 'tanker') lbRatio = 5.8;
+    if (shipType === 'ferry') lbRatio = 5.5;
 
-    // Proportions: L/B ratio ~ 6.0 to 7.5; B/T ~ 2.4 to 3.2
-    const L_B = shipType === 'container' ? 7.0 : shipType === 'ferry' ? 5.8 : 6.4;
-    const B = clampedLbp / L_B;
-    const B_T = shipType === 'container' ? 2.8 : 2.5;
-    const T = B / B_T;
-    const D = T * 1.45; // Depth to Draft ratio ~ 1.4 - 1.55
+    const B = Lbp / lbRatio;
 
-    // Recalculate Block Coefficient from volume
-    const calculatedCb = underwaterVol / (clampedLbp * B * T);
-    const finalCb = Math.min(0.88, Math.max(0.52, calculatedCb));
+    // Draft (T) from Volume = Lbp * B * T * Cb
+    const T = volumeM3 / (Lbp * B * defaultCb);
 
-    // Midship section coeff Cm ~ 0.98, Prismatic Cp = Cb / Cm
-    const Cm = 0.985;
-    const Cp = finalCb / Cm;
-    const Cwp = (1 + 2 * finalCb) / 3;
+    // Molded Depth (D) via standard L/D ratio (typically 11.5 to 13.5)
+    const D = Math.max(T * 1.35, Lbp / 12.2);
 
-    // Steel Weight Breakdown (Watson & Gilfillan approximation)
-    const steelWeight = lightweight * 0.72;
-    const machineryWeight = lightweight * 0.16;
-    const outfitWeight = lightweight * 0.12;
+    // Froude Number
+    const Fn = V_ms / Math.sqrt(9.81 * Lbp);
 
-    // IACS CSR Minimum Midship Section Modulus Zmin (cm3)
-    // Zmin = C1 * L^2 * B * (Cb + 0.7) where C1 = 10.75 - ((300 - L)/100)^1.5 for 90 <= L <= 300
-    const C1 = 10.75 - Math.pow(Math.abs(300 - clampedLbp) / 100, 1.5);
-    const Zmin_m3 = (C1 * Math.pow(clampedLbp, 2) * B * (finalCb + 0.7)) * 1e-6; // in m3
-    const Zmin_cm3 = Zmin_m3 * 1e6; // in cm3
+    // Midship section coefficient Cm (typically 0.98 for bulk/tanker, 0.96 for container)
+    const Cm = shipType === 'container' ? 0.965 : 0.988;
+    const Cp = defaultCb / Cm;
+    const Cwp = (1 + 2 * defaultCb) / 3;
 
-    // Bottom plate thickness estimate: t = 1.9 * s * sqrt(T) + tk (s = 0.8m frame spacing, tk = 2.5mm)
-    const bottomPlateThickness = 1.9 * 0.8 * Math.sqrt(T) + 2.5; // mm
+    // Tonnes Per Centimeter (TPC) = 1.025 * Awp / 100
+    const Awp = Cwp * Lbp * B;
+    const TPC = (1.025 * Awp) / 100;
 
-    // Daily Fuel Consumption estimate: SFOC 165 g/kWh * Engine Power
-    // Rough Power PE ~ 0.5 * rho * S * V^3 * (1+k) * Cf
-    const S = 0.98 * (clampedLbp * (2 * T + B) * Math.sqrt(finalCb));
-    const Fn = V_ms / Math.sqrt(9.81 * clampedLbp);
-    const estimatedPB_kW = (0.5 * 1025 * S * Math.pow(V_ms, 3) * 0.0035 * 1.5) / 0.68;
-    const dailyFuelTonnes = (estimatedPB_kW * 165 * 24) / 1e6;
-    const totalFuelRequired = dailyFuelTonnes * enduranceDays * 1.15; // 15% safety margin
+    // Cubic Number (CN = L * B * D / 100) per NIT SRT 06107
+    const cubicNumber = (Lbp * B * D) / 100;
+
+    // Steel Weight via Method of Differences (NIT SRT 06107 Section 2)
+    // Ws = Wso * [1 + 0.85*(ΔL/Lo) + 0.55*(ΔB/Bo) + 0.30*(ΔD/Do)]
+    const deltaL = Lbp - parentL;
+    const deltaB = B - parentB;
+    const deltaD = D - parentD;
+    const methodOfDiffFactor = 1 + 0.85 * (deltaL / parentL) + 0.55 * (deltaB / parentB) + 0.30 * (deltaD / parentD);
+    const Wsteel_MethodOfDiff = parentWsteel * methodOfDiffFactor;
+
+    // Buxton Formula: Ws = 0.0487 * CN^1.077
+    const Wsteel_Buxton = 0.0487 * Math.pow(cubicNumber, 1.077);
+
+    // Sato Formula for Dry Cargo / Bulk: Ws = Cs * L^1.6 * (B + D)^0.8
+    // Cs typically ~ 0.032 for modern bulkers
+    const Wsteel_Sato = 0.032 * Math.pow(Lbp, 1.6) * Math.pow(B + D, 0.8);
+
+    // Machinery Weight (tonnes) based on estimated MCR power
+    const estimatedPowerKW = 0.55 * Math.pow(displacementTonnes, 2 / 3) * Math.pow(targetSpeedKnots, 3) / 520;
+    const Wmachinery = 0.08 * estimatedPowerKW + 120;
+
+    // Outfit Weight (tonnes) based on L * B
+    const Woutfit = 0.35 * Math.pow(Lbp * B, 0.9);
+
+    // Total Lightweight (tonnes)
+    const Wlightweight = Wsteel_MethodOfDiff + Wmachinery + Woutfit;
 
     return {
-      displacement,
-      lightweight,
-      underwaterVol,
-      Lbp: clampedLbp,
+      Lbp,
       B,
-      T,
       D,
-      Cb: finalCb,
-      Cp,
+      T,
+      Cb: defaultCb,
       Cm,
+      Cp,
       Cwp,
-      steelWeight,
-      machineryWeight,
-      outfitWeight,
-      Zmin_cm3,
-      bottomPlateThickness,
-      estimatedPB_kW,
-      dailyFuelTonnes,
-      totalFuelRequired,
+      TPC,
       Fn,
+      displacementTonnes,
+      volumeM3,
+      cubicNumber,
+      Wsteel_MethodOfDiff,
+      Wsteel_Buxton,
+      Wsteel_Sato,
+      Wmachinery,
+      Woutfit,
+      Wlightweight,
+      estimatedPowerKW,
+      deltaL,
+      deltaB,
+      deltaD
     };
-  }, [shipType, targetDWT, targetSpeedKnots, enduranceDays]);
-
-  const activeStage = SPIRAL_STAGES.find((s) => s.id === activeStageId) || SPIRAL_STAGES[0];
+  }, [shipType, targetDWT, targetSpeedKnots, parentL, parentB, parentD, parentWsteel]);
 
   return (
-    <div className="space-y-8 animate-fadeIn text-zinc-100">
-      {/* Header Banner */}
-      <div className="p-6 sm:p-8 rounded-3xl bg-zinc-950 border border-white/10 relative overflow-hidden shadow-2xl">
-        <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-          <div className="space-y-2">
-            <div className="flex items-center gap-2">
-              <span className="text-xs font-mono font-bold text-[#FFC107] uppercase tracking-wider">
-                Naval Architecture & Marine Engineering
-              </span>
-              <span className="text-zinc-500">·</span>
-              <span className="text-xs text-zinc-400">Evans' Design Spiral & Parametric Optimization</span>
-            </div>
-            <h1 className="text-2xl sm:text-4xl font-black text-white tracking-tight editorial-font flex items-center gap-3">
-              <Layers className="w-8 h-8 text-[#FFC107]" />
-              Ship Design Methodology & Spiral Studio
-            </h1>
-            <p className="text-sm text-zinc-300 max-w-2xl leading-relaxed">
-              Mchakato wa Kiufundi wa Usanifu wa Meli (Design Spiral): Kuanzia mahitaji ya kibiashara,
-              vipimo vikuu ($L_{'{bp}'}, B, D, T$), mistari ya umbo (Lines Plan), uwezo wa uzito (Lightweight vs Deadweight),
-              hadi unene wa vyuma (Scantlings) chini ya kanuni za IACS CSR.
-            </p>
-          </div>
+    <div className="space-y-8 animate-fadeIn">
+      {/* Module Title Banner */}
+      <div className="p-6 sm:p-8 rounded-3xl bg-zinc-950 border border-white/10 space-y-3">
+        <div className="flex items-center gap-2 text-xs font-mono text-[#FFC107] uppercase tracking-wider font-bold">
+          <span>National Institute of Transport Course SRT 06107</span>
+          <span>•</span>
+          <span>Naval Architecture Design Spiral</span>
         </div>
-      </div>
-
-      {/* Stage Selector Ribbon (Anti-slop clean typography segmented bar) */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2">
-        {SPIRAL_STAGES.map((stg) => (
-          <button
-            key={stg.id}
-            onClick={() => setActiveStageId(stg.id)}
-            className={`p-3 rounded-2xl border text-left transition-all cursor-pointer flex flex-col justify-between ${
-              activeStageId === stg.id
-                ? 'bg-gradient-to-b from-[#FFC107]/20 to-black border-[#FFC107] shadow-lg shadow-[#FFC107]/10'
-                : 'bg-zinc-900/80 hover:bg-zinc-900 border-white/10 text-zinc-400 hover:text-white'
-            }`}
-          >
-            <div className="flex items-center justify-between mb-1">
-              <span className="text-[10px] font-mono font-bold text-[#FFC107]">STAGE 0{stg.id}</span>
-              {activeStageId === stg.id && <CheckCircle2 className="w-3.5 h-3.5 text-[#FFC107]" />}
-            </div>
-            <span className="text-xs font-bold line-clamp-2 text-white">{stg.title}</span>
-          </button>
-        ))}
-      </div>
-
-      {/* Interactive Design Spiral Explorer Card */}
-      <div className="bg-zinc-900/90 border border-white/10 rounded-2xl p-6 sm:p-8 space-y-6 shadow-xl">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-white/10 pb-4">
-          <div>
-            <span className="text-xs font-mono font-bold text-[#FFC107] uppercase tracking-wider block mb-1">
-              Evans' Design Spiral Stage {activeStage.id} of 6
-            </span>
-            <h2 className="text-xl sm:text-2xl font-black text-white">{activeStage.swahiliTitle}</h2>
-          </div>
-          <span className="text-xs text-zinc-400 font-mono bg-black/50 px-3 py-1.5 rounded-xl border border-white/5">
-            Iterative Optimization Cycle
-          </span>
-        </div>
-
-        <p className="text-sm text-zinc-300 leading-relaxed max-w-3xl">
-          {activeStage.shortDesc}
+        <h2 className="text-2xl sm:text-3xl font-black text-white editorial-font flex items-center gap-3">
+          <Layers className="w-7 h-7 text-[#FFC107]" />
+          Ship Design Methodology & Steel Weight Estimation
+        </h2>
+        <p className="text-sm text-zinc-300 max-w-3xl leading-relaxed">
+          Comprehensive implementation of the Evans-Harvey Design Spiral and NIT SRT 06107 steel weight estimation modules, including the Cubic Number method, Method of Differences (85% L, 55% B, 30% D), Buxton, and Sato formulas.
         </p>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
-          {/* Key Outputs Box */}
-          <div className="p-5 rounded-2xl bg-black/60 border border-white/10 space-y-3">
-            <h4 className="text-xs font-black uppercase tracking-wider text-[#FFC107] flex items-center gap-2">
-              <Boxes className="w-4 h-4" /> Matokeo ya Kiufundi (Key Deliverables & Outputs)
-            </h4>
-            <ul className="space-y-2 text-xs">
-              {activeStage.keyOutputs.map((item, i) => (
-                <li key={i} className="flex items-center gap-2 text-zinc-200">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#FFC107]" />
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Engineering Principles Box */}
-          <div className="p-5 rounded-2xl bg-black/60 border border-white/10 space-y-3">
-            <h4 className="text-xs font-black uppercase tracking-wider text-emerald-400 flex items-center gap-2">
-              <Shield className="w-4 h-4" /> Kanuni za Kihandisi & Utiifu (Design Rules)
-            </h4>
-            <ul className="space-y-2 text-xs">
-              {activeStage.principles.map((item, i) => (
-                <li key={i} className="flex items-start gap-2 text-zinc-300">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 shrink-0 mt-1.5" />
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
       </div>
 
-      {/* Real-time Parametric Sizing & Synthesis Tool */}
-      <div className="p-6 sm:p-8 rounded-3xl bg-zinc-950 border border-white/10 space-y-6 shadow-2xl">
-        <div className="border-b border-white/10 pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-          <div>
-            <span className="text-xs font-mono font-bold text-[#FFC107] uppercase tracking-wider block mb-1">
-              Automated Synthesis Calculator
-            </span>
-            <h3 className="text-xl font-black text-white flex items-center gap-2">
-              <Cpu className="w-5 h-5 text-[#FFC107]" /> Kikokotoo cha Vipimo Vikuu & Uzito wa Meli (Parametric Synthesis)
-            </h3>
-          </div>
-          <span className="text-xs font-mono text-zinc-400 bg-zinc-900 px-3 py-1.5 rounded-xl border border-white/10">
-            Archimedes Displacement Balance
-          </span>
+      {/* Interactive Design Spiral Flow (Clickable Stage Pills) */}
+      <div className="p-6 rounded-3xl bg-zinc-900 border border-white/10 space-y-4">
+        <div className="flex items-center justify-between">
+          <h3 className="text-xs font-black uppercase tracking-wider text-white flex items-center gap-2">
+            <Compass className="w-4 h-4 text-[#FFC107]" /> Six Iterative Stages of Naval Architecture
+          </h3>
+          <span className="text-xs font-mono text-zinc-400">Click stage to inspect technical outputs</span>
         </div>
 
-        {/* Inputs row */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
-          <div>
-            <label className="text-zinc-400 font-bold block mb-1">Aina ya Meli (Vessel Type):</label>
-            <select
-              value={shipType}
-              onChange={(e: any) => setShipType(e.target.value)}
-              className="w-full bg-zinc-900 border border-white/20 rounded-xl px-3 py-2 text-white font-medium focus:border-[#FFC107] focus:outline-none"
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2">
+          {SPIRAL_STAGES.map((st) => (
+            <button
+              key={st.id}
+              onClick={() => setActiveStageId(st.id)}
+              className={`p-3 rounded-2xl text-left transition-all border cursor-pointer ${
+                activeStageId === st.id
+                  ? 'bg-[#FFC107] text-black border-amber-300 font-bold shadow-lg scale-102'
+                  : 'bg-black/40 text-zinc-300 border-white/5 hover:border-white/20 hover:bg-black/60'
+              }`}
             >
-              <option value="container">Container Ship (Meli ya Makontena)</option>
-              <option value="bulk">Bulk Carrier (Mizigo Mikavu)</option>
-              <option value="tanker">Oil Tanker (Meli ya Mafuta)</option>
-              <option value="ferry">Ro-Pax Ferry (Meli ya Abiria na Magari)</option>
-            </select>
-          </div>
+              <div className="text-[10px] font-mono uppercase tracking-wider opacity-75">
+                Stage {st.id}
+              </div>
+              <div className="text-xs font-bold mt-1 line-clamp-2">
+                {st.title.replace(/^\d+\.\s*/, '')}
+              </div>
+            </button>
+          ))}
+        </div>
 
-          <div>
-            <label className="text-zinc-400 font-bold block mb-1">Uwezo wa Mzigo (Deadweight DWT):</label>
-            <div className="relative">
-              <input
-                type="number"
-                step={1000}
-                min={2000}
-                max={400000}
-                value={targetDWT}
-                onChange={(e) => setTargetDWT(parseFloat(e.target.value) || 10000)}
-                className="w-full bg-zinc-900 border border-white/20 rounded-xl px-3 py-2 text-white font-mono focus:border-[#FFC107] focus:outline-none"
-              />
-              <span className="absolute right-3 top-2 text-zinc-500 text-[10px]">t</span>
+        {/* Selected Stage Detail Box */}
+        {(() => {
+          const stage = SPIRAL_STAGES.find((s) => s.id === activeStageId) || SPIRAL_STAGES[0];
+          return (
+            <div className="p-5 rounded-2xl bg-black/60 border border-white/10 space-y-4 mt-4">
+              <div>
+                <h4 className="text-base font-bold text-white flex items-center gap-2">
+                  <span className="w-6 h-6 rounded-full bg-[#FFC107] text-black font-black text-xs flex items-center justify-center">
+                    {stage.id}
+                  </span>
+                  <span>{stage.title}</span>
+                </h4>
+                <p className="text-xs text-zinc-300 mt-1 leading-relaxed">
+                  {stage.shortDesc}
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                <div className="space-y-1.5 p-3 rounded-xl bg-zinc-900 border border-white/5">
+                  <span className="text-[10px] font-bold text-[#FFC107] uppercase tracking-wider block">
+                    Engineering Deliverables:
+                  </span>
+                  {stage.keyOutputs.map((out, idx) => (
+                    <div key={idx} className="flex items-center gap-1.5 text-zinc-300">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
+                      <span>{out}</span>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="space-y-1.5 p-3 rounded-xl bg-zinc-900 border border-white/5">
+                  <span className="text-[10px] font-bold text-[#FFC107] uppercase tracking-wider block">
+                    Core Design Laws & Codes:
+                  </span>
+                  {stage.principles.map((p, idx) => (
+                    <div key={idx} className="flex items-start gap-1.5 text-zinc-300">
+                      <span className="text-amber-400 font-bold">•</span>
+                      <span>{p}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          );
+        })()}
+      </div>
+
+      {/* Live Sizing & Steel Weight Calculator (Grounded in NIT SRT 06107) */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        {/* Left Col: Inputs (5 Cols) */}
+        <div className="lg:col-span-5 space-y-6">
+          {/* Target Mission Card */}
+          <div className="p-6 rounded-2xl bg-zinc-900 border border-white/10 space-y-4">
+            <h3 className="text-xs font-black uppercase tracking-wider text-[#FFC107] flex items-center gap-2">
+              <Boxes className="w-4 h-4" /> 1. Mission Specifications
+            </h3>
+
+            <div>
+              <label className="text-zinc-400 font-bold block mb-1 text-xs">Vessel Type:</label>
+              <select
+                value={shipType}
+                onChange={(e) => setShipType(e.target.value as any)}
+                className="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-white text-xs focus:border-[#FFC107] focus:outline-none"
+              >
+                <option value="bulk">Bulk Carrier (Kamsarmax / Capesize)</option>
+                <option value="container">Container Ship (Cellular)</option>
+                <option value="tanker">Crude Oil / Product Tanker</option>
+                <option value="ferry">Ro-Pax Passenger Ferry</option>
+              </select>
+            </div>
+
+            <div>
+              <label className="text-zinc-400 font-bold block mb-1 text-xs">Target Deadweight (DWT):</label>
+              <div className="relative">
+                <input
+                  type="number"
+                  step={1000}
+                  value={targetDWT}
+                  onChange={(e) => setTargetDWT(Math.max(500, parseFloat(e.target.value) || 500))}
+                  className="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-white font-mono text-xs focus:border-[#FFC107] focus:outline-none"
+                />
+                <span className="absolute right-3 top-2 text-zinc-500 text-[10px]">t</span>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-3 text-xs">
+              <div>
+                <label className="text-zinc-400 font-bold block mb-1">Service Speed:</label>
+                <div className="relative">
+                  <input
+                    type="number"
+                    step={0.5}
+                    value={targetSpeedKnots}
+                    onChange={(e) => setTargetSpeedKnots(Math.max(8, parseFloat(e.target.value) || 8))}
+                    className="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-white font-mono text-xs focus:border-[#FFC107] focus:outline-none"
+                  />
+                  <span className="absolute right-3 top-2 text-zinc-500 text-[10px]">knots</span>
+                </div>
+              </div>
+
+              <div>
+                <label className="text-zinc-400 font-bold block mb-1">Endurance:</label>
+                <div className="relative">
+                  <input
+                    type="number"
+                    value={enduranceDays}
+                    onChange={(e) => setEnduranceDays(Math.max(5, parseFloat(e.target.value) || 5))}
+                    className="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-white font-mono text-xs focus:border-[#FFC107] focus:outline-none"
+                  />
+                  <span className="absolute right-3 top-2 text-zinc-500 text-[10px]">days</span>
+                </div>
+              </div>
             </div>
           </div>
 
-          <div>
-            <label className="text-zinc-400 font-bold block mb-1">Kasi ya Safari (Service Speed):</label>
-            <div className="relative">
-              <input
-                type="number"
-                step={0.5}
-                min={10}
-                max={30}
-                value={targetSpeedKnots}
-                onChange={(e) => setTargetSpeedKnots(parseFloat(e.target.value) || 15)}
-                className="w-full bg-zinc-900 border border-white/20 rounded-xl px-3 py-2 text-white font-mono focus:border-[#FFC107] focus:outline-none"
-              />
-              <span className="absolute right-3 top-2 text-zinc-500 text-[10px]">knots</span>
+          {/* Parent Vessel for Method of Differences (NIT SRT 06107 Section 2) */}
+          <div className="p-6 rounded-2xl bg-zinc-900 border border-white/10 space-y-4">
+            <div className="flex items-center justify-between">
+              <h3 className="text-xs font-black uppercase tracking-wider text-[#FFC107] flex items-center gap-2">
+                <FileSpreadsheet className="w-4 h-4" /> 2. Parent Vessel Reference (NIT SRT 06107)
+              </h3>
+              <span className="text-[10px] font-mono text-zinc-400">Method of Differences</span>
             </div>
-          </div>
 
-          <div>
-            <label className="text-zinc-400 font-bold block mb-1">Muda wa Safari Baharini (Endurance):</label>
-            <div className="relative">
-              <input
-                type="number"
-                step={1}
-                min={1}
-                max={60}
-                value={enduranceDays}
-                onChange={(e) => setEnduranceDays(parseFloat(e.target.value) || 20)}
-                className="w-full bg-zinc-900 border border-white/20 rounded-xl px-3 py-2 text-white font-mono focus:border-[#FFC107] focus:outline-none"
-              />
-              <span className="absolute right-3 top-2 text-zinc-500 text-[10px]">days</span>
+            <p className="text-[11px] text-zinc-400 leading-relaxed">
+              NIT lecture notes prescribe steel weight scaling using known parent ship particulars:
+              $W_s = W_{'{so}'} [1 + 0.85(\Delta L/L_o) + 0.55(\Delta B/B_o) + 0.30(\Delta D/D_o)]$.
+            </p>
+
+            <div className="grid grid-cols-2 gap-3 text-xs">
+              <div>
+                <label className="text-zinc-400 font-bold block mb-1">Parent $L_o$:</label>
+                <div className="relative">
+                  <input
+                    type="number"
+                    value={parentL}
+                    onChange={(e) => setParentL(Math.max(10, parseFloat(e.target.value) || 10))}
+                    className="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-white font-mono text-xs focus:border-[#FFC107] focus:outline-none"
+                  />
+                  <span className="absolute right-3 top-2 text-zinc-500 text-[10px]">m</span>
+                </div>
+              </div>
+
+              <div>
+                <label className="text-zinc-400 font-bold block mb-1">Parent $B_o$:</label>
+                <div className="relative">
+                  <input
+                    type="number"
+                    value={parentB}
+                    onChange={(e) => setParentB(Math.max(2, parseFloat(e.target.value) || 2))}
+                    className="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-white font-mono text-xs focus:border-[#FFC107] focus:outline-none"
+                  />
+                  <span className="absolute right-3 top-2 text-zinc-500 text-[10px]">m</span>
+                </div>
+              </div>
+
+              <div>
+                <label className="text-zinc-400 font-bold block mb-1">Parent $D_o$:</label>
+                <div className="relative">
+                  <input
+                    type="number"
+                    value={parentD}
+                    onChange={(e) => setParentD(Math.max(1, parseFloat(e.target.value) || 1))}
+                    className="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-white font-mono text-xs focus:border-[#FFC107] focus:outline-none"
+                  />
+                  <span className="absolute right-3 top-2 text-zinc-500 text-[10px]">m</span>
+                </div>
+              </div>
+
+              <div>
+                <label className="text-zinc-400 font-bold block mb-1">Parent Steel $W_{'{so}'}$:</label>
+                <div className="relative">
+                  <input
+                    type="number"
+                    value={parentWsteel}
+                    onChange={(e) => setParentWsteel(Math.max(100, parseFloat(e.target.value) || 100))}
+                    className="w-full bg-black/50 border border-white/10 rounded-xl px-3 py-2 text-white font-mono text-xs focus:border-[#FFC107] focus:outline-none"
+                  />
+                  <span className="absolute right-3 top-2 text-zinc-500 text-[10px]">t</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Synthesis Outputs Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 font-mono text-center pt-2">
-          <div className="bg-zinc-900 p-3.5 rounded-2xl border border-white/10 space-y-1">
-            <span className="text-[10px] text-zinc-400 uppercase block">Length B.P ($L_{'{bp}'}$)</span>
-            <span className="text-lg font-black text-white">{designSynthesis.Lbp.toFixed(1)} m</span>
-            <span className="text-[9px] text-zinc-500 block">L/B: {(designSynthesis.Lbp / designSynthesis.B).toFixed(2)}</span>
-          </div>
+        {/* Right Col: Derived Dimensions & Multi-Formula Steel Weight (7 Cols) */}
+        <div className="lg:col-span-7 space-y-6">
+          {/* Synthesized Principal Dimensions Grid */}
+          <div className="p-6 rounded-3xl bg-zinc-900 border border-white/10 space-y-4">
+            <div className="flex items-center justify-between">
+              <h3 className="text-xs font-black uppercase tracking-wider text-white flex items-center gap-2">
+                <Compass className="w-4 h-4 text-[#FFC107]" /> Synthesized Preliminary Dimensions
+              </h3>
+              <span className="text-xs font-mono text-emerald-400">Archimedes Equilibrium</span>
+            </div>
 
-          <div className="bg-zinc-900 p-3.5 rounded-2xl border border-white/10 space-y-1">
-            <span className="text-[10px] text-zinc-400 uppercase block">Beam ($B$)</span>
-            <span className="text-lg font-black text-white">{designSynthesis.B.toFixed(1)} m</span>
-            <span className="text-[9px] text-zinc-500 block">Moulded breadth</span>
-          </div>
-
-          <div className="bg-zinc-900 p-3.5 rounded-2xl border border-white/10 space-y-1">
-            <span className="text-[10px] text-zinc-400 uppercase block">Draft ($T$)</span>
-            <span className="text-lg font-black text-white">{designSynthesis.T.toFixed(2)} m</span>
-            <span className="text-[9px] text-zinc-500 block">Design waterline</span>
-          </div>
-
-          <div className="bg-zinc-900 p-3.5 rounded-2xl border border-white/10 space-y-1">
-            <span className="text-[10px] text-zinc-400 uppercase block">Depth ($D$)</span>
-            <span className="text-lg font-black text-white">{designSynthesis.D.toFixed(1)} m</span>
-            <span className="text-[9px] text-zinc-500 block">Upper deck level</span>
-          </div>
-
-          <div className="bg-zinc-900 p-3.5 rounded-2xl border border-white/10 space-y-1">
-            <span className="text-[10px] text-zinc-400 uppercase block">Block Coeff ($C_b$)</span>
-            <span className="text-lg font-black text-[#FFC107]">{designSynthesis.Cb.toFixed(3)}</span>
-            <span className="text-[9px] text-zinc-500 block">Fn: {designSynthesis.Fn.toFixed(3)}</span>
-          </div>
-
-          <div className="bg-zinc-900 p-3.5 rounded-2xl border border-[#FFC107]/30 space-y-1">
-            <span className="text-[10px] text-[#FFC107] uppercase block font-bold">Displacement ($\Delta$)</span>
-            <span className="text-lg font-black text-amber-300">{Math.round(designSynthesis.displacement).toLocaleString()} t</span>
-            <span className="text-[9px] text-zinc-400 block">LWT: {Math.round(designSynthesis.lightweight).toLocaleString()} t</span>
-          </div>
-        </div>
-
-        {/* Weights & Scantling Details */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-4 border-t border-white/10 text-xs font-mono">
-          <div className="bg-black/50 p-4 rounded-2xl border border-white/5 space-y-2">
-            <span className="text-[11px] font-bold text-white uppercase block">
-              Mgawo wa Uzito (Weight Breakdown):
-            </span>
-            <div className="space-y-1 text-zinc-300">
-              <div className="flex justify-between">
-                <span>Steel Structure ($W_{'{steel}'}$):</span>
-                <span className="font-bold text-white">{Math.round(designSynthesis.steelWeight).toLocaleString()} t</span>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+              <div className="p-3 bg-black/40 rounded-xl border border-white/5">
+                <span className="text-[10px] text-zinc-400 uppercase font-bold block">Length B.P. ($L_{'{bp}'}$)</span>
+                <span className="text-lg font-black text-white font-mono">{designSynthesis.Lbp.toFixed(1)} m</span>
               </div>
-              <div className="flex justify-between">
-                <span>Machinery Plant ($W_{'{mach}'}$):</span>
-                <span className="font-bold text-white">{Math.round(designSynthesis.machineryWeight).toLocaleString()} t</span>
+              <div className="p-3 bg-black/40 rounded-xl border border-white/5">
+                <span className="text-[10px] text-zinc-400 uppercase font-bold block">Beam Molded ($B$)</span>
+                <span className="text-lg font-black text-white font-mono">{designSynthesis.B.toFixed(2)} m</span>
               </div>
-              <div className="flex justify-between">
-                <span>Outfit & Accommodation:</span>
-                <span className="font-bold text-white">{Math.round(designSynthesis.outfitWeight).toLocaleString()} t</span>
+              <div className="p-3 bg-black/40 rounded-xl border border-white/5">
+                <span className="text-[10px] text-zinc-400 uppercase font-bold block">Design Draft ($T$)</span>
+                <span className="text-lg font-black text-white font-mono">{designSynthesis.T.toFixed(2)} m</span>
               </div>
-              <div className="flex justify-between border-t border-white/10 pt-1 text-[#FFC107]">
-                <span>Total Lightweight (LWT):</span>
-                <span className="font-bold">{Math.round(designSynthesis.lightweight).toLocaleString()} t</span>
+              <div className="p-3 bg-black/40 rounded-xl border border-white/5">
+                <span className="text-[10px] text-zinc-400 uppercase font-bold block">Depth Molded ($D$)</span>
+                <span className="text-lg font-black text-white font-mono">{designSynthesis.D.toFixed(2)} m</span>
+              </div>
+            </div>
+
+            {/* Form Coefficients & Hydrostatics */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2 text-xs font-mono text-zinc-300">
+              <div className="p-2.5 bg-black/20 rounded-lg border border-white/5">
+                <span className="text-zinc-500 block text-[10px]">Block Coeff ($C_B$):</span>
+                <span className="text-[#FFC107] font-bold">{designSynthesis.Cb.toFixed(3)}</span>
+              </div>
+              <div className="p-2.5 bg-black/20 rounded-lg border border-white/5">
+                <span className="text-zinc-500 block text-[10px]">Prismatic Coeff ($C_P$):</span>
+                <span className="text-white font-bold">{designSynthesis.Cp.toFixed(3)}</span>
+              </div>
+              <div className="p-2.5 bg-black/20 rounded-lg border border-white/5">
+                <span className="text-zinc-500 block text-[10px]">Froude Number ($F_n$):</span>
+                <span className="text-white font-bold">{designSynthesis.Fn.toFixed(3)}</span>
+              </div>
+              <div className="p-2.5 bg-black/20 rounded-lg border border-white/5">
+                <span className="text-zinc-500 block text-[10px]">TPC (Saltwater):</span>
+                <span className="text-emerald-400 font-bold">{designSynthesis.TPC.toFixed(1)} t/cm</span>
               </div>
             </div>
           </div>
 
-          <div className="bg-black/50 p-4 rounded-2xl border border-white/5 space-y-2">
-            <span className="text-[11px] font-bold text-white uppercase block">
-              IACS CSR Scantling Rules:
-            </span>
-            <div className="space-y-1 text-zinc-300">
-              <div className="flex justify-between">
-                <span>Midship Modulus ($Z_{'{min}'}$):</span>
-                <span className="font-bold text-[#FFC107]">{(designSynthesis.Zmin_cm3 / 1e6).toFixed(2)} m³</span>
+          {/* Steel Weight Comparison Module (NIT SRT 06107 Focus) */}
+          <div className="p-6 rounded-3xl bg-zinc-900 border border-white/10 space-y-4">
+            <div className="flex items-center justify-between">
+              <h3 className="text-sm font-black uppercase tracking-wider text-white flex items-center gap-2">
+                <Wrench className="w-4 h-4 text-[#FFC107]" /> Steel Weight Formula Synthesis (NIT SRT 06107)
+              </h3>
+              <span className="text-xs font-mono text-[#FFC107]">Cubic No: {designSynthesis.cubicNumber.toFixed(0)}</span>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              {/* Method of Differences */}
+              <div className="p-4 bg-black/50 rounded-2xl border border-[#FFC107]/30 space-y-2">
+                <div className="text-[10px] font-bold text-[#FFC107] uppercase tracking-wider">
+                  Method of Differences (NIT)
+                </div>
+                <div className="text-2xl font-black text-white font-mono">
+                  {designSynthesis.Wsteel_MethodOfDiff.toFixed(0)} <span className="text-xs text-zinc-400 font-normal">t</span>
+                </div>
+                <p className="text-[10px] text-zinc-400 leading-relaxed">
+                  Scaled from parent ship: +85% ΔL, +55% ΔB, +30% ΔD. Primary recommendation.
+                </p>
               </div>
-              <div className="flex justify-between">
-                <span>Bottom Plate Thickness:</span>
-                <span className="font-bold text-white">{designSynthesis.bottomPlateThickness.toFixed(1)} mm</span>
+
+              {/* Buxton Formula */}
+              <div className="p-4 bg-black/50 rounded-2xl border border-white/5 space-y-2">
+                <div className="text-[10px] font-bold text-zinc-400 uppercase tracking-wider">
+                  Buxton Formula
+                </div>
+                <div className="text-2xl font-black text-zinc-200 font-mono">
+                  {designSynthesis.Wsteel_Buxton.toFixed(0)} <span className="text-xs text-zinc-400 font-normal">t</span>
+                </div>
+                <p className="text-[10px] text-zinc-500 leading-relaxed">
+                  $W_s = 0.0487 \times CN^{'{1.077}'}$. Empirical standard for European yards.
+                </p>
               </div>
-              <div className="flex justify-between">
-                <span>Corrosion Margin ($t_k$):</span>
-                <span className="font-bold text-zinc-400">2.5 mm included</span>
+
+              {/* Sato Formula */}
+              <div className="p-4 bg-black/50 rounded-2xl border border-white/5 space-y-2">
+                <div className="text-[10px] font-bold text-zinc-400 uppercase tracking-wider">
+                  Sato Formula
+                </div>
+                <div className="text-2xl font-black text-zinc-200 font-mono">
+                  {designSynthesis.Wsteel_Sato.toFixed(0)} <span className="text-xs text-zinc-400 font-normal">t</span>
+                </div>
+                <p className="text-[10px] text-zinc-500 leading-relaxed">
+                  $W_s = C_s \times L^{'{1.6}'} \times (B+D)^{'{0.8}'}$. Widely used in Asian shipyards.
+                </p>
               </div>
-              <div className="flex justify-between border-t border-white/10 pt-1 text-emerald-400">
-                <span>Hull Girder Strength:</span>
-                <span className="font-bold">IACS CSR Compliant ✓</span>
+            </div>
+
+            {/* Total Weight Breakdown Summary */}
+            <div className="p-4 bg-black/30 rounded-2xl border border-white/5 space-y-3">
+              <span className="text-xs font-bold text-zinc-300 block">Total Displacement & Lightweight Breakdown:</span>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs font-mono">
+                <div>
+                  <span className="text-zinc-500 text-[10px] block">Steel Hull:</span>
+                  <span className="text-white font-bold">{designSynthesis.Wsteel_MethodOfDiff.toFixed(0)} t</span>
+                </div>
+                <div>
+                  <span className="text-zinc-500 text-[10px] block">Machinery:</span>
+                  <span className="text-white font-bold">{designSynthesis.Wmachinery.toFixed(0)} t</span>
+                </div>
+                <div>
+                  <span className="text-zinc-500 text-[10px] block">Outfit:</span>
+                  <span className="text-white font-bold">{designSynthesis.Woutfit.toFixed(0)} t</span>
+                </div>
+                <div>
+                  <span className="text-zinc-500 text-[10px] block">Total Lightship:</span>
+                  <span className="text-amber-400 font-bold">{designSynthesis.Wlightweight.toFixed(0)} t</span>
+                </div>
               </div>
             </div>
           </div>
 
-          <div className="bg-black/50 p-4 rounded-2xl border border-white/5 space-y-2">
-            <span className="text-[11px] font-bold text-white uppercase block">
-              Uwezo wa Nguvu & Mafuta:
-            </span>
-            <div className="space-y-1 text-zinc-300">
-              <div className="flex justify-between">
-                <span>MCR Engine Power:</span>
-                <span className="font-bold text-white">{(designSynthesis.estimatedPB_kW / 1000).toFixed(1)} MW</span>
-              </div>
-              <div className="flex justify-between">
-                <span>Daily VLSFO Consumption:</span>
-                <span className="font-bold text-white">{designSynthesis.dailyFuelTonnes.toFixed(1)} t/day</span>
-              </div>
-              <div className="flex justify-between">
-                <span>Total Bunker Capacity ({enduranceDays}d):</span>
-                <span className="font-bold text-[#FFC107]">{Math.round(designSynthesis.totalFuelRequired)} tonnes</span>
-              </div>
-              <div className="flex justify-between border-t border-white/10 pt-1 text-zinc-400">
-                <span>SFOC Standard:</span>
-                <span className="font-bold text-zinc-300">165 g/kWh @ 85% MCR</span>
-              </div>
-            </div>
+          {/* Reference Notes Citation */}
+          <div className="p-4 rounded-2xl bg-zinc-950 border border-white/5 flex items-center justify-between text-xs text-zinc-400">
+            <span>Grounding reference: NIT SRT 06107 Ship Design Methodology</span>
+            <a
+              href="/assets/aistudio/Ship_Design_Methodology_3_31e235dc.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[#FFC107] font-bold hover:underline inline-flex items-center gap-1"
+            >
+              <span>Open NIT SRT 06107 PDF</span>
+              <ExternalLink className="w-3.5 h-3.5" />
+            </a>
           </div>
         </div>
       </div>

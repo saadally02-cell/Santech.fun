@@ -30,7 +30,7 @@ export const CategorySubpagesView: React.FC<CategorySubpagesViewProps> = ({
   const currentCategoryInfo = SUBPAGE_CATEGORIES.find((c) => c.id === normalizedCat) || {
     id: normalizedCat,
     label: normalizedCat,
-    description: 'Mwongozo wa kina wa kihandisi kwa mabaharia na mainjinia wa meli.',
+    description: 'Comprehensive marine engineering operational guidelines and standards.',
     iconName: 'Ship',
   };
 
@@ -78,7 +78,7 @@ export const CategorySubpagesView: React.FC<CategorySubpagesViewProps> = ({
               className="inline-flex items-center gap-1.5 text-xs font-bold text-zinc-400 hover:text-[#FFC107] transition-colors mb-1 cursor-pointer"
             >
               <ArrowLeft className="w-4 h-4" />
-              <span>Rudi Mwanzo (Portal Kuu)</span>
+              <span>Back to Main Portal</span>
             </button>
             <div className="flex items-center gap-3">
               <div className="w-12 h-12 rounded-2xl bg-[#FFC107] flex items-center justify-center font-black shadow-lg">
@@ -86,7 +86,7 @@ export const CategorySubpagesView: React.FC<CategorySubpagesViewProps> = ({
               </div>
               <div>
                 <span className="text-[11px] font-black uppercase tracking-widest text-[#FFC107] flex items-center gap-1">
-                  <Compass className="w-3.5 h-3.5" /> Kitengo cha Uhandisi wa Meli
+                  <Compass className="w-3.5 h-3.5" /> Marine Engineering Discipline
                 </span>
                 <h1 className="text-2xl sm:text-4xl font-black text-white tracking-tight editorial-font">
                   {currentCategoryInfo.label}
@@ -103,18 +103,18 @@ export const CategorySubpagesView: React.FC<CategorySubpagesViewProps> = ({
               type="text"
               value={filterQuery}
               onChange={(e) => setFilterQuery(e.target.value)}
-              placeholder={`Tafuta ndani ya ${currentCategoryInfo.label}...`}
+              placeholder={`Search within ${currentCategoryInfo.label}...`}
               className="w-full bg-black/70 border border-white/20 rounded-xl px-4 py-3 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-[#FFC107] transition-all shadow-inner"
             />
             <div className="mt-2 flex items-center justify-between text-[11px] text-zinc-400 px-1">
-              <span>Makala {filtered.length} zilizopo</span>
+              <span>{filtered.length} technical articles</span>
               <span className="text-[#FFC107] font-bold">STCW Compliant</span>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Grid of Subpages (10 Pages per Category) */}
+      {/* Grid of Subpages */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {filtered.map((article) => (
           <div
@@ -165,7 +165,7 @@ export const CategorySubpagesView: React.FC<CategorySubpagesViewProps> = ({
                 {article.author}
               </span>
               <span className="flex items-center gap-1 text-[#FFC107] font-bold group-hover:translate-x-1 transition-transform">
-                Soma Mwongozo <ChevronRight className="w-3.5 h-3.5" />
+                Read Guide <ChevronRight className="w-3.5 h-3.5" />
               </span>
             </div>
           </div>

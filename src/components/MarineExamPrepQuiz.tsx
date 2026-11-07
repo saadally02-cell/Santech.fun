@@ -13,21 +13,21 @@ interface Question {
 const QUESTIONS: Question[] = [
   {
     id: 1,
-    category: 'Injini Kuu & Propulsion',
-    question: 'Wakati wa kupima indicator diagram ya injini kuu ya 2-stroke, ikiwa Pcomp iko chini na Pmax iko chini kwenye silinda moja pekee, tatizo lina uwezekano mkubwa wa kuwa nini?',
+    category: 'Main Propulsion Engines',
+    question: 'When taking indicator diagrams on a 2-stroke propulsion diesel, if compression pressure (Pcomp) and maximum firing pressure (Pmax) are both low on a single isolated cylinder, what is the most probable cause?',
     options: [
-      'Timing ya mafuta (fuel injection) imechelewa sana',
-      'Piston rings zimevunjika au exhaust valve inavuja (Blow-by)',
-      'Scavenge air cooler imeziba kwa upande wa hewa',
-      'Joto la mafuta ya fuel oil liko juu mno',
+      'Fuel injection timing is excessively retarded',
+      'Piston rings broken or exhaust valve seating leakage (Cylinder Blow-By)',
+      'Scavenge air cooler fouled on the gas side',
+      'Fuel oil supply temperature is too high',
     ],
     correctAnswer: 1,
-    explanation: 'Pcomp (compression pressure) inapokuwa chini, inaonyesha hewa inatoroka wakati wa compression stroke kabla hata mwako haujaanza. Sababu kuu ni piston rings zilizovunjika/kuchoka (blow-by) au exhaust valve kutoziba vizuri.',
+    explanation: 'Low Pcomp proves charge air is escaping during the compression stroke before fuel injection initiates. The primary mechanical causes are worn or stuck piston rings (blow-by) or an exhaust valve that fails to seat hermetically due to hydraulic pushrod leakage or seat deformation.',
   },
   {
     id: 2,
-    category: 'Mitambo Msaidizi (Auxiliary)',
-    question: 'Chini ya MARPOL Annex I, ni kiwango gani cha juu kabisa cha mafuta kinachoruhusiwa kisheria kwenye maji ya bilges yanayotupwa baharini kupitia OWS?',
+    category: 'Auxiliary Machinery (MARPOL)',
+    question: 'Under MARPOL Annex I Regulation 14, what is the statutory maximum permissible oil content in bilge water effluent discharged overboard through an approved oily water separator en route?',
     options: [
       '50 PPM (Parts Per Million)',
       '100 PPM (Parts Per Million)',
@@ -35,64 +35,64 @@ const QUESTIONS: Question[] = [
       '5 PPM (Parts Per Million)',
     ],
     correctAnswer: 2,
-    explanation: 'Chini ya Kanuni ya 14 ya MARPOL Annex I, kiwango cha juu kinachoruhusiwa kumwagika baharini wakati meli ikiwa en route ni chini ya 15 PPM kupitia kifaa cha Oil Filtering Equipment kilichoidhinishwa chini ya MEPC.107(49).',
+    explanation: 'Under MARPOL Annex I, discharge of oily bilge water is prohibited unless filtered through approved 15 PPM equipment (MEPC.107(49)) with an automatic 3-way fail-safe valve and continuous recording by the Oil Content Monitor (OCM).',
   },
   {
-    id: '3' as any,
-    category: 'Umeme & Otomesheni',
-    question: 'Kwenye mfumo wa 440V Insulated Neutral (IT System) wa meli, kwanini neutral haijaunganishwa moja kwa moja kwenye fremu ya chuma ya meli?',
+    id: 3,
+    category: 'Electrical & Automation',
+    question: 'On a marine 440V 3-phase Insulated Neutral (IT) electrical distribution system, why is the neutral point left completely isolated from the steel ship hull?',
     options: [
-      'Ili kuokoa gharama za nyaya za shaba',
-      'Ili hitilafu ya kwanza ya waya kugusa chuma (single earth fault) isikate umeme wa mitambo muhimu kama usukani',
-      'Ili kuongeza frequency ya umeme kufikia 60Hz',
-      'Kuzuia mota za umeme zisipate joto',
+      'To save copper installation costs on shipboard cabling',
+      'To ensure that a single earth fault does not trip essential machinery like the steering gear or lube oil pumps',
+      'To raise generated power frequency to 60 Hz',
+      'To prevent induction motors from overheating during startup',
     ],
     correctAnswer: 1,
-    explanation: 'Kwenye meli, kupoteza umeme wa ghafla wa steering gear kunaweza kusababisha kugongana kwa meli. Insulated neutral inaruhusu umeme kuendelea hata waya mmoja ukishika chuma, huku kengele ikilia kutoa nafasi ya kurekebisha kabla ya double earth fault.',
+    explanation: 'At sea, sudden power loss to steering gear or lubrication pumps could lead to collision or engine seizure. An insulated neutral system allows uninterrupted operation upon the occurrence of a single earth fault, while triggering an alarm for remedial action before a second fault creates a phase-to-phase short.',
   },
   {
     id: 4,
-    category: 'Sheria & Usalama (IMO)',
-    question: 'Kulingana na SOLAS Sura ya II-1, mtambo wa umeme wa dharura (Emergency Diesel Generator) lazima uweze kuwaka na kulisha Emergency Switchboard ndani ya muda gani baada ya blackout?',
+    category: 'IMO & SOLAS Safety',
+    question: 'According to SOLAS Chapter II-1, within what maximum duration must the Emergency Diesel Generator (EDG) start and connect to the Emergency Switchboard (ESB) following a primary vessel blackout?',
     options: [
-      'Ndani ya dakika 2',
-      'Ndani ya dakika 5',
-      'Ndani ya sekunde 45',
-      'Ndani ya sekunde 15',
+      'Within 2 minutes',
+      'Within 5 minutes',
+      'Within 45 seconds',
+      'Within 15 seconds',
     ],
     correctAnswer: 2,
-    explanation: 'SOLAS Regulation inalazimu kwamba Emergency Generator lazima ianze kiotomatiki na kufunga breaker yake kwenye Emergency Switchboard (ESB) ndani ya sekunde 45 pekee baada ya Main Switchboard kupoteza umeme.',
+    explanation: 'SOLAS mandates that the Emergency Generator must start automatically and restore power to emergency switchboard busbars supplying steering, navigation lights, fire pumps, and radio equipment within exactly 45 seconds.',
   },
   {
     id: 5,
-    category: 'Injini Kuu & Propulsion',
-    question: 'Kengele ya Oil Mist Detector (OMD) ikilia kwenye injini kuu ya meli, ni hatua gani ya kwanza ya lazima kabla ya kufanya jambo lingine?',
+    category: 'Drydocking & Maintenance (NIT SRT 04105)',
+    question: 'During drydocking, what is the "critical period" and why is it hazardous for vessel transverse stability?',
     options: [
-      'Kufungua milango ya crankcase mara moja kuangalia joto',
-      'Kupunguza mwendo wa injini mara moja (Slow Down), kutoa taarifa darajani na kamwe kutofungua milango ya crankcase kabla injini haijapoa',
-      'Kuongeza shinikizo la pampu ya lube oil kufikia bar 10',
-      'Kuwasha auxiliary blowers zote kwa kasi kamili',
+      'When the dock gate is opened to flood the basin',
+      'The time interval from when the stern touches the keel blocks until the vessel takes the blocks overall (full length)',
+      'When hull high-pressure washing begins',
+      'When bottom drain plugs are unscrewed by the shipyard',
     ],
     correctAnswer: 1,
-    explanation: 'Kufungua milango ya crankcase wakati kukiwa na hot spot kutaleta oksijeni safi ndani ya ukungu wa mafuta na kusababisha Secondary Crankcase Explosion yenye nguvu kubwa inayoweza kuua watu na kuharibu engine room. Lazima injini ipoe kwa angalau dakika 30-60.',
+    explanation: 'As taught in NIT SRT 04105 and Dr. Barrass: Upthrust P at the stern post creates a virtual rise of the center of gravity (Loss of GM = P × KM / W). If the vessel lacks adequate positive GM during this critical interval, it will list and capsize off the keel blocks before breast shores can be deployed.',
   },
   {
     id: 6,
-    category: 'Mitambo Msaidizi (Auxiliary)',
-    question: 'Wakati wa kupima maji ya boiler feed water, kiwango cha Chloride kikipanda ghafla kutoka 15 ppm hadi 180 ppm, hii inaashiria nini?',
+    category: 'Ship Maneuvering (Notes Ch. 6)',
+    question: 'According to hydrodynamic rudder principles in naval architecture, what occurs when a spade or semi-balanced horn rudder is deflected beyond 35 degrees?',
     options: [
-      'Boiler inahitaji kupashwa moto zaidi',
-      'Maji ya bahari yanavuja ndani kupitia dump condenser au fresh water generator',
-      'Hydrazine iliyowekwa imezidi kiwango',
-      'Phosphate imeyeyuka kwenye kuta',
+      'Propeller cavitation stops completely',
+      'The rudder experiences hydrodynamic flow separation and stall, causing lift force to drop sharply while drag rises rapidly',
+      'The turning circle diameter decreases to zero',
+      'Vessel speed increases due to wake fraction elimination',
     ],
     correctAnswer: 1,
-    explanation: 'Maji safi ya distilled water hayana chloride nyingi. Kupanda ghafla kwa chloride kunaonyesha kuwa kuna tundu kwenye mabomba ya kupoza ya condenser ambapo maji ya bahari ya chumvi yanaingia kwenye mfumo wa boiler feed water.',
+    explanation: 'Boundary layer flow separates from the suction side of conventional rudders beyond ~32° to 35°. The lift coefficient CL drops precipitously, producing severe vibration and excessive steering gear torque without improving rate of turn.',
   },
   {
     id: 7,
-    category: 'Vipimo & Hesabu',
-    question: 'Ikiwa meli inatumia tani 48 za mafuta kwa masaa 24 na inazalisha nguvu thabiti ya 12,000 kW, Specific Fuel Oil Consumption (SFOC) ni ngapi?',
+    category: 'Technical Calculations',
+    question: 'If a ship consumes 48 metric tonnes of heavy fuel over 24 hours while generating steady propulsion power of 12,000 kW, what is the Specific Fuel Oil Consumption (SFOC)?',
     options: [
       '145.2 g/kWh',
       '166.7 g/kWh',
@@ -100,20 +100,20 @@ const QUESTIONS: Question[] = [
       '210.0 g/kWh',
     ],
     correctAnswer: 1,
-    explanation: 'Matumizi kwa saa = 48,000 kg / 24 = 2,000 kg/h. SFOC = (2,000 × 1000) / 12,000 kW = 166.67 g/kWh.',
+    explanation: 'Hourly fuel rate = 48,000 kg / 24 h = 2,000 kg/h. SFOC = (2,000 kg/h × 1,000 g/kg) / 12,000 kW = 166.67 g/kWh.',
   },
   {
     id: 8,
-    category: 'Sheria & Usalama (IMO)',
-    question: 'Chini ya Mkataba wa MLC 2006, ni kiwango gani cha chini cha masaa ya kupumzika (Hours of Rest) anachopaswa kupata mwanamaji ndani ya kipindi cha siku 7?',
+    category: 'Ship Stability (Dr. C.B. Barrass)',
+    question: 'How does an internal liquid surface in a slack double bottom fuel oil tank affect a vessel\'s transverse stability?',
     options: [
-      'Angalau masaa 48',
-      'Angalau masaa 60',
-      'Angalau masaa 77',
-      'Angalau masaa 84',
+      'It increases metacentric height by lowering the center of buoyancy',
+      'It produces a virtual rise in the vessel\'s center of gravity (loss of effective GM) equal to (i × ρ_t) / (W × ρ_w)',
+      'It has no effect unless the tank is completely emptied',
+      'It improves righting arm GZ at large heel angles',
     ],
-    correctAnswer: 2,
-    explanation: 'MLC 2006 Regulation 2.3 inatamka wazi kuwa kila mwanamaji lazima apate angalau masaa 10 ya kupumzika ndani ya masaa 24, na jumla ya angalau masaa 77 ya kupumzika ndani ya siku yoyote 7.',
+    correctAnswer: 1,
+    explanation: 'Free Surface Effect (FSE) causes liquid center of gravity to shift toward the low side when the ship heels, reducing the righting lever. The virtual loss of GM depends on the transverse moment of inertia i = (l × b³) / 12 and is independent of the depth of liquid in the tank.',
   },
 ];
 
@@ -127,7 +127,7 @@ export const MarineExamPrepQuiz: React.FC = () => {
   const currentQ = QUESTIONS[currentIndex];
 
   const handleSelectOption = (idx: number) => {
-    if (selectedOption !== null) return; // already answered
+    if (selectedOption !== null) return;
     setSelectedOption(idx);
     setShowExplanation(true);
     if (idx === currentQ.correctAnswer) {
@@ -162,17 +162,17 @@ export const MarineExamPrepQuiz: React.FC = () => {
               MEO Class 1, 2 & 4 Exam Prep
             </span>
             <span className="px-2 py-0.5 rounded text-[10px] font-black bg-amber-500/20 text-[#FFC107] border border-amber-500/30">
-              TASAC & STCW Standards
+              TASAC, UK MCA & STCW Standards
             </span>
           </div>
           <h2 className="text-xl sm:text-2xl font-black text-white editorial-font">
-            Jaribio la Uhandisi wa Majini (Marine Engineering Oral & Written Quiz)
+            Marine Engineering & Naval Architecture Examination Quiz
           </h2>
         </div>
 
         {!quizFinished && (
           <div className="text-right">
-            <span className="text-xs text-zinc-400">Swali la:</span>
+            <span className="text-xs text-zinc-400">Question:</span>
             <div className="text-sm font-black text-[#FFC107]">
               {currentIndex + 1} / {QUESTIONS.length}
             </div>
@@ -183,21 +183,21 @@ export const MarineExamPrepQuiz: React.FC = () => {
       {quizFinished ? (
         <div className="p-8 text-center bg-zinc-900/90 rounded-2xl border border-white/10 space-y-4 max-w-xl mx-auto">
           <Award className="w-16 h-16 text-[#FFC107] mx-auto animate-bounce" />
-          <h3 className="text-2xl font-black text-white">Umekamilisha Jaribio!</h3>
+          <h3 className="text-2xl font-black text-white">Examination Completed!</h3>
           <p className="text-sm text-zinc-300">
-            Alama zako: <span className="text-[#FFC107] font-black text-lg">{score}</span> kati ya <span className="font-bold">{QUESTIONS.length}</span> ({Math.round((score / QUESTIONS.length) * 100)}%)
+            Final Score: <span className="text-[#FFC107] font-black text-lg">{score}</span> of <span className="font-bold">{QUESTIONS.length}</span> ({Math.round((score / QUESTIONS.length) * 100)}%)
           </p>
           <p className="text-xs text-zinc-400">
             {score >= 6
-              ? 'Hongera sana! Una uelewa mzuri wa sheria za STCW, utendaji wa injini za 2-stroke na mifumo ya dharura ya meli.'
-              : 'Endelea kujisomea masomo yetu ya Injini Kuu, Mitambo Msaidizi na Kanuni za MARPOL ili kuboresha alama zako.'}
+              ? 'Outstanding performance! You have demonstrated strong competency in STCW watchkeeping, diesel thermodynamics, ship stability, and drydocking safety.'
+              : 'Continue reviewing our modules on Main Propulsion, Naval Architecture, and MARPOL Regulations to sharpen your technical scores.'}
           </p>
           <button
             onClick={handleRestart}
             className="px-6 py-3 rounded-xl bg-[#FFC107] hover:bg-amber-400 text-black font-black text-xs uppercase tracking-wider transition-all cursor-pointer inline-flex items-center gap-2"
           >
             <RotateCcw className="w-4 h-4" />
-            <span>Jaribu Tena</span>
+            <span>Retake Examination</span>
           </button>
         </div>
       ) : (
@@ -253,7 +253,7 @@ export const MarineExamPrepQuiz: React.FC = () => {
               <div className="mt-4 p-4 rounded-xl bg-amber-500/10 border border-amber-500/30 text-xs text-zinc-300 space-y-1">
                 <div className="flex items-center gap-2 text-amber-300 font-black">
                   <HelpCircle className="w-4 h-4" />
-                  <span>Ufafanuzi wa Kiufundi (Chief Engineer Explanation):</span>
+                  <span>Technical Examiner Note:</span>
                 </div>
                 <p className="leading-relaxed pt-1">{currentQ.explanation}</p>
 
@@ -262,7 +262,7 @@ export const MarineExamPrepQuiz: React.FC = () => {
                     onClick={handleNext}
                     className="px-5 py-2 rounded-xl bg-[#FFC107] hover:bg-amber-400 text-black font-black text-xs uppercase tracking-wider inline-flex items-center gap-1.5 shadow-md cursor-pointer"
                   >
-                    <span>Swali Linalofuata</span>
+                    <span>Next Question</span>
                     <ArrowRight className="w-3.5 h-3.5" />
                   </button>
                 </div>

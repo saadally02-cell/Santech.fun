@@ -21,29 +21,29 @@ export const AiraloEsimBanner: React.FC<AiraloEsimBannerProps> = ({
           <div className="lg:col-span-2 space-y-3">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 text-xs font-black uppercase tracking-wider">
               <Plane className="w-3.5 h-3.5" />
-              <span>Mshirika Rasmi wa Safari: Airalo eSIM</span>
+              <span>Official Maritime & Travel Partner: Airalo eSIM</span>
             </div>
 
             <h3 className="text-xl sm:text-2xl lg:text-3xl font-black text-white tracking-tight editorial-font">
-              Kaa Hewani Tanzania & Duniani Bila Kubadili Laini ya Simu
+              Stay Connected in Port, at Sea & Worldwide Without Swapping SIMs
             </h3>
 
             <p className="text-xs sm:text-sm text-zinc-300 leading-relaxed">
-              Unasafiri kwenda <strong className="text-white">Serengeti, Zanzibar, Kilimanjaro</strong> au nchi za nje? Nunua kifurushi cha intaneti ya <strong className="text-emerald-400">4G/5G eSIM ya Airalo</strong> kwa dakika 2 tu bila kupanga foleni ya laini za plastiki uwanja wa ndege au kulipa gharama ghali za roaming.
+              Traveling for vessel crew changes, maritime drydock contracts, or global voyages? Get high-speed <strong className="text-emerald-400">4G/5G eSIM internet from Airalo</strong> in over 200 countries. No queues for airport plastic SIMs and zero roaming bill shock.
             </p>
 
             <div className="flex flex-wrap items-center gap-3 pt-2">
               <span className="inline-flex items-center gap-1.5 text-xs text-zinc-300 font-semibold bg-black/40 px-3 py-1.5 rounded-lg border border-white/10">
                 <Globe className="w-3.5 h-3.5 text-emerald-400" />
-                Nchi 200+ Duniani
+                200+ Countries Covered
               </span>
               <span className="inline-flex items-center gap-1.5 text-xs text-zinc-300 font-semibold bg-black/40 px-3 py-1.5 rounded-lg border border-white/10">
                 <Zap className="w-3.5 h-3.5 text-yellow-400" />
-                Uwashaji wa Papo Hapo
+                Instant Digital Setup
               </span>
               <span className="inline-flex items-center gap-1.5 text-xs text-zinc-300 font-semibold bg-black/40 px-3 py-1.5 rounded-lg border border-white/10">
                 <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-                Hakuna Ada Zilizofichika
+                No Hidden Roaming Fees
               </span>
             </div>
           </div>
@@ -51,11 +51,11 @@ export const AiraloEsimBanner: React.FC<AiraloEsimBannerProps> = ({
           <div className="flex flex-col items-start lg:items-end justify-center gap-3">
             <div className="p-3 bg-zinc-900/90 rounded-2xl border border-white/10 text-left w-full max-w-xs">
               <div className="flex items-center justify-between text-xs text-zinc-400 mb-1">
-                <span>Kifurushi cha Safari:</span>
-                <span className="text-emerald-400 font-bold">Kuanzia $4.50</span>
+                <span>Crew & Port Plan:</span>
+                <span className="text-emerald-400 font-bold">From $4.50</span>
               </div>
               <p className="text-[11px] text-zinc-400">
-                Inafaa kwa iPhone, Samsung Galaxy, Google Pixel na simu zote zinazotumia eSIM.
+                Compatible with all modern iPhones, Samsung Galaxy, Google Pixel & eSIM smartphones.
               </p>
             </div>
 
@@ -65,7 +65,7 @@ export const AiraloEsimBanner: React.FC<AiraloEsimBannerProps> = ({
               rel="noopener noreferrer"
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-black text-xs uppercase tracking-wider transition-all shadow-lg hover:shadow-emerald-500/25 hover:scale-[1.02] cursor-pointer"
             >
-              <span>Pata Airalo eSIM Yako Sasa</span>
+              <span>Get Your Airalo eSIM Now</span>
               <ExternalLink className="w-4 h-4" />
             </a>
           </div>
@@ -83,15 +83,15 @@ export const AiraloEsimBanner: React.FC<AiraloEsimBannerProps> = ({
               <Globe className="w-3 h-3" />
               Airalo eSIM
             </span>
-            <span className="text-[10px] text-zinc-400 font-bold">Nchi 200+</span>
+            <span className="text-[10px] text-zinc-400 font-bold">200+ Countries</span>
           </div>
 
           <h4 className="text-sm font-bold text-white leading-snug">
-            Intaneti ya Kimataifa ya eSIM kwa Wasafiri & Freelancers
+            Global eSIM Mobile Connectivity for Maritime Crew & Engineers
           </h4>
           
           <p className="text-xs text-zinc-400 leading-relaxed">
-            Epuka gharama kubwa za roaming unapokuwa safarini. Washa intaneti ya kasi ya 4G/5G moja kwa moja kwenye simu yako.
+            Eliminate high roaming costs when docking in international ports. Activate 4G/5G data instantly on your phone.
           </p>
         </div>
 
@@ -101,7 +101,7 @@ export const AiraloEsimBanner: React.FC<AiraloEsimBannerProps> = ({
           rel="noopener noreferrer"
           className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-extrabold text-xs uppercase tracking-wider transition-all"
         >
-          <span>Nunua Airalo eSIM</span>
+          <span>Purchase Airalo eSIM</span>
           <ArrowRight className="w-3.5 h-3.5" />
         </a>
       </div>
@@ -117,10 +117,10 @@ export const AiraloEsimBanner: React.FC<AiraloEsimBannerProps> = ({
           </div>
           <div>
             <p className="text-xs font-bold text-white">
-              Airalo eSIM: Intaneti ya Kasi ya Nje ya Nchi na Tanzania
+              Airalo eSIM: High-Speed Internet in Ports Worldwide
             </p>
             <p className="text-[11px] text-zinc-400">
-              Hakuna kubadilisha laini za simu. Washa ndani ya sekunde chache.
+              No physical SIM swaps needed. Activates digitally within seconds.
             </p>
           </div>
         </div>
@@ -131,7 +131,7 @@ export const AiraloEsimBanner: React.FC<AiraloEsimBannerProps> = ({
           rel="noopener noreferrer"
           className="shrink-0 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-black font-black text-xs uppercase tracking-wider transition-colors whitespace-nowrap"
         >
-          <span>Pata Ofa Hapa</span>
+          <span>Get Offer Here</span>
           <ExternalLink className="w-3.5 h-3.5" />
         </a>
       </div>
@@ -144,7 +144,7 @@ export const AiraloEsimBanner: React.FC<AiraloEsimBannerProps> = ({
       <div className="flex items-center justify-between px-2 mb-1.5">
         <span className="text-[10px] uppercase font-bold tracking-widest text-emerald-400 flex items-center gap-1">
           <Sparkles className="w-2.5 h-2.5 text-emerald-400" />
-          Mshirika Rasmi / Partner Offer
+          Maritime Connectivity / Official Partner
         </span>
         <span className="text-[9px] text-zinc-400">Airalo Global eSIM</span>
       </div>
@@ -161,16 +161,16 @@ export const AiraloEsimBanner: React.FC<AiraloEsimBannerProps> = ({
                 Airalo eSIM
               </span>
               <span className="text-xs text-zinc-300 font-bold">
-                Kaa Hewani Nchi 200+ Duniani
+                Stay Online in 200+ Countries & Major Ports
               </span>
             </div>
 
             <h4 className="text-base sm:text-lg font-black text-white">
-              Data ya Intaneti kwa Wasafiri, Watalii na Wafanyakazi wa Mtandaoni
+              Data Connectivity for Marine Engineers, Seafarers & Transit Crews
             </h4>
 
             <p className="text-xs text-zinc-400 max-w-xl leading-relaxed">
-              Nunua eSIM mtandaoni kabla au baada ya kutua Tanzania, Dubai, Marekani, Ulaya, Afrika Kusini au Asia. Washa papo hapo bila kubadilisha laini yako ya kawaida!
+              Order your eSIM online before arriving in Dar es Salaam, Mombasa, Dubai, Singapore, Rotterdam, or Houston. Fast local carrier speeds with no roaming bill surprises.
             </p>
           </div>
         </div>
@@ -182,7 +182,7 @@ export const AiraloEsimBanner: React.FC<AiraloEsimBannerProps> = ({
             rel="noopener noreferrer"
             className="w-full sm:w-auto text-center inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-extrabold text-xs uppercase tracking-wider transition-all shadow-lg hover:shadow-emerald-500/25 cursor-pointer"
           >
-            <span>Jiunge na Airalo Hapa</span>
+            <span>Activate Airalo eSIM</span>
             <ExternalLink className="w-3.5 h-3.5" />
           </a>
         </div>

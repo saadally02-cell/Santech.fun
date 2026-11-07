@@ -69,12 +69,12 @@ export const SubpageArticleView: React.FC<SubpageArticleViewProps> = ({
   };
 
   const handleShareWhatsApp = () => {
-    const text = encodeURIComponent(`${article.title}\n\nSoma mwongozo huu wa Marine Engineering hapa SAN25 Marine:\n${fullUrl}`);
+    const text = encodeURIComponent(`${article.title}\n\nRead this Marine Engineering Technical Guide on SAN25 Marine:\n${fullUrl}`);
     window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank');
   };
 
   const handleShareTwitter = () => {
-    const text = encodeURIComponent(`${article.title} via @SANTechTZ #MarineEngineering`);
+    const text = encodeURIComponent(`${article.title} via @SANTechTZ #MarineEngineering #NavalArchitecture`);
     window.open(`https://twitter.com/intent/tweet?text=${text}&url=${encodeURIComponent(fullUrl)}`, '_blank');
   };
 
@@ -113,7 +113,7 @@ export const SubpageArticleView: React.FC<SubpageArticleViewProps> = ({
           className="hover:text-[#FFC107] transition-colors cursor-pointer flex items-center gap-1 font-semibold"
         >
           <ArrowLeft className="w-3.5 h-3.5" />
-          <span>Nyumbani</span>
+          <span>Home</span>
         </button>
         <ChevronRight className="w-3.5 h-3.5 text-zinc-600" />
         <button
@@ -129,14 +129,14 @@ export const SubpageArticleView: React.FC<SubpageArticleViewProps> = ({
         </span>
       </nav>
 
-      {/* Category Badge & Live Verification */}
+      {/* Category Badge & Verification */}
       <div className="flex flex-wrap items-center gap-2.5 mb-4">
         <span className="px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider bg-[#FFC107] text-black shadow-sm">
           {article.categoryLabel}
         </span>
         <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-white/10 text-emerald-400 border border-emerald-500/30">
           <CheckCircle2 className="w-3 h-3 text-emerald-400" />
-          Uhakiki wa Chief Engineer SAN25 (Class 1 Approved)
+          Verified Chief Engineer & Class 1 Approved
         </span>
       </div>
 
@@ -173,7 +173,7 @@ export const SubpageArticleView: React.FC<SubpageArticleViewProps> = ({
               </span>
               <span className="flex items-center gap-1 hidden sm:flex">
                 <Eye className="w-3.5 h-3.5" />
-                {article.views.toLocaleString()} wasomaji
+                {article.views.toLocaleString()} readers
               </span>
             </div>
           </div>
@@ -183,7 +183,7 @@ export const SubpageArticleView: React.FC<SubpageArticleViewProps> = ({
         <div className="flex items-center gap-2">
           <button
             onClick={handleShareWhatsApp}
-            title="Shiriki kwa Mabaharia WhatsApp"
+            title="Share with Seafarers on WhatsApp"
             className="px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center gap-1.5 transition-all shadow-sm cursor-pointer"
           >
             <Share2 className="w-3.5 h-3.5" />
@@ -191,7 +191,7 @@ export const SubpageArticleView: React.FC<SubpageArticleViewProps> = ({
           </button>
           <button
             onClick={handleShareTwitter}
-            title="Shiriki kwenye X"
+            title="Share on X"
             className="p-2 rounded-lg bg-white/10 hover:bg-white/20 text-white transition-colors cursor-pointer"
           >
             <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
@@ -200,7 +200,7 @@ export const SubpageArticleView: React.FC<SubpageArticleViewProps> = ({
           </button>
           <button
             onClick={handleShareFacebook}
-            title="Shiriki kwenye Facebook"
+            title="Share on Facebook"
             className="p-2 rounded-lg bg-white/10 hover:bg-white/20 text-white transition-colors cursor-pointer"
           >
             <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24">
@@ -209,11 +209,11 @@ export const SubpageArticleView: React.FC<SubpageArticleViewProps> = ({
           </button>
           <button
             onClick={handleCopyLink}
-            title="Nakili kiungo hiki"
+            title="Copy technical article link"
             className="px-2.5 py-1.5 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-200 text-xs font-medium flex items-center gap-1 transition-colors cursor-pointer"
           >
             {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <ExternalLink className="w-3.5 h-3.5" />}
-            <span>{copied ? 'Imenakiliwa!' : 'Nakili'}</span>
+            <span>{copied ? 'Copied!' : 'Copy'}</span>
           </button>
         </div>
       </div>
@@ -228,7 +228,7 @@ export const SubpageArticleView: React.FC<SubpageArticleViewProps> = ({
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
         <div className="absolute bottom-3 left-4 right-4 text-xs text-zinc-300 bg-black/60 backdrop-blur-md px-3 py-1.5 rounded-lg border border-white/10 w-fit">
-          Picha: SAN25 Marine Technical Hub / Ship Engine Room Archives
+          Photo: SAN25 Marine Technical Archives / Machinery Spaces
         </div>
       </div>
 
@@ -238,7 +238,7 @@ export const SubpageArticleView: React.FC<SubpageArticleViewProps> = ({
           <div className="flex items-center gap-2 mb-3">
             <Anchor className="w-5 h-5 text-[#FFC107]" />
             <h3 className="text-base font-black uppercase tracking-wider text-[#FFC107]">
-              Sifa Kuu za Kiufundi (Marine Technical Parameters)
+              Key Marine Technical Specifications
             </h3>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
@@ -252,7 +252,7 @@ export const SubpageArticleView: React.FC<SubpageArticleViewProps> = ({
         </div>
       )}
 
-      {/* Article Swahili Content Paragraphs */}
+      {/* Article Content Paragraphs */}
       <div className="prose prose-invert max-w-none text-zinc-200 text-base sm:text-lg leading-relaxed space-y-6">
         {article.contentParagraphs.map((paragraph, index) => {
           // In between paragraphs, inject real Airalo Seafarers eSIM banner on 2nd paragraph
@@ -271,14 +271,14 @@ export const SubpageArticleView: React.FC<SubpageArticleViewProps> = ({
                           Seafarers Port Internet
                         </span>
                         <span className="text-xs font-bold text-zinc-400 flex items-center gap-1">
-                          <Globe className="w-3.5 h-3.5 text-[#FFC107]" /> Airalo Global eSIM (Bandari 200+)
+                          <Globe className="w-3.5 h-3.5 text-[#FFC107]" /> Airalo Global eSIM (200+ Ports)
                         </span>
                       </div>
                       <h4 className="text-lg font-black text-white">
-                        {article.affiliateCallout?.title || 'Kaa Hewani Bandarini Bila Kununua Laini za Kienyeji'}
+                        {article.affiliateCallout?.title || 'Stay Online in Port Without Local Plastic SIM Cards'}
                       </h4>
                       <p className="text-xs sm:text-sm text-zinc-300 max-w-xl">
-                        {article.affiliateCallout?.description || 'Washa intaneti ya kasi ya 5G mara meli inapofika gati (Singapore, Rotterdam, Dubai, Mombasa, Dar es Salaam) kupitia kadi ya kidijitali ya Airalo eSIM.'}
+                        {article.affiliateCallout?.description || 'Activate high-speed 5G data instantly upon vessel berthing in Singapore, Rotterdam, Dubai, Mombasa, or Dar es Salaam with Airalo digital eSIM.'}
                       </p>
                     </div>
                     <a
@@ -287,7 +287,7 @@ export const SubpageArticleView: React.FC<SubpageArticleViewProps> = ({
                       rel="noopener noreferrer"
                       className="px-5 py-2.5 rounded-xl bg-[#FFC107] hover:bg-amber-400 text-black font-black text-xs uppercase tracking-wider flex items-center gap-2 shadow-lg transition-transform hover:scale-105 shrink-0"
                     >
-                      <span>{article.affiliateCallout?.buttonText || 'Pata Airalo eSIM'}</span>
+                      <span>{article.affiliateCallout?.buttonText || 'Get Airalo eSIM'}</span>
                       <ExternalLink className="w-3.5 h-3.5" />
                     </a>
                   </div>
@@ -309,11 +309,11 @@ export const SubpageArticleView: React.FC<SubpageArticleViewProps> = ({
         <div className="flex items-center gap-2 mb-4">
           <div className="w-2 h-5 bg-[#FFC107] rounded-full" />
           <h3 className="text-lg font-black text-white tracking-tight">
-            Miongozo Mingine ya Kiufundi Unayopaswa Kusoma (Marine Guide)
+            Related Marine Engineering Technical Guides
           </h3>
         </div>
         <p className="text-xs text-zinc-400 mb-4">
-          Bofya viungo hivi vya ndani kwa uchambuzi wa kina zaidi:
+          Explore deeper analysis across related machinery and statutory disciplines:
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           {article.internalLinks.map((link, idx) => (
@@ -334,31 +334,31 @@ export const SubpageArticleView: React.FC<SubpageArticleViewProps> = ({
         </div>
       </div>
 
-      {/* Author Box: C/Eng Salim Ally (SAN25 Marine) */}
-      <div className="my-8 p-6 rounded-2xl bg-gradient-to-br from-zinc-900 to-black border border-white/10 flex flex-col sm:flex-row items-center sm:items-start gap-4">
-        <div className="w-16 h-16 rounded-2xl bg-[#FFC107] text-black font-black text-xl flex items-center justify-center shrink-0 shadow-lg border-2 border-black flex-col leading-none">
-          <span className="text-sm">CHIEF</span>
-          <span className="text-xs">ENG</span>
+      {/* Author & Founder Box: Saad Ally Nassor (SAN25 Marine) */}
+      <div className="my-8 p-6 rounded-2xl bg-gradient-to-br from-zinc-900 to-black border border-[#FFC107]/30 flex flex-col sm:flex-row items-center sm:items-start gap-4 shadow-xl">
+        <div className="w-16 h-16 rounded-2xl bg-[#FFC107] text-black font-black text-xl flex items-center justify-center shrink-0 shadow-lg border-2 border-amber-300 flex-col leading-none">
+          <span className="text-xs font-black">SAN25</span>
+          <span className="text-[10px] font-black">FOUNDER</span>
         </div>
         <div className="text-center sm:text-left space-y-1">
-          <div className="flex items-center justify-center sm:justify-start gap-2">
-            <h4 className="text-base font-black text-white">Mwandishi: {article.author}</h4>
-            <span className="px-2 py-0.5 rounded text-[10px] font-black bg-[#FFC107]/20 text-[#FFC107] border border-[#FFC107]/30">
-              Class 1 Unlimited CoC
+          <div className="flex items-center justify-center sm:justify-start gap-2 flex-wrap">
+            <h4 className="text-base font-black text-white">Author & Founder: Saad Ally Nassor</h4>
+            <span className="px-2 py-0.5 rounded text-[10px] font-black bg-[#FFC107]/20 text-[#FFC107] border border-[#FFC107]/40">
+              Founder & Chief Marine Technologist
             </span>
           </div>
           <p className="text-xs text-[#FFC107] font-semibold">
-            SAN25 Marine Engineering & Technical Research Unit (santech.fun)
+            Muanzilishi wa SAN25 Marine Engineering Hub (santech.fun) • Aligned with NIT Dar es Salaam Syllabus
           </p>
           <p className="text-xs text-zinc-300 leading-relaxed pt-1">
-            Timu rasmi ya Wahandisi Wakuu wa Meli (Chief Engineers) na wakaguzi wa meli nchini Tanzania. Tumejitolea kutoa maarifa sahihi ya kiufundi ya mitambo ya majini, sheria za IMO, STCW 2010, na maandalizi ya mitihani ya TASAC na vyuo vya bahari (DMI).
+            Founded by <strong>Saad Ally Nassor</strong> to provide free, comprehensive naval architecture calculations, NIT courseware lecture repositories, and STCW MEO Class 1, 2 & 4 exam preparation for maritime cadets, officers, and marine engineers in Tanzania and worldwide.
           </p>
         </div>
       </div>
 
       {/* Tags Section */}
       <div className="flex flex-wrap items-center gap-2 my-6">
-        <span className="text-xs font-bold text-zinc-400">Lebo (Marine Tags):</span>
+        <span className="text-xs font-bold text-zinc-400">Technical Tags:</span>
         {article.tags.map((tag, i) => (
           <span
             key={i}
@@ -374,15 +374,15 @@ export const SubpageArticleView: React.FC<SubpageArticleViewProps> = ({
         <div className="flex items-center justify-between mb-6">
           <div>
             <h3 className="text-xl sm:text-2xl font-black text-white editorial-font">
-              Makala Nyingine za {article.categoryLabel}
+              More Guides in {article.categoryLabel}
             </h3>
-            <p className="text-xs text-zinc-400">Chagua makala zifuatazo kuendelea kusoma</p>
+            <p className="text-xs text-zinc-400">Select an article below to continue reading</p>
           </div>
           <button
             onClick={() => onNavigateToCategory(article.category)}
             className="text-xs font-bold text-[#FFC107] hover:underline cursor-pointer"
           >
-            Tazama Zote ({article.categoryLabel}) &rarr;
+            View All ({article.categoryLabel}) &rarr;
           </button>
         </div>
 

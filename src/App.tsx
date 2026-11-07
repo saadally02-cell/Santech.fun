@@ -11,7 +11,6 @@ import { CommunityForumSection } from './components/CommunityForumSection';
 import { ArticleDetailModal } from './components/ArticleDetailModal';
 import { AiAssistantDrawer } from './components/AiAssistantDrawer';
 import { BookmarksDrawer } from './components/BookmarksDrawer';
-import { CurrencyConverter } from './components/CurrencyConverter';
 import { NetworkAdBanner } from './components/NetworkAdBanner';
 import { AiraloEsimBanner } from './components/AiraloEsimBanner';
 import { Footer } from './components/Footer';
@@ -21,6 +20,7 @@ import { MarineEngineeringCalculator } from './components/MarineEngineeringCalcu
 import { MarineEngineRoomChecklist } from './components/MarineEngineRoomChecklist';
 import { MarineExamPrepQuiz } from './components/MarineExamPrepQuiz';
 import { NavalArchitectureHub } from './components/naval/NavalArchitectureHub';
+import { ACADEMIC_DOCUMENTS, CourseDocument } from './components/academic/AcademicLibrarySection';
 
 // Subpages System Components & Data
 import {
@@ -47,7 +47,11 @@ import {
   Compass,
   FileCheck2,
   GraduationCap,
-  ExternalLink
+  ExternalLink,
+  Download,
+  Eye,
+  BookOpen,
+  Award
 } from 'lucide-react';
 
 const SUBPAGE_CATEGORY_KEYS = [
@@ -105,7 +109,7 @@ function MainApp() {
     if (SUBPAGE_CATEGORY_KEYS.includes(path)) {
       return normalizeCategory(path) as CategoryId;
     }
-    if (['calculator', 'checklist', 'quiz', 'naval-architecture', 'hydrodynamics', 'ship-stability', 'ship-design', 'forum', 'audio', 'showcase'].includes(path)) {
+    if (['calculator', 'checklist', 'quiz', 'naval-architecture', 'hydrodynamics', 'ship-stability', 'ship-design', 'maneuvering', 'drydocking', 'library', 'forum', 'audio', 'showcase'].includes(path)) {
       return path as CategoryId;
     }
 
@@ -130,6 +134,15 @@ function MainApp() {
     }
     if (['ship-design', 'design-methodology', 'design-spiral', 'usanifu'].includes(clean)) {
       return 'ship-design';
+    }
+    if (['maneuvering', 'steering', 'usukani'].includes(clean)) {
+      return 'maneuvering';
+    }
+    if (['drydocking', 'drydock', 'maintenance', 'gatini'].includes(clean)) {
+      return 'drydocking';
+    }
+    if (['library', 'courseware', 'nit-notes', 'vitabu', 'notes'].includes(clean)) {
+      return 'library';
     }
     if (['calc', 'calculator', 'hesabu', 'sfoc', 'slip'].includes(clean)) {
       return 'calculator';
@@ -371,8 +384,8 @@ function MainApp() {
             onNavigateToSubpage={handleNavigateToSubpage}
             onBackToHome={handleBackToHome}
           />
-        ) : ['naval-architecture', 'hydrodynamics', 'ship-stability', 'ship-design'].includes(activeCategory) ? (
-          /* CASE 3: NAVAL ARCHITECTURE, HYDRODYNAMICS & SHIP STABILITY SUITE */
+        ) : ['naval-architecture', 'hydrodynamics', 'ship-stability', 'ship-design', 'maneuvering', 'drydocking', 'library'].includes(activeCategory) ? (
+          /* CASE 3: NAVAL ARCHITECTURE, HYDRODYNAMICS, STABILITY & ACADEMIC LIBRARY SUITE */
           <div className="space-y-6">
             <div className="flex items-center justify-between bg-zinc-900 border border-white/10 p-4 rounded-2xl">
               <div>
@@ -380,14 +393,14 @@ function MainApp() {
                   Naval Architecture & Marine Engineering Suite
                 </span>
                 <h2 className="text-xl font-black text-white">
-                  Kituo cha Usanifu wa Meli, Hydrodynamics & Utulivu (Stability)
+                  Ship Hydrodynamics, Stability, Design & Academic Courseware
                 </h2>
               </div>
               <button
                 onClick={handleBackToHome}
                 className="text-xs text-black font-bold bg-[#FFC107] px-3.5 py-1.5 rounded-xl hover:bg-amber-400 transition-colors cursor-pointer"
               >
-                Rudi Mwanzo
+                Back to Home
               </button>
             </div>
             <NavalArchitectureHub
@@ -398,6 +411,12 @@ function MainApp() {
                   ? 'stability'
                   : activeCategory === 'ship-design'
                   ? 'design'
+                  : activeCategory === 'maneuvering'
+                  ? 'maneuvering'
+                  : activeCategory === 'drydocking'
+                  ? 'drydocking'
+                  : activeCategory === 'library'
+                  ? 'library'
                   : 'hydrodynamics'
               }
               onNavigateSubpage={handleNavigateToSubpage}
@@ -409,17 +428,17 @@ function MainApp() {
             <div className="flex items-center justify-between bg-zinc-900 border border-white/10 p-4 rounded-2xl">
               <div>
                 <span className="text-[10px] font-bold text-[#FFC107] uppercase tracking-wider">
-                  Zana ya Meli
+                  Marine Engineering Tools
                 </span>
                 <h2 className="text-xl font-black text-white">
-                  Kikokotoo cha Uhandisi wa Meli (Marine Calculator)
+                  Marine Engineering Technical Calculator Suite
                 </h2>
               </div>
               <button
                 onClick={handleBackToHome}
                 className="text-xs text-black font-bold bg-[#FFC107] px-3.5 py-1.5 rounded-xl hover:bg-amber-400 transition-colors cursor-pointer"
               >
-                Rudi Mwanzo
+                Back to Home
               </button>
             </div>
             <MarineEngineeringCalculator />
@@ -430,7 +449,7 @@ function MainApp() {
             <div className="flex items-center justify-between bg-zinc-900 border border-white/10 p-4 rounded-2xl">
               <div>
                 <span className="text-[10px] font-bold text-[#FFC107] uppercase tracking-wider">
-                  Ukaguzi wa Chumba cha Mashine
+                  Machinery Space Operations
                 </span>
                 <h2 className="text-xl font-black text-white">
                   Engine Room Watchkeeping & Emergency Checklists
@@ -440,7 +459,7 @@ function MainApp() {
                 onClick={handleBackToHome}
                 className="text-xs text-black font-bold bg-[#FFC107] px-3.5 py-1.5 rounded-xl hover:bg-amber-400 transition-colors cursor-pointer"
               >
-                Rudi Mwanzo
+                Back to Home
               </button>
             </div>
             <MarineEngineRoomChecklist />
@@ -454,14 +473,14 @@ function MainApp() {
                   MEO Examination Prep
                 </span>
                 <h2 className="text-xl font-black text-white">
-                  Jaribio la MEO Class 1, 2 & 4 (Oral & Written Exam Simulator)
+                  MEO Class 1, 2 & 4 Oral and Written Examination Simulator
                 </h2>
               </div>
               <button
                 onClick={handleBackToHome}
                 className="text-xs text-black font-bold bg-[#FFC107] px-3.5 py-1.5 rounded-xl hover:bg-amber-400 transition-colors cursor-pointer"
               >
-                Rudi Mwanzo
+                Back to Home
               </button>
             </div>
             <MarineExamPrepQuiz />
@@ -486,9 +505,26 @@ function MainApp() {
               />
             )}
 
-            {/* Quick Interactive Marine Engine & Naval Architecture Tools Bar (4 Cards) */}
+            {/* Quick Interactive Marine Engine & Naval Architecture Tools Bar (5 Cards) */}
             {!searchQuery && (
-              <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+                <div
+                  onClick={() => handleNavigateToCategory('library')}
+                  className="bg-zinc-900/90 hover:bg-zinc-850 border border-[#FFC107]/40 hover:border-[#FFC107] rounded-2xl p-5 cursor-pointer transition-all group shadow-md"
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-[#FFC107]/20 text-[#FFC107] border border-[#FFC107]/40 flex items-center justify-center font-black">
+                      <GraduationCap className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <h4 className="text-sm font-black text-white group-hover:text-[#FFC107] transition-colors">
+                        NIT PDF Library
+                      </h4>
+                      <p className="text-[11px] text-zinc-400">10 Lecture Notes & Books</p>
+                    </div>
+                  </div>
+                </div>
+
                 <div
                   onClick={() => handleNavigateToCategory('naval-architecture')}
                   className="bg-zinc-900/90 hover:bg-zinc-850 border border-blue-500/30 hover:border-blue-400 rounded-2xl p-5 cursor-pointer transition-all group shadow-md"
@@ -501,7 +537,7 @@ function MainApp() {
                       <h4 className="text-sm font-black text-white group-hover:text-blue-400 transition-colors">
                         Naval Architecture
                       </h4>
-                      <p className="text-[11px] text-zinc-400">Hydrodynamics, GZ Curve & Design</p>
+                      <p className="text-[11px] text-zinc-400">Hydrodynamics, GZ & Design</p>
                     </div>
                   </div>
                 </div>
@@ -518,7 +554,7 @@ function MainApp() {
                       <h4 className="text-sm font-black text-white group-hover:text-[#FFC107] transition-colors">
                         Marine Calculator
                       </h4>
-                      <p className="text-[11px] text-zinc-400">SFOC, Slip, ASTM 54B & OWS</p>
+                      <p className="text-[11px] text-zinc-400">SFOC, Slip, ASTM & OWS</p>
                     </div>
                   </div>
                 </div>
@@ -535,7 +571,7 @@ function MainApp() {
                       <h4 className="text-sm font-black text-white group-hover:text-[#FFC107] transition-colors">
                         Engine Checklists
                       </h4>
-                      <p className="text-[11px] text-zinc-400">Pre-Departure & Watchkeeping</p>
+                      <p className="text-[11px] text-zinc-400">Watchkeeping & Rounds</p>
                     </div>
                   </div>
                 </div>
@@ -559,6 +595,122 @@ function MainApp() {
               </section>
             )}
 
+            {/* FOUNDER SPOTLIGHT & DIRECT NIT COURSEWARE PDF DOWNLOADS */}
+            {!searchQuery && (
+              <section className="bg-gradient-to-br from-zinc-950 via-zinc-900 to-black rounded-3xl border-2 border-[#FFC107]/40 p-6 sm:p-8 shadow-2xl relative overflow-hidden space-y-6">
+                <div className="absolute top-0 right-0 w-96 h-96 bg-[#FFC107]/5 rounded-full blur-3xl pointer-events-none" />
+
+                {/* Founder Info Header */}
+                <div className="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 pb-6 border-b border-white/10">
+                  <div className="flex items-start sm:items-center gap-4">
+                    <div className="w-16 h-16 rounded-2xl bg-[#FFC107] text-black font-black flex items-center justify-center text-xl shadow-xl border-2 border-amber-300 shrink-0 flex-col leading-none">
+                      <span className="text-sm font-black">SAN</span>
+                      <span className="text-xs font-black">25</span>
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-2 flex-wrap mb-1">
+                        <span className="px-2.5 py-0.5 rounded text-[10px] font-black uppercase tracking-widest bg-[#FFC107] text-black">
+                          Muanzilishi / Founder
+                        </span>
+                        <span className="text-xs font-bold text-zinc-400">
+                          SAN25 Marine Engineering Hub (santech.fun)
+                        </span>
+                      </div>
+                      <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight editorial-font">
+                        Saad Ally Nassor
+                      </h2>
+                      <p className="text-xs text-[#FFC107] font-semibold mt-0.5">
+                        Chief Marine Engineering Technologist & Academic Repository Curator • NIT Syllabus Aligned
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-3">
+                    <button
+                      onClick={() => handleNavigateToCategory('library')}
+                      className="px-5 py-2.5 rounded-xl bg-[#FFC107] hover:bg-amber-400 text-black font-black text-xs uppercase tracking-wider flex items-center gap-2 shadow-lg transition-transform hover:scale-102 cursor-pointer"
+                    >
+                      <BookOpen className="w-4 h-4" />
+                      <span>Open Full Library (10 Files)</span>
+                    </button>
+                    <a
+                      href="mailto:saadally02@gmail.com"
+                      className="px-4 py-2.5 rounded-xl bg-zinc-800 hover:bg-zinc-700 text-white font-bold text-xs border border-white/15 transition-colors"
+                    >
+                      Contact Founder
+                    </a>
+                  </div>
+                </div>
+
+                {/* Mission statement */}
+                <div className="relative z-10">
+                  <p className="text-sm text-zinc-300 leading-relaxed max-w-4xl">
+                    Karibu kwenye <strong className="text-white">SAN25 Marine Engineering Hub</strong>. Tovuti hii imeanzishwa na <strong className="text-[#FFC107]">Saad Ally Nassor</strong> kwa ajili ya kuwapatia mainjinia wa meli, wanafunzi wa Chuo cha Taifa cha Usafirishaji (NIT), DMI, na mabaharia wa Tanzania na kimataifa upatikanaji wa bure wa mafaili yote ya kitaaluma (PDF), mahesabu ya usanifu wa meli (Naval Architecture), na maandalizi ya mitihani ya leseni za MEO Class 1, 2 na 4.
+                  </p>
+                </div>
+
+                {/* Instant 10 PDF Downloads Grid */}
+                <div className="relative z-10 pt-4 border-t border-white/10 space-y-4">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <GraduationCap className="w-5 h-5 text-[#FFC107]" />
+                      <h3 className="text-base font-black text-white uppercase tracking-wider">
+                        Pakua Mafaili ya PDF (NIT & Barrass Official Marine Courseware)
+                      </h3>
+                    </div>
+                    <span className="text-xs text-zinc-400 font-mono hidden sm:inline">
+                      10 Files • Direct 1-Click PDF Download
+                    </span>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-3">
+                    {ACADEMIC_DOCUMENTS.map((doc) => (
+                      <div
+                        key={doc.id}
+                        className="p-3.5 bg-zinc-900/90 hover:bg-zinc-850 rounded-2xl border border-white/10 hover:border-[#FFC107]/50 transition-all flex flex-col justify-between space-y-3 group"
+                      >
+                        <div>
+                          <div className="flex items-center justify-between gap-1 mb-1.5">
+                            <span className="px-2 py-0.5 rounded text-[9px] font-mono font-bold bg-[#FFC107]/15 text-[#FFC107]">
+                              {doc.code}
+                            </span>
+                            <span className="text-[10px] text-zinc-500 font-mono">{doc.fileSize}</span>
+                          </div>
+                          <h4 className="text-xs font-bold text-white group-hover:text-[#FFC107] transition-colors line-clamp-2 leading-snug">
+                            {doc.title}
+                          </h4>
+                          <p className="text-[10px] text-zinc-400 mt-1 line-clamp-2">
+                            {doc.subtitle}
+                          </p>
+                        </div>
+
+                        <div className="pt-2 border-t border-white/5 flex items-center gap-2">
+                          <button
+                            onClick={() => {
+                              handleNavigateToCategory('library');
+                            }}
+                            className="flex-1 py-1.5 px-2 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-white text-[10px] font-bold flex items-center justify-center gap-1 cursor-pointer transition-colors"
+                          >
+                            <Eye className="w-3 h-3 text-[#FFC107]" />
+                            <span>Read</span>
+                          </button>
+                          <a
+                            href={doc.filePath}
+                            download={doc.filename}
+                            className="py-1.5 px-2.5 rounded-lg bg-[#FFC107] hover:bg-amber-400 text-black text-[10px] font-black flex items-center justify-center gap-1 shadow transition-colors"
+                            title={`Download ${doc.filename}`}
+                          >
+                            <Download className="w-3 h-3" />
+                            <span>Download PDF</span>
+                          </a>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </section>
+            )}
+
             {/* 2. MAIN CONTENT + SIDEBAR TWO-COLUMN LAYOUT */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
               {/* Left Column: 8 Latest News Cards + Categories Quick View */}
@@ -570,8 +722,8 @@ function MainApp() {
                       <div className="w-2.5 h-2.5 rounded-full bg-[#FFC107]" />
                       <h2 className="editorial-font text-2xl font-black text-white tracking-tight">
                         {searchQuery
-                          ? `Matokeo ya Uhandisi wa Meli: "${searchQuery}" (${filteredArticles.length})`
-                          : 'Makala Mpya za Uhandisi wa Meli (Technical Articles)'}
+                          ? `Technical Search Results: "${searchQuery}" (${filteredArticles.length})`
+                          : 'Latest Marine Engineering & Naval Architecture Articles'}
                       </h2>
                     </div>
                     <span className="text-xs text-[#FFC107] font-black uppercase tracking-wider hidden sm:inline">
@@ -582,15 +734,15 @@ function MainApp() {
                   {filteredArticles.length === 0 ? (
                     <div className="bg-zinc-900 border border-white/10 rounded-2xl p-12 text-center space-y-3">
                       <SearchX className="w-12 h-12 text-zinc-600 mx-auto" />
-                      <h3 className="text-lg font-bold text-white">Hakuna makala zilizopatikana</h3>
+                      <h3 className="text-lg font-bold text-white">No technical articles found</h3>
                       <p className="text-xs text-zinc-400 max-w-sm mx-auto">
-                        Jaribu kutafuta "MAN B&W", "Boiler", "Scavenge Fire", "15 PPM OWS", "MARPOL" au "SFOC".
+                        Try searching for "MAN B&W", "Boiler", "Scavenge Fire", "15 PPM OWS", "MARPOL", "Drydocking" or "SFOC".
                       </p>
                       <button
                         onClick={handleBackToHome}
                         className="bg-[#FFC107] text-black font-extrabold text-xs uppercase tracking-wider px-4 py-2 rounded-xl transition-colors cursor-pointer"
                       >
-                        Onyesha Makala Zote
+                        Show All Articles
                       </button>
                     </div>
                   ) : (
@@ -615,14 +767,14 @@ function MainApp() {
                       <div className="flex items-center gap-2">
                         <Sparkles className="w-5 h-5 text-[#FFC107]" />
                         <h3 className="text-lg font-black text-white">
-                          Injini Kuu & Mitambo Msaidizi (SAN25 Special Technical Guides)
+                          Main Propulsion & Auxiliary Systems (SAN25 Technical Briefs)
                         </h3>
                       </div>
                       <button
                         onClick={() => handleNavigateToCategory('injini-kuu')}
                         className="text-xs font-bold text-[#FFC107] hover:underline"
                       >
-                        Zote 50 za Meli &rarr;
+                        All 50+ Guides &rarr;
                       </button>
                     </div>
 

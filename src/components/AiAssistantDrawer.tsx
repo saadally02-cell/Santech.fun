@@ -12,8 +12,8 @@ export const AiAssistantDrawer: React.FC<AiAssistantDrawerProps> = ({ isOpen, on
     {
       id: 'welcome',
       sender: 'ai',
-      text: 'Habari Afisa Mhandisi! Mimi ni SAN25 Chief Engineer AI Assistant. Ninaweza kukusaidia kuhusu: Uendeshaji wa Injini za MAN B&W & WinGD, Matatizo ya Boilers & Purifiers, Mifumo ya Umeme ya 6.6kV & ESB Blackout Recovery, Kanuni za SOLAS & MARPOL, Hesabu za SFOC/Slip, au kujiandaa na Mitihani ya TASAC MEO Class 1, 2, na 4. Una changamoto gani ya kiufundi leo?',
-      timestamp: 'Sasa hivi',
+      text: 'Greetings Marine Engineering Officer! I am the SAN25 Chief Engineer & Naval Architect AI Assistant. I can assist with: MAN B&W & WinGD operations, Auxiliary Boilers & Purifiers, High Voltage 6.6kV & Blackout Recovery, Drydocking Upthrust P (NIT SRT 04105), Ship Maneuvering & Rudder Stall, SOLAS/MARPOL compliance, SFOC calculations, or preparation for TASAC / UK MCA MEO Class 1, 2, and 4 examinations. How may I assist your watchkeeping or technical study today?',
+      timestamp: 'Just now',
     },
   ]);
 
@@ -31,12 +31,12 @@ export const AiAssistantDrawer: React.FC<AiAssistantDrawerProps> = ({ isOpen, on
   if (!isOpen) return null;
 
   const quickPrompts = [
-    'Hatua za kuzima Scavenge Fire kwenye injini kuu',
-    'Jinsi ya kukokotoa Propeller Slip & SFOC',
-    'Maswali ya mtihani wa Oral wa MEO Class 2 TASAC',
-    'Kwanini 15 PPM OWS inashindwa kutoa maji baharini?',
-    'Mbinu za Alternator Synchronization kwa Synchroscope',
-    'Ujazaji sahihi wa Oil Record Book Part I Code C & D',
+    'Emergency procedures for Main Engine Scavenge Fire',
+    'How to compute Propeller Slip and SFOC in noon reports',
+    'Drydocking critical phase upthrust P and GM loss',
+    'Rudder stall angle at 35° & turning circle criteria',
+    'Alternator synchronization procedure with synchroscope',
+    'Correct Oil Record Book Part I entries for Code C & D',
   ];
 
   const handleSendMessage = async (userText: string) => {

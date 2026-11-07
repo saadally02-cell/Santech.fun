@@ -7,13 +7,14 @@ interface NewsTickerProps {
 
 export const NewsTicker: React.FC<NewsTickerProps> = ({ onSelectTopic }) => {
   const tickerItems = [
-    '⚓ IMO 2026: Kanuni kali za Carbon Intensity Indicator (CII) zatekelezwa kwenye meli zote za mizigo',
-    '🚢 MAN Energy Solutions yazindua injini ya kwanza ya 2-stroke inayochoma 100% Green Ammonia',
-    '🔍 Port State Control (Paris MoU & Tokyo MoU) yaanzisha ukaguzi maalum wa Quick Closing Valves na Fire Dampers',
-    '⚡ Mahitaji ya High Voltage (HV 6.6kV) Safety yawa sharti la lazima kwa Wahandisi wote wa meli za makontena',
-    '🎓 Dar es Salaam Maritime Institute (DMI) yatoa kundi jipya la Maafisa Wahandisi (MEO Class 4) walioidhinishwa na TASAC',
-    '🌊 OWS 15 PPM: Ushauri wa kisheria kuhusu utunzaji wa kumbukumbu za Oil Record Book Part I kuzuia detention',
-    '🔥 Tahadhari ya Scavenge Fire: Wahandisi watahadharishwa kusafisha scavenge air boxes kila baada ya masaa 500',
+    '⚓ IMO 2026: Stringent Carbon Intensity Indicator (CII) & EEXI compliance enforced on all ocean-going tonnage',
+    '🚢 MAN Energy Solutions delivers first commercial 2-stroke dual-fuel engine operating on 100% Green Ammonia',
+    '🔍 Port State Control (Paris & Tokyo MoU) launches Concentrated Inspection Campaign on Emergency Fire Pumps & Quick-Closing Valves',
+    '⚡ STCW High Voltage (HV 6.6kV) certification mandatory for all Senior Marine Engineering Officers on modern tonnage',
+    '🎓 National Institute of Transport (NIT) & DMI graduate certified Marine Engineering Officers (MEO Class 1, 2, 4)',
+    '🌊 MARPOL Annex I OWS 15 PPM: Strict enforcement of Oil Record Book Part I calibration logs to prevent PSC detentions',
+    '🔥 Main Engine Scavenge Fire Alert: Chief Engineers advised to inspect scavenge air receiver drains every 500 running hours',
+    '📐 NIT SRT 06107: Steel weight estimation modules and Dr. C.B. Barrass stability notes now accessible in Digital Library'
   ];
 
   return (
