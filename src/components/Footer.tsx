@@ -156,7 +156,7 @@ export const Footer: React.FC<FooterProps> = ({
                   className="text-zinc-300 hover:text-white transition-colors cursor-pointer text-left flex items-center gap-1.5"
                 >
                   <GraduationCap className="w-3.5 h-3.5 text-[#FFC107]" />
-                  <span>NIT Lecture Notes & Dr. Barrass Library (10 PDFs)</span>
+                  <span>NIT Lecture Notes & Dr. Barrass Library (13 PDFs)</span>
                 </button>
               </li>
               <li>

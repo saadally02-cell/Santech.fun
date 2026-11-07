@@ -39,7 +39,7 @@ export const NavalArchitectureHub: React.FC<NavalArchitectureHubProps> = ({
     { id: 'design' as const, label: 'Ship Design & Sizing (NIT SRT 06107)', icon: Layers },
     { id: 'maneuvering' as const, label: 'Maneuvering & Steering (Ch. 6)', icon: Compass },
     { id: 'drydocking' as const, label: 'Drydocking & Maintenance (SRT 04105)', icon: Wrench },
-    { id: 'library' as const, label: 'NIT Courseware & Library (10 PDFs)', icon: GraduationCap },
+    { id: 'library' as const, label: 'NIT Courseware & Library (13 PDFs)', icon: GraduationCap },
     { id: 'formulas' as const, label: 'Naval Architecture Handbook', icon: BookOpen },
   ];
 

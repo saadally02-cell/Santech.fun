@@ -52,7 +52,7 @@ export const Header: React.FC<HeaderProps> = ({
 
   const mainNavItems = [
     { id: 'zote' as CategoryId, label: 'Home' },
-    { id: 'library' as CategoryId, label: 'NIT PDF Library (10 Files)' },
+    { id: 'library' as CategoryId, label: 'NIT PDF Library (13 Files)' },
     { id: 'naval-architecture' as CategoryId, label: 'Naval Architecture' },
     { id: 'injini-kuu' as CategoryId, label: 'Main Engines' },
     { id: 'mitambo-msaidizi' as CategoryId, label: 'Auxiliary Systems' },
@@ -63,7 +63,7 @@ export const Header: React.FC<HeaderProps> = ({
 
   const allCategoryItems = [
     { id: 'zote' as CategoryId, label: 'Home (Maritime Hub)', icon: Anchor },
-    { id: 'library' as CategoryId, label: 'NIT Courseware & PDF Library (10 Files Download)', icon: GraduationCap },
+    { id: 'library' as CategoryId, label: 'NIT Courseware & PDF Library (13 Files Download)', icon: GraduationCap },
     { id: 'naval-architecture' as CategoryId, label: 'Naval Architecture Suite (Hydrodynamics, Stability, Sizing)', icon: Compass },
     { id: 'injini-kuu' as CategoryId, label: 'Main Engines & Propulsion (MAN B&W, WinGD)', icon: Ship },
     { id: 'mitambo-msaidizi' as CategoryId, label: 'Auxiliary Machinery (Boilers, Purifiers, OWS)', icon: Wrench },

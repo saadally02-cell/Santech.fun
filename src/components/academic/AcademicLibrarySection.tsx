@@ -302,6 +302,93 @@ export const ACADEMIC_DOCUMENTS: CourseDocument[] = [
       'tan(θ) = (w × d) / (W × GM_solid)'
     ],
     recommendedFor: 'MEO Class 1, 2, 4 Examination Preparation, DMI & NIT Maritime Cadets'
+  },
+  {
+    id: 'barrass-masters-6th',
+    title: 'Ship Stability for Masters and Mates (6th Edition)',
+    subtitle: 'Authoritative 549-page master textbook by Dr. C.B. Barrass & Capt. D.R. Derrett',
+    code: 'BARRASS-6TH-ED',
+    category: 'stability',
+    categoryLabel: 'Ship Stability & Seamanship',
+    source: 'Elsevier Butterworth-Heinemann (Consolidated 6th Edition)',
+    author: 'Dr. C.B. Barrass, MSc, CEng, MRINA & Captain D.R. Derrett',
+    filename: 'Ship_Stability_for_Masters_pdf_24763260.pdf',
+    filePath: '/assets/aistudio/Ship_Stability_for_Masters_pdf_24763260.pdf',
+    fileSize: '3.8 MB',
+    description: 'The world-standard 56-chapter master textbook covering hydrostatic particulars, Simpson\'s rules, KM derivations, KN cross curves of stability, Attwood and wall-sided formulas, angle of loll and correction, trim calculations (MCTC, LCF, LCB), drydocking upthrust P and critical period GM loss, shallow water squat, ship interaction cases (Pacific Glory, Royston Grange), bilging & permeability, Murray\'s longitudinal bending moment method, and SQA/MCA examination questions.',
+    keyTopics: [
+      '56 Comprehensive chapters from basic principles to advanced damage stability',
+      'Wall-sided formula: GZ = sin θ · [GM + ½ · BM · tan²(θ)] & Attwood\'s formula',
+      'Trim and longitudinal stability: MCTC = (Δ · GM_L) / (100 · L_BP)',
+      'Drydocking critical phase upthrust P = (MCTC · t) / l and virtual loss of GM',
+      'Barrass ship squat formulas in open water and confined channels',
+      'Bank suction, cushion & ship-to-ship interaction hydrodynamics',
+      'Murray\'s longitudinal bending moment method (SWBM and WBM)'
+    ],
+    keyFormulas: [
+      'GZ = sin(θ) · [GM + ½ · BM · tan²(θ)]',
+      'MCTC = (Δ · GM_L) / (100 · L)',
+      'Squat_max = (C_b · S^0.81 · V_k^2.08) / 20 [meters]',
+      'P = (Trim in cm · MCTC) / a'
+    ],
+    recommendedFor: 'Master Mariners, Chief Mates, Naval Architects, MEO Class 1/2 Oral Candidates & Surveyors'
+  },
+  {
+    id: 'simonsen-rans-cfd',
+    title: 'Rudder, Propeller and Hull Interaction by RANS',
+    subtitle: 'Advanced CFD dissertation on viscous Navier-Stokes, PMM captive tests & Esso Osaka maneuvers',
+    code: 'CFD-RANS-DTU',
+    category: 'maneuvering',
+    categoryLabel: 'CFD & Hydrodynamic Maneuvering',
+    source: 'Technical University of Denmark (DTU) / Danish Maritime Institute',
+    author: 'Dr. Claus Daniel Simonsen (Dept of Naval Architecture & Offshore Engineering)',
+    filename: 'Rudder_propeller_design_by_RANS_3886ae4f.PDF',
+    filePath: '/assets/aistudio/Rudder_propeller_design_by_RANS_3886ae4f.PDF',
+    fileSize: '15.7 MB',
+    description: 'Seminal 237-page PhD research dissertation detailing viscous Reynolds-Averaged Navier-Stokes (RANS) numerical computation for rudder, propeller, and hull hydrodynamic interactions. Formulates Baldwin-Lomax and Chien low-Reynolds k-ε turbulence modeling, body force actuator disk propeller flow representation (Hough & Ordway), Planar Motion Mechanism (PMM) pure sway and yaw simulations, and full validation on the 278,000 DWT Esso Osaka tanker.',
+    keyTopics: [
+      'Viscous RANS Navier-Stokes flow equations & finite-volume discretization',
+      'Baldwin-Lomax & low-Reynolds k-ε turbulence models in ship boundary layers',
+      'Actuator disk propeller model (Hough & Ordway radial force distribution)',
+      'PMM (Planar Motion Mechanism) pure yaw & pure sway hydrodynamic derivatives',
+      'Esso Osaka tanker flow validation, drift angles & rudder wake shadow',
+      '2D and 3D rudder lift, drag and pressure coefficient (Cp) distributions'
+    ],
+    keyFormulas: [
+      '∂(ρ u_i)/∂t + ∂(ρ u_i u_j)/∂x_j = -∂p/∂x_i + ∂(τ_ij)/∂x_j + f_i',
+      'Y = Y_v · v + Y_r · r + Y_δ · δ + Y_vvv · v³ + Y_rrr · r³',
+      'N = N_v · v + N_r · r + N_δ · δ + N_vvr · v²·r'
+    ],
+    recommendedFor: 'Naval Architects, CFD Engineers, Ship Maneuvering Specialists & Hydrodynamicists'
+  },
+  {
+    id: 'hydrodynamics-notes-6dof',
+    title: 'Ship Hydrodynamics, 6-DOF Motions & Propulsion Notes',
+    subtitle: 'Comprehensive 66-page lecture on ship resistance, propeller design, cavitation & sea trials',
+    code: 'HYDRO-601-NOTES',
+    category: 'naval-architecture',
+    categoryLabel: 'Ship Hydrodynamics & Propulsion',
+    source: 'Naval Architecture & Marine Engineering Hydrodynamics Department',
+    author: 'Naval Architecture Faculty & Propulsion Research Unit',
+    filename: 'HYDRODYNAMICS_NOTES_1_7c37eebc.pdf',
+    filePath: '/assets/aistudio/HYDRODYNAMICS_NOTES_1_7c37eebc.pdf',
+    fileSize: '6.2 MB',
+    description: 'Comprehensive 66-page naval architecture course covering 6 Degrees of Freedom (surge, sway, heave, roll, pitch, yaw), physical components of ship resistance (ITTC 1957 line, wave-making, eddy, air, and added resistance in seaways), propeller blade geometry (BAR, pitch, slip, cavitation inception), sacrificial anodes (Zn, Al, Mg) & ICCP cathodic protection, and harbor, dock, sea, and speed trial measurement protocols.',
+    keyTopics: [
+      '6 Degrees of Freedom: Surge, Sway, Heave, Roll, Pitch and Yaw',
+      'Ship resistance components: Frictional (ITTC 1957), Wave, Eddy & Air resistance',
+      'Propeller blade geometry: Pitch ratio (P/D), Blade Area Ratio (BAR), Blade Element Theory',
+      'Cavitation inception: Tip vortex, sheet & bubble cavitation blade erosion',
+      'Cathodic Protection: SACP sacrificial zinc/aluminum anodes vs ICCP systems',
+      'Official trial protocols: Harbor trials, dock trials, sea trials & measured mile speed trials'
+    ],
+    keyFormulas: [
+      'C_F = 0.075 / (log10(Rn) - 2)²',
+      'J = V_A / (n · D)',
+      'K_T = T / (ρ · n² · D⁴),  K_Q = Q / (ρ · n² · D⁵)',
+      'η_O = (J / 2π) · (K_T / K_Q)'
+    ],
+    recommendedFor: 'Marine Engineering Cadets, Naval Architecture Undergraduates & Ship Trial Teams'
   }
 ];
 
@@ -311,7 +398,7 @@ export const AcademicLibrarySection: React.FC = () => {
   const [activePdfModal, setActivePdfModal] = useState<CourseDocument | null>(null);
 
   const categories = [
-    { id: 'all', label: 'All Documents (10 Courses)' },
+    { id: 'all', label: 'All Documents (13 Courses)' },
     { id: 'naval-architecture', label: 'Naval Architecture' },
     { id: 'stability', label: 'Stability & Exercises' },
     { id: 'propulsion', label: 'Propulsion Systems' },
@@ -363,7 +450,7 @@ export const AcademicLibrarySection: React.FC = () => {
 
           <div className="shrink-0 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full lg:w-auto">
             <div className="p-3 bg-zinc-900/80 rounded-2xl border border-white/10 text-center">
-              <span className="block text-2xl font-black text-[#FFC107]">10</span>
+              <span className="block text-2xl font-black text-[#FFC107]">13</span>
               <span className="text-[10px] font-bold text-zinc-400 uppercase tracking-wider">Official Modules</span>
             </div>
             <div className="p-3 bg-zinc-900/80 rounded-2xl border border-white/10 text-center">

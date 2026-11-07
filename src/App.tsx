@@ -520,7 +520,7 @@ function MainApp() {
                       <h4 className="text-sm font-black text-white group-hover:text-[#FFC107] transition-colors">
                         NIT PDF Library
                       </h4>
-                      <p className="text-[11px] text-zinc-400">10 Lecture Notes & Books</p>
+                      <p className="text-[11px] text-zinc-400">13 Lecture Notes & Books</p>
                     </div>
                   </div>
                 </div>
@@ -603,9 +603,19 @@ function MainApp() {
                 {/* Founder Info Header */}
                 <div className="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 pb-6 border-b border-white/10">
                   <div className="flex items-start sm:items-center gap-4">
-                    <div className="w-16 h-16 rounded-2xl bg-[#FFC107] text-black font-black flex items-center justify-center text-xl shadow-xl border-2 border-amber-300 shrink-0 flex-col leading-none">
-                      <span className="text-sm font-black">SAN</span>
-                      <span className="text-xs font-black">25</span>
+                    {/* Founder & NIT Dual Badges */}
+                    <div className="flex items-center gap-2">
+                      <div className="w-16 h-16 rounded-2xl bg-[#FFC107] text-black font-black flex items-center justify-center text-xl shadow-xl border-2 border-amber-300 shrink-0 flex-col leading-none">
+                        <span className="text-sm font-black">SAN</span>
+                        <span className="text-xs font-black">25</span>
+                      </div>
+                      <div className="w-16 h-16 rounded-2xl bg-white p-1.5 shadow-xl border-2 border-[#FFC107] shrink-0 flex items-center justify-center" title="National Institute of Transport (NIT)">
+                        <img
+                          src="/assets/aistudio/IMG-20261104-WA0113_1__cc428c64.jpg"
+                          alt="NIT Crest"
+                          className="w-full h-full object-contain"
+                        />
+                      </div>
                     </div>
                     <div>
                       <div className="flex items-center gap-2 flex-wrap mb-1">
@@ -631,7 +641,7 @@ function MainApp() {
                       className="px-5 py-2.5 rounded-xl bg-[#FFC107] hover:bg-amber-400 text-black font-black text-xs uppercase tracking-wider flex items-center gap-2 shadow-lg transition-transform hover:scale-102 cursor-pointer"
                     >
                       <BookOpen className="w-4 h-4" />
-                      <span>Open Full Library (10 Files)</span>
+                      <span>Open Full Library (13 Files)</span>
                     </button>
                     <a
                       href="mailto:saadally02@gmail.com"
@@ -645,11 +655,11 @@ function MainApp() {
                 {/* Mission statement */}
                 <div className="relative z-10">
                   <p className="text-sm text-zinc-300 leading-relaxed max-w-4xl">
-                    Karibu kwenye <strong className="text-white">SAN25 Marine Engineering Hub</strong>. Tovuti hii imeanzishwa na <strong className="text-[#FFC107]">Saad Ally Nassor</strong> kwa ajili ya kuwapatia mainjinia wa meli, wanafunzi wa Chuo cha Taifa cha Usafirishaji (NIT), DMI, na mabaharia wa Tanzania na kimataifa upatikanaji wa bure wa mafaili yote ya kitaaluma (PDF), mahesabu ya usanifu wa meli (Naval Architecture), na maandalizi ya mitihani ya leseni za MEO Class 1, 2 na 4.
+                    Karibu kwenye <strong className="text-white">SAN25 Marine Engineering Hub</strong>. Tovuti hii imeanzishwa na <strong className="text-[#FFC107]">Saad Ally Nassor</strong> kwa ajili ya kuwapatia mainjinia wa meli, wanafunzi wa Chuo cha Taifa cha Usafirishaji (NIT), DMI, na mabaharia wa Tanzania na kimataifa upatikanaji wa bure wa mafaili yote ya kitaaluma (PDF 13), mahesabu ya usanifu wa meli (Naval Architecture), na maandalizi ya mitihani ya leseni za MEO Class 1, 2 na 4.
                   </p>
                 </div>
 
-                {/* Instant 10 PDF Downloads Grid */}
+                {/* Instant 13 PDF Downloads Grid */}
                 <div className="relative z-10 pt-4 border-t border-white/10 space-y-4">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
@@ -659,7 +669,7 @@ function MainApp() {
                       </h3>
                     </div>
                     <span className="text-xs text-zinc-400 font-mono hidden sm:inline">
-                      10 Files • Direct 1-Click PDF Download
+                      13 Files • Direct 1-Click PDF Download
                     </span>
                   </div>
 
